@@ -1,0 +1,18 @@
+# docker pull redis:6.2.12
+version: '3.2'
+services:
+  redis:
+    image: redis:6.2.12
+    container_name: redis
+    hostname: redis
+    privileged: true
+    restart: unless-stopped
+    volumes:
+    #  - /home/redis/conf/:/etc/redis/
+      - /data/redis/data:/data
+    network_mode: host
+    ports:
+      - 6379:6379
+    environment:
+      TZ: Asia/Shanghai
+    command: "redis-server --requirepass xtpeach123456"
