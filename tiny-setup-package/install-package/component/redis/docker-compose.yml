@@ -8,11 +8,11 @@ services:
     privileged: true
     restart: unless-stopped
     volumes:
-    #  - /home/redis/conf/:/etc/redis/
+      - /home/redis/conf:/usr/local/etc/redis
       - /data/redis/data:/data
     network_mode: host
     ports:
       - 6379:6379
     environment:
       TZ: Asia/Shanghai
-    command: "redis-server --requirepass xtpeach123456"
+    command: ["redis-server","/usr/local/etc/redis/redis.conf"]
