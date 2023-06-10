@@ -6,13 +6,13 @@ services:
     container_name: redis
     hostname: redis
     privileged: true
-    restart: unless-stopped
-    volumes:
-      - /home/redis/conf:/usr/local/etc/redis
-      - /data/redis/data:/data
+    restart: always
     network_mode: host
     ports:
       - 6379:6379
+    volumes:
+      - /home/redis/conf:/usr/local/etc/redis
+      - /data/redis/data:/data
     environment:
       TZ: Asia/Shanghai
     command: ["redis-server","/usr/local/etc/redis/redis.conf"]
