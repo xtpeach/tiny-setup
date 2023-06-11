@@ -17,11 +17,14 @@ install() {
   else
     echo "$service_name is not installed!"
   fi
-  cp -Rp -f /home/sungrow/watch_dog/"$service_name" /usr/lib/systemd/system/"$service_name"
+  cp -Rp -f /home/install-package/monitor/"$service_name" /usr/lib/systemd/system/"$service_name"
   chmod -R 644 /usr/lib/systemd/system/"$service_name"
   systemctl daemon-reload
   systemctl enable "$service_name"
   systemctl restart "$service_name"
 }
 
-
+monitor_service_name=$1
+[[ "$monitor_service_name"x != x ]] && {
+  install $monitor_service_name
+}
