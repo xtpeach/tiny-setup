@@ -22,7 +22,7 @@ do_check_redis() {
 # 循环执行检查
 while (true); do
     # 执行时间间隔
-    sleep sleep_seconds
+    sleep $sleep_seconds
     echo "$(date '+%Y-%m-%d %H:%M:%S') check redis ..." >> $log_file
 
     # 执行检查步骤
