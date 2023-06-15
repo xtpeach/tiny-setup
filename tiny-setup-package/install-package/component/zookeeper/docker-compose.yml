@@ -17,13 +17,19 @@ services:
       nofile:
         soft: 50000
         hard: 100000
+    extra_hosts:
+      - "zookeeper1:192.168.96.128"
+      - "zookeeper2:192.168.96.129"
+      - "zookeeper3:192.168.96.130"
     ports:
       - 2181:2181
       - 2888:2888
       - 3888:3888
     volumes:
-      - /home/zookeeper/conf:/home/zookeeper-3.8.1-bin/conf
+      - /home/zookeeper/conf:/usr/local/zookeeper-3.8.1-bin/conf
       - /data/zookeeper:/data/zookeeper
     environment:
       - TZ=Asia/Shanghai
+      - ZOO_MY_ID=1
+      - ZOO_SERVERS=server.1=zookeeper1:2888:3888;2181 server.2=zookeeper2:2888:3888;2181 server.3=zookeeper3:2888:3888;2181
     depends_on: []

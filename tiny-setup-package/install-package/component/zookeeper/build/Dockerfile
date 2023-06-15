@@ -1,10 +1,24 @@
 # docker pull openjdk:8-jdk
 FROM openjdk:8-jdk
+# author
 MAINTAINER xtpeach
-COPY zookeeper-3.8.1-bin /home/zookeeper-3.8.1-bin
-RUN mkdir -p /data/zookeeper
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENTRYPOINT ["/bin/bash", "/home/zookeeper-3.8.1-bin/bin/zkServer.sh", "start"]
-EXPOSE 2181
-EXPOSE 2888
-EXPOSE 3888
+# bin dir
+COPY zookeeper-3.8.1-bin /usr/local/zookeeper-3.8.1-bin
+# environment
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 \
+    PATH=/usr/local/zookeeper/bin:${PATH} \
+    ZOO_CONF_DIR=/usr/local/zookeeper/conf \
+    ZOO_DATA_DIR=/data/zookeeper/data \
+    ZOO_DATA_LOG_DIR=/data/zookeeper/datalog \
+    ZOO_LOG_DIR=/data/zookeeper/logs
+# run command
+RUN set -eux; \
+    ln -sv /usr/local/zookeeper-3.8.1-bin/ /usr/local/zookeeper; \
+    mkdir -p "$ZOO_DATA_LOG_DIR" "$ZOO_DATA_DIR"  "$ZOO_LOG_DIR";
+# entrypoint.sh
+COPY entrypoint.sh /usr/local/zookeeper/bin/
+RUN chmod u+x /usr/local/zookeeper/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
+# start command
+CMD ["zkServer.sh", "start-foreground"]
+EXPOSE 2181 2888 3888
