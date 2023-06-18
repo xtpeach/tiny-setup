@@ -20,6 +20,6 @@ ENTRYPOINT ["entrypoint.sh"]
 # start command
 COPY start.sh /usr/local/kafka/bin/
 RUN chmod u+x /usr/local/kafka/bin/start.sh
-CMD ["start.sh"]
+CMD ["bash", "start.sh"]
 # port
 EXPOSE 9092 9093

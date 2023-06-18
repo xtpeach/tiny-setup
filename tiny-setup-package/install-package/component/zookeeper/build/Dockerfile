@@ -20,8 +20,8 @@ COPY entrypoint.sh /usr/local/zookeeper/bin/
 RUN chmod u+x /usr/local/zookeeper/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 # start command
-COPY start.sh /usr/local/kafka/bin/
-RUN chmod u+x /usr/local/kafka/bin/start.sh
-CMD ["start.sh"]
+COPY start.sh /usr/local/zookeeper/bin/
+RUN chmod u+x /usr/local/zookeeper/bin/start.sh
+CMD ["bash", "start.sh"]
 # port
 EXPOSE 2181 2888 3888
