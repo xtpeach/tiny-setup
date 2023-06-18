@@ -20,5 +20,8 @@ COPY entrypoint.sh /usr/local/zookeeper/bin/
 RUN chmod u+x /usr/local/zookeeper/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 # start command
-CMD ["zkServer.sh", "start-foreground"]
+COPY start.sh /usr/local/kafka/bin/
+RUN chmod u+x /usr/local/kafka/bin/start.sh
+CMD ["start.sh"]
+# port
 EXPOSE 2181 2888 3888
