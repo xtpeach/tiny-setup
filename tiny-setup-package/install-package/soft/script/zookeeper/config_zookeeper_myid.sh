@@ -1,3 +1,6 @@
 #!/bin/bash
-touch /data/zookeeper/myid
-echo "$1" > /data/zookeeper/myid
+zookeeper_myid=$1
+if [[ "$zookeeper_myid"x != x ]]; then
+  touch /data/zookeeper/myid
+  echo "$zookeeper_myid" > /data/zookeeper/myid
+fi

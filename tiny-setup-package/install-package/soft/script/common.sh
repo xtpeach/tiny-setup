@@ -1,14 +1,21 @@
 #!/bin/bash
-#version：  1.0
+#version：  1.1
+
+# install package dir
+INSTALL_PACKAGE_DIR=/opt/tiny-setup-package/install-package
+
+
 
 #日志级别 debug-1, info-2, warn-3, error-4, always-5
 LOG_LEVEL=1
 #日志文件
 LOG_FILE=/var/install.log
-INSTALL_LOG_DIR=/var/sungrow/log/install
+INSTALL_LOG_DIR=/var/xtpeach/log/install
 ssh_config_file=/etc/ssh/sshd_config
 install_pkg_info=/opt/insight-install-package/pkg_info.properties
-work_pkg_info=/home/sungrow/pkg_info.properties
+work_pkg_info=/home/xtpeach/pkg_info.properties
+
+
 
 # 获取词条 $1 词条序号 $2 语言编号
 function getI18nConfig() {
@@ -64,8 +71,8 @@ function add_env(){
     export $1=$2
     echo export $1=$2 >> $profilename
     source $profilename
-    sed -i "/^$1=/d" /home/sungrow/status/hosts-insight
-    echo "$1=$2" >> /home/sungrow/status/hosts-insight
+    sed -i "/^$1=/d" /home/xtpeach/status/hosts-insight
+    echo "$1=$2" >> /home/xtpeach/status/hosts-insight
     log_debug "$1 is：$2"
   fi
 }
@@ -82,7 +89,7 @@ function add_properties() {
         return
     fi
     # 先删除原来的
-    /home/sungrow/soft/script/delete_content "$value" "$file_name"
+    /home/xtpeach/soft/script/delete_content "$value" "$file_name"
     line=$(wc -l <$file_name)
     write_line=$(($line - $number + 1))
     if [[ $write_line -le 0 ]]; then
@@ -123,7 +130,6 @@ function open_port(){
   openPorts=("${openPorts[@]}"  "$ssh_port")
   iecPorts=(2404 2405 2406 2407 2408 2409 2410 2411 2412 2413 2414 2415)
   if [ "$os_name" = "Linx" ]; then
-    #凝思系统
     #禁用端口之前先清除历史规则
     iptables -F
     #可以把INPUT默认规则设为ACCEPT
@@ -256,8 +262,8 @@ function isIp(){
 }
 
 function set_progress(){
-    sed -i '/^PROGRESS=/c'PROGRESS=$1'' /home/sungrow/status/hosts-insight
-    sed -i '/^CURRENT_TASK=/c'CURRENT_TASK=$2'' /home/sungrow/status/hosts-insight
+    sed -i '/^PROGRESS=/c'PROGRESS=$1'' /home/xtpeach/status/hosts-insight
+    sed -i '/^CURRENT_TASK=/c'CURRENT_TASK=$2'' /home/xtpeach/status/hosts-insight
 }
 
 function set_docker_boot_start(){
@@ -464,7 +470,7 @@ function check_ssh_pass() {
 function install_ssh_pass() {
   if [[ -f /opt/insight-install-package/resource/pkg/sshpass-1.06-2.el7.x86_64.rpm ]];then 
     rpm -i /opt/insight-install-package/resource/pkg/sshpass-1.06-2.el7.x86_64.rpm > /dev/null 2>&1
-  elif [[  -f /home/sungrow/resource/pkg/sshpass-1.06-2.el7.x86_64.rpm ]];then
+  elif [[  -f /home/xtpeach/resource/pkg/sshpass-1.06-2.el7.x86_64.rpm ]];then
     rpm -i /opt/insight-install-package/resource/pkg/sshpass-1.06-2.el7.x86_64.rpm > /dev/null 2>&1
   else
     log_err "sshpass miss!"
