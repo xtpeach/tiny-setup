@@ -17,10 +17,6 @@ services:
       nofile:
         soft: 50000
         hard: 100000
-    extra_hosts:
-      - "zookeeper1:192.168.96.128"
-      - "zookeeper2:192.168.96.129"
-      - "zookeeper3:192.168.96.130"
     ports:
       - 9092:9092
       - 9093:9093
@@ -31,5 +27,5 @@ services:
       - TZ=Asia/Shanghai
       - BROKER_ID=0
       - LISTENERS=PLAINTEXT://192.168.96.128:9092
-      - ZOO_SERVERS=server.1=zookeeper1:2888:3888;2181 server.2=zookeeper2:2888:3888;2181 server.3=zookeeper3:2888:3888;2181
+      - ZOO_SERVERS=server.1=zookeeper1:2888:3888;2181
     depends_on: []

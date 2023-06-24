@@ -8,7 +8,7 @@ COPY zookeeper-3.8.1-bin /usr/local/zookeeper-3.8.1-bin
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8 \
     PATH=/usr/local/zookeeper/bin:${PATH} \
     ZOO_CONF_DIR=/usr/local/zookeeper/conf \
-    ZOO_DATA_DIR=/data/zookeeper/data \
+    ZOO_DATA_DIR=/data/zookeeper \
     ZOO_DATA_LOG_DIR=/data/zookeeper/datalog \
     ZOO_LOG_DIR=/data/zookeeper/logs
 # run command

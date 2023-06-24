@@ -9,9 +9,12 @@ docker-compose down
 # remove config files
 rm -rf /home/zookeeper/conf
 
+# remove data
+rm -rf /data/zookeeper
+
 # remove docker image
 docker_images=$(docker images | grep zookeeper | awk -v FS=" " '{print $3}')
 for docker_image in $docker_images; do
-  echo $docker_image
+  echo "docker image: ${docker_image}"
   docker rmi $docker_image
 done

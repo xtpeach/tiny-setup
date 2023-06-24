@@ -12,7 +12,8 @@ fi
 
 # zookeeper servers
 for server in $ZOO_SERVERS; do
-  echo "$server" >>"$ZOO_CONF_DIR/zoo.cfg"
+  sed -i "/${server}/d" /etc/hosts
+  echo "$server" >> "$ZOO_CONF_DIR/zoo.cfg"
 done
 
 cd /usr/local/zookeeper

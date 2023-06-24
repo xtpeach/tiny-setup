@@ -7,8 +7,8 @@ mkdir -p /home/zookeeper/conf
 cp -a $INSTALL_PACKAGE_DIR/component/zookeeper/config/* /home/zookeeper/conf
 
 # zookeeper myid
-ip_num_array=($(echo $LOCAL_HOST_IP | tr '.' ' '))
-bash ./config ${ip_num_array[3]}
+echo "config zookeeper myid: ${LOCAL_HOST_IP_ARRAY[3]}"
+bash ./config_zookeeper_myid.sh ${LOCAL_HOST_IP_ARRAY[3]}
 
 # build zookeeper image
 cd $INSTALL_PACKAGE_DIR/component/zookeeper/build

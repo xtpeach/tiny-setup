@@ -21,15 +21,20 @@ fi
 
 # listeners
 if [[ ! -z $LISTENERS ]]; then
-  echo "$LISTENERS" >> $KAFKA_CONF_DIR/server.properties
+  sed -i "/listeners=/d" $KAFKA_CONF_DIR/server.properties
+  echo "listeners=$LISTENERS" >> $KAFKA_CONF_DIR/server.properties
 fi
 
 # zookeeper servers
-zookeeper_server=""
-for server in $ZOO_SERVERS; do
-  zookeeper_server="${zookeeper_server},$server"
-done
-zookeeper_server="${zookeeper_server}/kafka"
+if [[ ! -z $ZOO_SERVERS ]]; then
+  zookeeper_server=""
+  for server in $ZOO_SERVERS; do
+    zookeeper_server="${zookeeper_server},$server"
+  done
+  zookeeper_server="${zookeeper_server}/kafka"
+  sed -i "/zookeeper.connect=/d" $KAFKA_CONF_DIR/server.properties
+  echo "zookeeper.connect=$zookeeper_server" >> $KAFKA_CONF_DIR/server.properties
+fi
 
 cd /usr/local/kafka
 exec "$@"
