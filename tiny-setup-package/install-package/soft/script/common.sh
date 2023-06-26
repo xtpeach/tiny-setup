@@ -77,8 +77,9 @@ sed -i "s/^      - ZOO_SERVERS=.*/      - ZOO_SERVERS=${KAFKA_ZOO_SERVERS}/g" $I
 sed -i "s/^      - BROKER_ID=.*/      - BROKER_ID=${LOCAL_HOST_IP_ARRAY[3]}/g" $INSTALL_PACKAGE_DIR/component/kafka/docker-compose.yml
 sed -i "s/^      - LISTENERS=.*/      - LISTENERS=PLAINTEXT:\/\/${LOCAL_HOST_IP}:9092/g" $INSTALL_PACKAGE_DIR/component/kafka/docker-compose.yml
 
-
-
+# postgresql
+POSTGRESQL_PASSWORD=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "postgresql" "password")
+sed -i "s/^      - POSTGRES_PASSWORD=.*/      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/postgresql/docker-compose.yml
 
 
 #日志文件
