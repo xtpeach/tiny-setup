@@ -1,0 +1,24 @@
+# docker pull postgres:14.8
+version: '3.2'
+
+services:
+  zookeeper:
+    image: postgres:14.8
+    container_name: postgresql
+    hostname: postgresql
+    privileged: true
+    restart: always
+    network_mode: host
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 50000
+        hard: 100000
+    ports:
+      - 5432:5432
+    volumes:
+      - /data/postgresql:/var/lib/postgresql/data
+    environment:
+      - TZ=Asia/Shanghai
+      - POSTGRES_PASSWORD=postgresql123456!
+    depends_on: []
