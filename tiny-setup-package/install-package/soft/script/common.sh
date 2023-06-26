@@ -2,10 +2,15 @@
 #version：  1.1
 
 # install package dir
-# [/opt/tiny-setup-package/install-package]
+# -- [/opt/tiny-setup-package/install-package] --
 INSTALL_PACKAGE_DIR=/opt/tiny-setup-package/install-package
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
-# config.ini local_host_ip
+# -- log level: debug-1, info-2, warn-3, error-4, always-5 --
+LOG_LEVEL=1
+# -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+
+# config.ini hosts
 host_index=1
 host_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "hosts" "host${host_index}")
 LOCAL_HOST_IP=""
@@ -72,25 +77,25 @@ sed -i "s/^      - ZOO_SERVERS=.*/      - ZOO_SERVERS=${KAFKA_ZOO_SERVERS}/g" $I
 sed -i "s/^      - BROKER_ID=.*/      - BROKER_ID=${LOCAL_HOST_IP_ARRAY[3]}/g" $INSTALL_PACKAGE_DIR/component/kafka/docker-compose.yml
 sed -i "s/^      - LISTENERS=.*/      - LISTENERS=PLAINTEXT:\/\/${LOCAL_HOST_IP}:9092/g" $INSTALL_PACKAGE_DIR/component/kafka/docker-compose.yml
 
-#日志级别 debug-1, info-2, warn-3, error-4, always-5
-LOG_LEVEL=1
-#日志文件
-LOG_FILE=/var/install.log
-INSTALL_LOG_DIR=/var/xtpeach/log/install
-ssh_config_file=/etc/ssh/sshd_config
-install_pkg_info=/opt/insight-install-package/pkg_info.properties
-work_pkg_info=/home/xtpeach/pkg_info.properties
 
+
+
+
+#日志文件
+LOG_FILE=/var/tiny-setup/install.log
+INSTALL_LOG_DIR=/var/tiny-setup/
+SSH_CONFIG_FILE=/etc/ssh/sshd_config
+INSTALL_PACKAGE_INFO=/opt/tiny-setup-package/install-package/package_info.properties
+WORK_PACKAGE_INFO=/home/tiny-setup-package/install-package/package_info.properties
 
 
 # 获取词条 $1 词条序号 $2 语言编号
 function getI18nConfig() {
-  base_path=$(cd `dirname $0`; pwd)
-  env_file=${base_path}/i18n_config.properties
+  env_file=${INSTALL_PACKAGE_INFO}
 
-  language=$2
   number=$1
-  
+  language=$2
+
   if [ "$language" = "中文" ]; then
     param="message.${number}.zh_CN"
   elif [ "$language" = "English" ]; then
