@@ -1,2 +1,25 @@
+# docker pull openjdk:8-jdk-alpine
 version: '3.2'
+
 services:
+  nacos:
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+    image: nacos:xtpeach
+    container_name: nacos
+    hostname: nacos
+    privileged: true
+    restart: always
+    network_mode: host
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 50000
+        hard: 100000
+    ports:
+      - 8848:8848
+    volumes: []
+    environment:
+      - TZ=Asia/Shanghai
+    depends_on: []
