@@ -19,6 +19,7 @@ services:
     volumes:
       - /home/redis/conf/:/etc/redis/
       - /data/redis:/data
+    command: redis-server /etc/redis/redis.conf
     environment:
       - TZ=Asia/Shanghai
     depends_on: []
