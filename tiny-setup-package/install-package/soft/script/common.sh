@@ -83,8 +83,20 @@ sed -i "s/^      - POSTGRES_PASSWORD=.*/      - POSTGRES_PASSWORD=${POSTGRESQL_P
 
 
 #日志文件
-LOG_FILE=/var/tiny-setup/install.log
 INSTALL_LOG_DIR=/var/tiny-setup/
+if [ -d $INSTALL_LOG_DIR ]; then
+    echo "[exist] ${INSTALL_LOG_DIR}"
+else
+    mkdir -p $INSTALL_LOG_DIR
+fi
+
+LOG_FILE=/var/tiny-setup/install.log
+if [ -e $LOG_FILE ]; then
+    echo "[exist] ${LOG_FILE}"
+else
+    touch $LOG_FILE
+fi
+
 SSH_CONFIG_FILE=/etc/ssh/sshd_config
 INSTALL_PACKAGE_INFO=/opt/tiny-setup-package/install-package/package_info.properties
 WORK_PACKAGE_INFO=/home/tiny-setup-package/install-package/package_info.properties
@@ -109,6 +121,10 @@ function getI18nConfig() {
 
   echo $value
 }
+
+
+#日志方法 ---------------------------------------------------------------------------------------
+#日志文件 /var/tiny-setup/install.log
 
 #调试日志
 function log_debug(){
