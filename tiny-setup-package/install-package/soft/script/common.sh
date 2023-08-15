@@ -1,5 +1,7 @@
 #!/bin/bash
-#version：  1.1
+#version
+VERSION=1.1
+echo "- common version: ${VERSION} -"
 
 # install package dir
 # -- [/opt/tiny-setup-package/install-package] --
@@ -96,6 +98,8 @@ if [ -e $LOG_FILE ]; then
 else
     touch $LOG_FILE
 fi
+
+echo "- common version: ${VERSION} -"
 
 SSH_CONFIG_FILE=/etc/ssh/sshd_config
 INSTALL_PACKAGE_INFO=/opt/tiny-setup-package/install-package/package_info.properties

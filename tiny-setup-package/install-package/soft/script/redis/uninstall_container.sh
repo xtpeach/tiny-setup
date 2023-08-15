@@ -9,11 +9,11 @@ log_note "[remove redis]" "cd $INSTALL_PACKAGE_DIR/component/redis && docker-com
 
 # remove config
 rm -rf /home/redis/conf
-log_note "[remove redis]" "cd $INSTALL_PACKAGE_DIR/component/redis && rm -rf /home/redis/conf"
+log_note "[remove redis]" "rm -rf /home/redis/conf"
 
 # remove data
 rm -rf /data/redis
-log_note "[remove redis]" "cd $INSTALL_PACKAGE_DIR/component/redis && rm -rf /data/redis"
+log_note "[remove redis]" "rm -rf /data/redis"
 
 # remove docker image
 docker_images=$(docker images | grep redis | awk -v FS=" " '{print $3}')
