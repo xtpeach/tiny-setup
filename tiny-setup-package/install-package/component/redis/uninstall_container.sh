@@ -1,6 +1,6 @@
 #!/bin/bash
 # source
-source ../common.sh
+source ../../soft/script/common.sh
 
 # stop container
 cd $INSTALL_PACKAGE_DIR/component/redis

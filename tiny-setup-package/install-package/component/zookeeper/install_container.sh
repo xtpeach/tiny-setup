@@ -1,6 +1,6 @@
 #!/bin/bash
 # source
-source ../common.sh
+source ../../soft/script/common.sh
 
 # config files
 mkdir -p /home/zookeeper/conf
@@ -14,9 +14,15 @@ bash ./config_zookeeper_myid.sh ${LOCAL_HOST_IP_ARRAY[3]}
 log_debug "[install zookeeper]" "bash ./config_zookeeper_myid.sh ${LOCAL_HOST_IP_ARRAY[3]}"
 
 # load image
-cd $INSTALL_PACKAGE_DIR/resources/docker-images
-docker load < openjdk.8-jdk.tar
-log_debug "[install kafka]" "cd $INSTALL_PACKAGE_DIR/resources/docker-images && docker load < openjdk.8-jdk.tar"
+if [[ -f $INSTALL_PACKAGE_DIR/resources/docker-images/openjdk.8-jdk.tar ]]; then
+  log_debug "[install zookeeper]" "cd $INSTALL_PACKAGE_DIR/resources/docker-images && docker load < openjdk.8-jdk.tar"
+  cd $INSTALL_PACKAGE_DIR/resources/docker-images
+  docker load < openjdk.8-jdk.tar
+else
+  log_note "[install zookeeper]" "docker pull openjdk:8-jdk"
+  docker pull openjdk:8-jdk
+fi
+
 
 # build zookeeper image
 cd $INSTALL_PACKAGE_DIR/component/zookeeper/build

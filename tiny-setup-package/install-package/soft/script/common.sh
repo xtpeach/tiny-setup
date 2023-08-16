@@ -1,10 +1,12 @@
 #!/bin/bash
 #version
 VERSION=1.1
-echo "- common version: ${VERSION} -"
+
+echo -e "\n\n\n"
+echo "- common version: ${VERSION} begin -"
 
 # install package dir
-# -- [/opt/tiny-setup-package/install-package] --
+# -- *** [/opt/tiny-setup-package/install-package] *** --
 INSTALL_PACKAGE_DIR=/opt/tiny-setup-package/install-package
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
@@ -16,8 +18,7 @@ LOG_LEVEL=1
 host_index=1
 host_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "hosts" "host${host_index}")
 LOCAL_HOST_IP=""
-while [[ -n "$host_ip" ]];
-do
+while [[ -n "$host_ip" ]]; do
   local_ip_flag=$(ip addr | grep -c $host_ip)
   [[ $local_ip_flag -ge 1 ]] && {
     LOCAL_HOST_IP=$host_ip
@@ -37,10 +38,9 @@ zookeeper_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INS
 zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
 zookeeper_ip_index=${zookeeper_ip_array[3]}
 echo "zookeeper_ip:zookeeper${zookeeper_index}:${zookeeper_ip}"
-while [[ -n "$zookeeper_ip" ]];
-do
+while [[ -n "$zookeeper_ip" ]]; do
   sed -i "/zookeeper${zookeeper_ip_index}/d" /etc/hosts
-  echo "${zookeeper_ip} zookeeper${zookeeper_ip_index}" >> /etc/hosts
+  echo "${zookeeper_ip} zookeeper${zookeeper_ip_index}" >>/etc/hosts
   ZOO_SERVERS="server.${zookeeper_ip_index}=zookeeper${zookeeper_ip_index}:2888:3888;2181 ${ZOO_SERVERS}"
   KAFKA_ZOO_SERVERS="zookeeper${zookeeper_ip_index}:2181 ${KAFKA_ZOO_SERVERS}"
   ((zookeeper_index++))
@@ -55,11 +55,11 @@ kafka_index=1
 kafka_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka" "kafka${kafka_index}")
 kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
 kafka_ip_index=${kafka_ip_array[3]}
+kafka_ip_index_first=${kafka_ip_array[3]}
 echo "kafka_ip:kafka${kafka_index}:${kafka_ip}"
-while [[ -n "$kafka_ip" ]];
-do
+while [[ -n "$kafka_ip" ]]; do
   sed -i "/kafka${kafka_ip_index}/d" /etc/hosts
-  echo "${kafka_ip} kafka${kafka_ip_index}" >> /etc/hosts
+  echo "${kafka_ip} kafka${kafka_ip_index}" >>/etc/hosts
   ((kafka_index++))
   kafka_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka" "kafka${kafka_index}")
   kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
@@ -67,9 +67,20 @@ do
   echo "kafka_ip:kafka${kafka_index}:${kafka_ip}"
 done
 
+# kafka topic
+kafka_topic_index=1
+kafka_topic=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka-topic" "topic${kafka_topic_index}")
+echo "kafka_topic:${kafka_topic_index}:${kafka_topic}"
+while [[ -n "$kafka_topic" ]]; do
+  kafka_topic_array+=($kafka_topic)
+  ((kafka_topic_index++))
+  kafka_topic=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka-topic" "topic${kafka_topic_index}")
+  echo "kafka_topic:${kafka_topic_index}:${kafka_topic}"
+done
+
 # ZOO_SERVERS >> /etc/profile
 sed -i "/export ZOO_SERVERS=/d" /etc/profile
-echo "export ZOO_SERVERS=\"${ZOO_SERVERS}\"" >> /etc/profile
+echo "export ZOO_SERVERS=\"${ZOO_SERVERS}\"" >>/etc/profile
 
 # docker-compose
 sed -i "s/^      - ZOO_SERVERS=.*/      - ZOO_SERVERS=${ZOO_SERVERS}/g" $INSTALL_PACKAGE_DIR/component/zookeeper/docker-compose.yml
@@ -83,28 +94,27 @@ sed -i "s/^      - LISTENERS=.*/      - LISTENERS=PLAINTEXT:\/\/${LOCAL_HOST_IP}
 POSTGRESQL_PASSWORD=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "postgresql" "password")
 sed -i "s/^      - POSTGRES_PASSWORD=.*/      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/postgresql/docker-compose.yml
 
-
 #日志文件
 INSTALL_LOG_DIR=/var/tiny-setup/
 if [ -d $INSTALL_LOG_DIR ]; then
-    echo "[exist] ${INSTALL_LOG_DIR}"
+  echo "[exist] ${INSTALL_LOG_DIR}"
 else
-    mkdir -p $INSTALL_LOG_DIR
+  mkdir -p $INSTALL_LOG_DIR
 fi
 
 LOG_FILE=/var/tiny-setup/install.log
 if [ -e $LOG_FILE ]; then
-    echo "[exist] ${LOG_FILE}"
+  echo "[exist] ${LOG_FILE}"
 else
-    touch $LOG_FILE
+  touch $LOG_FILE
 fi
 
-echo "- common version: ${VERSION} -"
+echo "- common version: ${VERSION} end -"
+echo -e "\n\n\n"
 
 SSH_CONFIG_FILE=/etc/ssh/sshd_config
 INSTALL_PACKAGE_INFO=/opt/tiny-setup-package/install-package/package_info.properties
 WORK_PACKAGE_INFO=/home/tiny-setup-package/install-package/package_info.properties
-
 
 # 获取词条 $1 词条序号 $2 语言编号
 function getI18nConfig() {
@@ -126,32 +136,31 @@ function getI18nConfig() {
   echo $value
 }
 
-
 #日志方法 ---------------------------------------------------------------------------------------
 #日志文件 /var/tiny-setup/install.log
 
 #调试日志
-function log_debug(){
+function log_debug() {
   content="[DEBUG] $(date '+%Y-%m-%d %H:%M:%S') $LOCAL_HOST_IP:$@"
-  [ $LOG_LEVEL -le 1  ] && echo $content >> $LOG_FILE && echo -e "\033[32m"  ${content}  "\033[0m"
+  [ $LOG_LEVEL -le 1 ] && echo $content >>$LOG_FILE && echo -e "\033[32m" ${content} "\033[0m"
 }
 #信息日志
-function log_info(){
+function log_info() {
   content="[INFO] $(date '+%Y-%m-%d %H:%M:%S') $LOCAL_HOST_IP:$@"
-  [ $LOG_LEVEL -le 2  ] && echo $content >> $LOG_FILE && echo -e "\033[34m"  ${content} "\033[0m"
+  [ $LOG_LEVEL -le 2 ] && echo $content >>$LOG_FILE && echo -e "\033[34m" ${content} "\033[0m"
 }
 #重点关注日志
-function log_note(){
+function log_note() {
   content="[NOTE] $(date '+%Y-%m-%d %H:%M:%S') $LOCAL_HOST_IP:$@"
-  [ $LOG_LEVEL -le 3  ] && echo $content >> $LOG_FILE && echo -e "\033[33m" ${content} "\033[0m"
+  [ $LOG_LEVEL -le 3 ] && echo $content >>$LOG_FILE && echo -e "\033[33m" ${content} "\033[0m"
 }
 #错误日志
-function log_err(){
+function log_err() {
   content="[ERROR] $(date '+%Y-%m-%d %H:%M:%S') $LOCAL_HOST_IP:$@"
-  [ $LOG_LEVEL -le 4  ] && echo $content >> $LOG_FILE && echo -e "\033[31m" ${content} "\033[0m"
+  [ $LOG_LEVEL -le 4 ] && echo $content >>$LOG_FILE && echo -e "\033[31m" ${content} "\033[0m"
 }
 #一直都会打印的日志
-function log_always(){
-   content="[ALWAYS] $(date '+%Y-%m-%d %H:%M:%S') $LOCAL_HOST_IP:$@"
-   [ $LOG_LEVEL -le 5  ] && echo $content >> $LOG_FILE && echo -e  "\033[32m" ${content} "\033[0m"
+function log_always() {
+  content="[ALWAYS] $(date '+%Y-%m-%d %H:%M:%S') $LOCAL_HOST_IP:$@"
+  [ $LOG_LEVEL -le 5 ] && echo $content >>$LOG_FILE && echo -e "\033[32m" ${content} "\033[0m"
 }

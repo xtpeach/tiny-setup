@@ -1,6 +1,6 @@
 #!/bin/bash
 # source
-source ../common.sh
+source ../../soft/script/common.sh
 
 # redis data
 mkdir -p /data/redis
@@ -13,8 +13,14 @@ cp -a $INSTALL_PACKAGE_DIR/component/redis/config/* /home/redis/conf
 log_debug "[install redis]" "cp -a $INSTALL_PACKAGE_DIR/component/redis/config/* /home/redis/conf"
 
 # load image
-cd $INSTALL_PACKAGE_DIR/resources/docker-images
-docker load < redis.6.2.12.tar
+if [[ -f $INSTALL_PACKAGE_DIR/resources/docker-images/redis.6.2.12.tar ]]; then
+  log_debug "[install redis]" "cd $INSTALL_PACKAGE_DIR/resources/docker-images && docker load < redis.6.2.12.tar"
+  cd $INSTALL_PACKAGE_DIR/resources/docker-images
+  docker load < redis.6.2.12.tar
+else
+  log_note "[install redis]" "docker pull redis:6.2.12"
+  docker pull redis:6.2.12
+fi
 
 # stop container
 cd $INSTALL_PACKAGE_DIR/component/redis
