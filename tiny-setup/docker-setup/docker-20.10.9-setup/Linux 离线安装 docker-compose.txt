@@ -1,0 +1,8 @@
+1.上传文件至路径(/usr/local/bin/)： docker-compose
+
+2.设置权限和软连接：
+    #> chmod 777 docker-compose
+    #> ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+3.查看版本：
+    #> docker-compose --version
