@@ -22,5 +22,5 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
     environment:
-      - TZ=Asia/Shanghai
+      - TZ=${TIMEZONE:-Asia/Shanghai}
     depends_on: []

@@ -25,7 +25,7 @@ services:
       - /home/kafka/conf:/usr/local/kafka_2.13-3.4.1/conf
       - /data/kafka:/data/kafka
     environment:
-      - TZ=Asia/Shanghai
+      - TZ=${TIMEZONE:-Asia/Shanghai}
       - BROKER_ID=0
       - LISTENERS=PLAINTEXT://192.168.96.128:9092
       - ZOO_SERVERS=server.1=zookeeper1:2888:3888;2181

@@ -26,7 +26,7 @@ services:
       - /home/zookeeper/conf:/usr/local/zookeeper-3.8.1-bin/conf
       - /data/zookeeper:/data/zookeeper
     environment:
-      - TZ=Asia/Shanghai
+      - TZ=${TIMEZONE:-Asia/Shanghai}
       - ZOO_MY_ID=1
       - ZOO_SERVERS=server.1=zookeeper1:2888:3888;2181
     depends_on: []

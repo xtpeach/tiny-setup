@@ -22,5 +22,5 @@ services:
       - /data/redis:/data
     command: redis-server /etc/redis/redis.conf
     environment:
-      - TZ=Asia/Shanghai
+      - TZ=${TIMEZONE:-Asia/Shanghai}
     depends_on: []
