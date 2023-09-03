@@ -1,4 +1,5 @@
 #!/bin/bash
+
 host_name_str=$1
 
 # 输入名称不为空

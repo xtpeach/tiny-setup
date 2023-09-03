@@ -21,6 +21,7 @@ services:
       - 9092:9092
       - 9093:9093
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - /home/kafka/conf:/usr/local/kafka_2.13-3.4.1/conf
       - /data/kafka:/data/kafka
     environment:

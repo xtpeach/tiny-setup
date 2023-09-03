@@ -22,6 +22,7 @@ services:
       - 2888:2888
       - 3888:3888
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - /home/zookeeper/conf:/usr/local/zookeeper-3.8.1-bin/conf
       - /data/zookeeper:/data/zookeeper
     environment:

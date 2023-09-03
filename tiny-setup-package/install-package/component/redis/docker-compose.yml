@@ -17,6 +17,7 @@ services:
     ports:
       - 6379:6379
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - /home/redis/conf/:/etc/redis/
       - /data/redis:/data
     command: redis-server /etc/redis/redis.conf

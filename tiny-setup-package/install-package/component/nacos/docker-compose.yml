@@ -19,7 +19,8 @@ services:
         hard: 100000
     ports:
       - 8848:8848
-    volumes: []
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
     environment:
       - TZ=Asia/Shanghai
     depends_on: []

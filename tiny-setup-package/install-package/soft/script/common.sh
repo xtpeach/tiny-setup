@@ -2,8 +2,8 @@
 #version
 VERSION=1.1
 
-echo -e "\n\n\n"
-echo "- common version: ${VERSION} begin -"
+echo -e "\n"
+echo "--- common version: ${VERSION} begin ---"
 
 # install package dir
 # -- *** [/opt/tiny-setup-package/install-package] *** --
@@ -94,7 +94,11 @@ sed -i "s/^      - LISTENERS=.*/      - LISTENERS=PLAINTEXT:\/\/${LOCAL_HOST_IP}
 POSTGRESQL_PASSWORD=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "postgresql" "password")
 sed -i "s/^      - POSTGRES_PASSWORD=.*/      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/postgresql/docker-compose.yml
 
-#日志文件
+# redis
+REDIS_PASSWORD=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "redis" "password")
+sed -i "s/^requirepass.*/requirepass ${REDIS_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/redis/config/redis.conf
+
+# 日志文件目录
 INSTALL_LOG_DIR=/var/tiny-setup/
 if [ -d $INSTALL_LOG_DIR ]; then
   echo "[exist] ${INSTALL_LOG_DIR}"
@@ -102,6 +106,7 @@ else
   mkdir -p $INSTALL_LOG_DIR
 fi
 
+# 日志文件
 LOG_FILE=/var/tiny-setup/install.log
 if [ -e $LOG_FILE ]; then
   echo "[exist] ${LOG_FILE}"
@@ -109,8 +114,8 @@ else
   touch $LOG_FILE
 fi
 
-echo "- common version: ${VERSION} end -"
-echo -e "\n\n\n"
+echo "--- common version: ${VERSION} end ---"
+echo -e "\n"
 
 SSH_CONFIG_FILE=/etc/ssh/sshd_config
 INSTALL_PACKAGE_INFO=/opt/tiny-setup-package/install-package/package_info.properties

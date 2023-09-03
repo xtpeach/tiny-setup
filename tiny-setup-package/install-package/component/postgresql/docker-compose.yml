@@ -17,6 +17,7 @@ services:
     ports:
       - 5432:5432
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - /data/postgresql:/var/lib/postgresql/data
     environment:
       - TZ=Asia/Shanghai
