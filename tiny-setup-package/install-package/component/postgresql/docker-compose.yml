@@ -20,6 +20,6 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /data/postgresql:/var/lib/postgresql/data
     environment:
-      - TZ=Asia/Shanghai
+      - TZ=${TIMEZONE:-Asia/Shanghai}
       - POSTGRES_PASSWORD=postgresql123456!
     depends_on: []
