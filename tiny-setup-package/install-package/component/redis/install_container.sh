@@ -13,9 +13,9 @@ cp -a $INSTALL_PACKAGE_DIR/component/redis/config/* /home/redis/conf
 log_debug "[install redis]" "cp -a $INSTALL_PACKAGE_DIR/component/redis/config/* /home/redis/conf"
 
 # load image
-if [[ -f $INSTALL_PACKAGE_DIR/resources/docker-images/redis.6.2.12.tar ]]; then
-  log_debug "[install redis]" "cd $INSTALL_PACKAGE_DIR/resources/docker-images && docker load < redis.6.2.12.tar"
-  cd $INSTALL_PACKAGE_DIR/resources/docker-images
+if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/redis.6.2.12.tar ]]; then
+  log_debug "[install redis]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < redis.6.2.12.tar"
+  cd $INSTALL_PACKAGE_DIR/resource/docker-images
   docker load < redis.6.2.12.tar
 else
   log_note "[install redis]" "docker pull redis:6.2.12"

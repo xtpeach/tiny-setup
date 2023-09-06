@@ -7,9 +7,9 @@ mkdir -p /data/postgresql
 log_debug "[install postgresql]" "mkdir -p /data/postgresql"
 
 # load image
-if [[ -f $INSTALL_PACKAGE_DIR/resources/docker-images/postgresql.14.8.tar ]]; then
-  log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/resources/docker-images && docker load < postgresql.14.8.tar"
-  cd $INSTALL_PACKAGE_DIR/resources/docker-images
+if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/postgresql.14.8.tar ]]; then
+  log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < postgresql.14.8.tar"
+  cd $INSTALL_PACKAGE_DIR/resource/docker-images
   docker load < postgresql.14.8.tar
 else
   log_note "[install postgresql]" "docker pull postgresql:14.8"

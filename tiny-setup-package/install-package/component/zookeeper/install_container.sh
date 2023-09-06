@@ -14,9 +14,9 @@ bash ./config_zookeeper_myid.sh ${LOCAL_HOST_IP_ARRAY[3]}
 log_debug "[install zookeeper]" "bash ./config_zookeeper_myid.sh ${LOCAL_HOST_IP_ARRAY[3]}"
 
 # load image
-if [[ -f $INSTALL_PACKAGE_DIR/resources/docker-images/openjdk.8-jdk.tar ]]; then
-  log_debug "[install zookeeper]" "cd $INSTALL_PACKAGE_DIR/resources/docker-images && docker load < openjdk.8-jdk.tar"
-  cd $INSTALL_PACKAGE_DIR/resources/docker-images
+if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/openjdk.8-jdk.tar ]]; then
+  log_debug "[install zookeeper]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < openjdk.8-jdk.tar"
+  cd $INSTALL_PACKAGE_DIR/resource/docker-images
   docker load < openjdk.8-jdk.tar
 else
   log_note "[install zookeeper]" "docker pull openjdk:8-jdk"
