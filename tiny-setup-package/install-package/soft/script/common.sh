@@ -34,7 +34,7 @@ if [[ "$docker_version" != "" ]]; then
   echo "[docker] - $docker_version"
 else
   echo "[docker] - installing"
-  cd $INSTALL_PACKAGE_DIR/resources/docker-19.03.9-setup/
+  cd $INSTALL_PACKAGE_DIR/resource/docker-19.03.9-setup/
   bash setup_docker.sh
   bash close_selinux.sh
   echo "[docker] - installed"

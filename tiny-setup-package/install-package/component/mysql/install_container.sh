@@ -7,9 +7,9 @@ mkdir -p /data/mysql
 log_debug "[install mysql]" "mkdir -p /data/mysql"
 
 # load image
-if [[ -f $INSTALL_PACKAGE_DIR/resources/docker-images/mysql.5.7.tar ]]; then
-  log_debug "[install mysql]" "cd $INSTALL_PACKAGE_DIR/resources/docker-images && docker load < mysql.5.7.tar"
-  cd $INSTALL_PACKAGE_DIR/resources/docker-images
+if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/mysql.5.7.tar ]]; then
+  log_debug "[install mysql]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < mysql.5.7.tar"
+  cd $INSTALL_PACKAGE_DIR/resource/docker-images
   docker load < mysql.5.7.tar
 else
   log_note "[install mysql]" "docker pull mysql.5.7.tar"

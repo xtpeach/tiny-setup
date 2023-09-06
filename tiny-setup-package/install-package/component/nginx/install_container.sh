@@ -15,9 +15,9 @@ cp -a $INSTALL_PACKAGE_DIR/component/nginx/config/* /home/nginx/config
 log_debug "[install nginx]" "cp -a $INSTALL_PACKAGE_DIR/component/nginx/config/* /home/nginx/config"
 
 # load image
-if [[ -f $INSTALL_PACKAGE_DIR/resources/docker-images/nginx.1.25.0.tar ]]; then
-  log_debug "[install nginx]" "cd $INSTALL_PACKAGE_DIR/resources/docker-images && docker load < nginx.1.25.0.tar"
-  cd $INSTALL_PACKAGE_DIR/resources/docker-images
+if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/nginx.1.25.0.tar ]]; then
+  log_debug "[install nginx]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < nginx.1.25.0.tar"
+  cd $INSTALL_PACKAGE_DIR/resource/docker-images
   docker load < nginx.1.25.0.tar
 else
   log_note "[install nginx]" "docker pull nginx:1.25.0"

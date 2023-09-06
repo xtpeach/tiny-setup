@@ -3,9 +3,9 @@
 source ../../soft/script/common.sh
 
 # load image
-if [[ -f $INSTALL_PACKAGE_DIR/resources/docker-images/openjdk.8-jdk.tar ]]; then
-  log_debug "[install nacos]" "cd $INSTALL_PACKAGE_DIR/resources/docker-images && docker load < openjdk.8-jdk.tar"
-  cd $INSTALL_PACKAGE_DIR/resources/docker-images
+if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/openjdk.8-jdk.tar ]]; then
+  log_debug "[install nacos]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < openjdk.8-jdk.tar"
+  cd $INSTALL_PACKAGE_DIR/resource/docker-images
   docker load < openjdk.8-jdk.tar
 else
   log_note "[install nacos]" "docker pull openjdk:8-jdk"

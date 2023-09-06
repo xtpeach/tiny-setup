@@ -9,9 +9,9 @@ cp -a $INSTALL_PACKAGE_DIR/component/kafka/config/* /home/kafka/conf
 log_debug "[install kafka]" "cp -a $INSTALL_PACKAGE_DIR/component/kafka/config/* /home/kafka/conf"
 
 # load image
-if [[ -f $INSTALL_PACKAGE_DIR/resources/docker-images/openjdk.8-jdk.tar ]]; then
-  log_debug "[install kafka]" "cd $INSTALL_PACKAGE_DIR/resources/docker-images && docker load < openjdk.8-jdk.tar"
-  cd $INSTALL_PACKAGE_DIR/resources/docker-images
+if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/openjdk.8-jdk.tar ]]; then
+  log_debug "[install kafka]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < openjdk.8-jdk.tar"
+  cd $INSTALL_PACKAGE_DIR/resource/docker-images
   docker load < openjdk.8-jdk.tar
 else
   log_note "[install kafka]" "docker pull openjdk:8-jdk"
