@@ -3,8 +3,8 @@
 install() {
   service_name=$1
 
-  service_file="${service_name}.sh"
-  do_service_file="do_${service_name}.sh"
+  service_file=./${service_name}/"${service_name}.sh"
+  do_service_file=./${service_name}/"do_${service_name}.sh"
 
   service_name="${service_name}.service"
 
