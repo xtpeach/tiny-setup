@@ -31,3 +31,7 @@ log_debug "[install mysql]" "cd $INSTALL_PACKAGE_DIR/component/mysql && docker-c
 cd $INSTALL_PACKAGE_DIR/component/mysql
 docker-compose up -d
 log_debug "[install mysql]" "cd $INSTALL_PACKAGE_DIR/component/mysql && docker-compose up -d"
+
+# create databases
+sleep 60
+bash $INSTALL_PACKAGE_DIR/component/mysql/create_databases.sh

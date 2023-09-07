@@ -25,3 +25,7 @@ log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/component/postgresql &
 cd $INSTALL_PACKAGE_DIR/component/postgresql
 docker-compose up -d
 log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/component/postgresql && docker-compose up -d"
+
+# create databases
+sleep 60
+bash $INSTALL_PACKAGE_DIR/component/postgresql/create_databases.sh

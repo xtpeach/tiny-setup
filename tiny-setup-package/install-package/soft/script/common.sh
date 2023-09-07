@@ -110,9 +110,20 @@ sed -i "s/^      - LISTENERS=.*/      - LISTENERS=PLAINTEXT:\/\/${LOCAL_HOST_IP}
 POSTGRESQL_PASSWORD=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "postgresql" "password")
 sed -i "s/^      - POSTGRES_PASSWORD=.*/      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/postgresql/docker-compose.yml
 
+# mysql
+MYSQL_PASSWORD=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "mysql" "password")
+sed -i "s/^      - MYSQL_ROOT_PASSWORD=.*/      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/mysql/docker-compose.yml
+
 # redis
 REDIS_PASSWORD=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "redis" "password")
 sed -i "s/^requirepass.*/requirepass ${REDIS_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/redis/config/redis.conf
+
+# databases
+DATABASE_NAMES=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "databases" "databaseNames")
+DATABASE_NAME_ARRAY=($(echo ${DATABASE_NAMES} | tr ',' ' '))
+for index in "${!DATABASE_NAME_ARRAY[@]}"; do
+  echo "[database] ${DATABASE_NAME_ARRAY[$index]}"
+done
 
 # openPorts
 OPEN_PORTS=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "open-ports" "openPorts")
