@@ -12,7 +12,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /data/mysql:/var/lib/mysql
-#      - /home/sungrow/mysql/conf/my.cnf:/etc/mysql/my.cnf
+      - /home/mysql/conf/my.cnf:/etc/my.cnf
     environment:
       - MYSQL_ROOT_PASSWORD=mysql123456!
       - TZ=${TIMEZONE:-Asia/Shanghai}
