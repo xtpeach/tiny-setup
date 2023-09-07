@@ -14,6 +14,10 @@ INSTALL_PACKAGE_DIR=/opt/tiny-setup-package/install-package
 LOG_LEVEL=1
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
+# get linux name
+OS_NAME=$(cat /etc/os-release | grep "^ID=" | cut -c 4- | sed 's/"//g')
+echo "[OS_NAME] - ${OS_NAME}"
+
 # config.ini hosts
 host_index=1
 host_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "hosts" "host${host_index}")
@@ -49,7 +53,7 @@ zookeeper_index=1
 zookeeper_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "zookeeper" "zookeeper${zookeeper_index}")
 zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
 zookeeper_ip_index=${zookeeper_ip_array[3]}
-echo "zookeeper_ip:zookeeper${zookeeper_index}:${zookeeper_ip}"
+echo "[zookeeper_ip] zookeeper${zookeeper_index}:${zookeeper_ip}"
 while [[ -n "$zookeeper_ip" ]]; do
   sed -i "/zookeeper${zookeeper_ip_index}/d" /etc/hosts
   echo "${zookeeper_ip} zookeeper${zookeeper_ip_index}" >>/etc/hosts
@@ -59,7 +63,7 @@ while [[ -n "$zookeeper_ip" ]]; do
   zookeeper_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "zookeeper" "zookeeper${zookeeper_index}")
   zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
   zookeeper_ip_index=${zookeeper_ip_array[3]}
-  echo "zookeeper_ip:zookeeper${zookeeper_index}:${zookeeper_ip}"
+  echo "[zookeeper_ip] zookeeper${zookeeper_index}:${zookeeper_ip}"
 done
 
 # kafka index
@@ -68,7 +72,7 @@ kafka_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL
 kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
 kafka_ip_index=${kafka_ip_array[3]}
 kafka_ip_index_first=${kafka_ip_array[3]}
-echo "kafka_ip:kafka${kafka_index}:${kafka_ip}"
+echo "[kafka_ip] kafka${kafka_index}:${kafka_ip}"
 while [[ -n "$kafka_ip" ]]; do
   sed -i "/kafka${kafka_ip_index}/d" /etc/hosts
   echo "${kafka_ip} kafka${kafka_ip_index}" >>/etc/hosts
@@ -76,18 +80,18 @@ while [[ -n "$kafka_ip" ]]; do
   kafka_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka" "kafka${kafka_index}")
   kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
   kafka_ip_index=${kafka_ip_array[3]}
-  echo "kafka_ip:kafka${kafka_index}:${kafka_ip}"
+  echo "[kafka_ip] kafka${kafka_index}:${kafka_ip}"
 done
 
 # kafka topic
 kafka_topic_index=1
 kafka_topic=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka-topic" "topic${kafka_topic_index}")
-echo "kafka_topic:${kafka_topic_index}:${kafka_topic}"
+echo "[kafka_topic] ${kafka_topic_index}:${kafka_topic}"
 while [[ -n "$kafka_topic" ]]; do
   kafka_topic_array+=($kafka_topic)
   ((kafka_topic_index++))
   kafka_topic=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka-topic" "topic${kafka_topic_index}")
-  echo "kafka_topic:${kafka_topic_index}:${kafka_topic}"
+  echo "[kafka_topic] ${kafka_topic_index}:${kafka_topic}"
 done
 
 # ZOO_SERVERS >> /etc/profile
@@ -109,6 +113,14 @@ sed -i "s/^      - POSTGRES_PASSWORD=.*/      - POSTGRES_PASSWORD=${POSTGRESQL_P
 # redis
 REDIS_PASSWORD=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "redis" "password")
 sed -i "s/^requirepass.*/requirepass ${REDIS_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/redis/config/redis.conf
+
+# openPorts
+OPEN_PORTS=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "open-ports" "openPorts")
+OPEN_PORT_ARRAY=($(echo ${OPEN_PORTS} | tr ',' ' '))
+for index in "${!OPEN_PORT_ARRAY[@]}"; do
+  echo "[open port] ${OPEN_PORT_ARRAY[$index]}"
+done
+
 
 # 日志文件目录
 INSTALL_LOG_DIR=/var/tiny-setup/

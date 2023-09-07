@@ -6,6 +6,12 @@ source ../../soft/script/common.sh
 mkdir -p /data/mysql
 log_debug "[install mysql]" "mkdir -p /data/mysql"
 
+# config files
+mkdir -p /home/mysql/conf
+log_debug "[install mysql]" "mkdir -p /home/mysql/conf"
+cp -a $INSTALL_PACKAGE_DIR/component/mysql/config/* /home/mysql/conf
+log_debug "[install mysql]" "cp -a $INSTALL_PACKAGE_DIR/component/mysql/config/* /home/mysql/conf"
+
 # load image
 if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/mysql.5.7.tar ]]; then
   log_debug "[install mysql]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < mysql.5.7.tar"
