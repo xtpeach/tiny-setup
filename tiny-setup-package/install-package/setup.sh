@@ -118,7 +118,7 @@ install_array_index=$[$install_type-1]
 #echo $db_type
 
 # 数据库选择
-database_menu=("KingBase -> $(getI18nConfig 6 ${install_language})" "MySQL -> $(getI18nConfig 7 ${install_language})" )
+database_menu=("Postgresql -> $(getI18nConfig 6 ${install_language})" "MySQL -> $(getI18nConfig 7 ${install_language})" )
 database_type=$(whiptail --title "$(getI18nConfig 1 ${install_language})" --cancel-button "$(getI18nConfig 25 ${install_language})" --ok-button "$(getI18nConfig 24 ${install_language})" --cancel-button "$(getI18nConfig 25 ${install_language})" --ok-button "$(getI18nConfig 24 ${install_language})"  --menu "\n$(getI18nConfig 5 ${install_language})" 12 60 4 "1" "${database_menu[0]}" "2" "${database_menu[1]}"  3>&1 1>&2 2>&3)
 exitstatus=$?
 if [[ $exitstatus -ne 0 ]];then
