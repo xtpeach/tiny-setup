@@ -1,2 +1,24 @@
 version: '3.2'
 services:
+  clickhouse:
+    image: clickhouse/clickhouse-server:23.8.2.7
+    container_name: clickhouse
+    hostname: clickhouse
+    privileged: true
+    restart: always
+    network_mode: host
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 50000
+        hard: 100000
+    ports:
+      - 8123:8123
+      - 9000:9000
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /data/clickhouse:/var/lib/clickhouse
+      - /home/clickhouse/conf/users.xml:/etc/clickhouse-server/users.xml
+      - /home/clickhouse/conf/config.xml:/etc/clickhouse-server/config.xml
+    environment:
+      - TZ=${TIMEZONE:-Asia/Shanghai}

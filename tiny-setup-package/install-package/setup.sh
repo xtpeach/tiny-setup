@@ -25,13 +25,14 @@ log_info "start setup"
   } >>$LOG_FILE 2>&1 &
 
   # 进度条显示
-  for ((i = 0; i <= 100; i += 10)); do
+  for ((i = 0; i <= 99; i += 10)); do
     sleep $sleep_time
     # 判断执行日志最后一行是否打印的成功标志“#@success@#”
     lastLine=$(sed -n '$p' $LOG_FILE)
     if [[ "$lastLine"x = "#@success@#"x ]]; then
-      # 若已成功直接进度到达100
+      # 若已成功快速达到100
       sleep_time=0.5
+      # 若已成功直接进度到达100
       #i=100
     fi
     echo $i

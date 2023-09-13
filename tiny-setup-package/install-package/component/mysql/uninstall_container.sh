@@ -12,8 +12,8 @@ rm -rf /data/mysql
 log_note "[remove mysql]" "rm -rf /data/mysql"
 
 # remove config
-rm -rf /home/redis/conf
-log_note "[remove mysql]" "rm -rf /home/redis/conf"
+rm -rf /home/mysql/conf
+log_note "[remove mysql]" "rm -rf /home/mysql/conf"
 
 # remove docker image
 docker_images=$(docker images | grep mysql | awk -v FS=" " '{print $3}')
