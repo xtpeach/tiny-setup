@@ -1,0 +1,32 @@
+# docker pull openjdk:8-jdk-alpine
+version: '3.2'
+
+services:
+  zookeeper:
+    build:
+      context: ./build
+      dockerfile: Dockerfile
+    image: zookeeper:xtpeach
+    container_name: zookeeper
+    hostname: zookeeper
+    privileged: true
+    restart: always
+    network_mode: host
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 50000
+        hard: 100000
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/zookeeper/conf:/usr/local/zookeeper-3.8.1-bin/conf
+      - /data/zookeeper:/data/zookeeper
+    environment:
+      - TZ=${TIMEZONE:-Asia/Shanghai}
+      - ZOO_MY_ID=1
+      - ZOO_SERVERS=server.1=zookeeper1:2888:3888;2181
+    depends_on: []

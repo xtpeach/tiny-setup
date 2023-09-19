@@ -1,0 +1,9 @@
+jdk.version=1.8
+kafka.version=2.13-3.4.1
+zookeeper.version=3.8.1
+mysql.version=5.7
+postgresql.version=14.8
+redis.version=6.2.12
+eureka.version=
+nacos.version=
+clickhouse.version=

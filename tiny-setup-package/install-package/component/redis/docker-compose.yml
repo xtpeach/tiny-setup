@@ -1,0 +1,26 @@
+# docker pull redis:6.2.12
+version: '3.2'
+
+services:
+  redis:
+    image: redis:6.2.12
+    container_name: redis
+    hostname: redis
+    privileged: true
+    restart: always
+    network_mode: host
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 50000
+        hard: 100000
+    ports:
+      - 6379:6379
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/redis/conf/:/etc/redis/
+      - /data/redis:/data
+    command: redis-server /etc/redis/redis.conf
+    environment:
+      - TZ=${TIMEZONE:-Asia/Shanghai}
+    depends_on: []
