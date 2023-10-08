@@ -19,9 +19,11 @@ log_info "start setup"
 {
   # 需要执行的逻辑
   {
-    # 中间的执行步骤
-    bash $INSTALL_PACKAGE_DIR/soft/script/install.sh
+    # 执行 [安装] 步骤
+    cd $INSTALL_PACKAGE_DIR/soft/script
+    bash install.sh
 
+  # 将安装日志输入到日志文件中
   } >>$LOG_FILE 2>&1 &
 
   # 进度条显示
@@ -37,4 +39,6 @@ log_info "start setup"
     fi
     echo $i
   done
+
+  # 展示进度条
 } | whiptail --gauge "Please wait while installing" 6 60 0
