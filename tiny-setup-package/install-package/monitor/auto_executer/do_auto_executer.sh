@@ -67,9 +67,9 @@ exc_sh_suffix() {
   filename=$2
   file="${filepath}/${filename}"
 
-  if [ "${file##*.}"x = "sh"x ]; then
+  if [[ "${file##*.}"x = "sh"x ]]; then
     line_total=$(cat ${file} | wc -l)
-    if [ $line_total -ge 1 ]; then
+    if [[ $line_total -ge 1 ]]; then
       now=$(date +"%Y-%m-%d %H:%M:%S")
       echo "${now}  执行脚本${rootPath}/executed/${filename}" >>$logPath/shellAutoExecuter.log
       chmod +x $file

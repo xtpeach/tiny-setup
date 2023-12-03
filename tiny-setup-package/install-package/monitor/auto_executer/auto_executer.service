@@ -9,4 +9,4 @@ WantedBy=multi-user.target
 Type=forking
 Restart=always
 RestartSec=5
-ExecStart=/home/monitor/autoExecuter/auto_executer.sh
+ExecStart=/home/monitor/auto_executer/auto_executer.sh
