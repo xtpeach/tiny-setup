@@ -1,0 +1,12 @@
+[Unit]
+Description=自动执行shell
+Wants=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=forking
+Restart=always
+RestartSec=5
+ExecStart=/home/monitor/autoExecuter/auto_executer.sh

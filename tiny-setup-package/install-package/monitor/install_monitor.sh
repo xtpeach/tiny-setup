@@ -27,7 +27,7 @@ install() {
   chmod +x $service_file
   chmod +x $do_service_file
 
-  cp -Rp -f /home/install-package/monitor/"$service_name" /usr/lib/systemd/system/"$service_name"
+  cp -Rp -f ./"$1"/"$service_name" /usr/lib/systemd/system/"$service_name"
   chmod -R 644 /usr/lib/systemd/system/"$service_name"
   systemctl daemon-reload
   systemctl enable "$service_name"
