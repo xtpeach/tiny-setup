@@ -100,7 +100,7 @@ while [ $i -le 99 ]; do
   printf "[%-100s][%d%%][\e[43;46;1m%c\e[0m]\r" "$bar" "$i" "${arr[$index]}"
 
   # 暂停 0.3 秒
-  sleep 0.3
+  sleep 0.3s
 done
 
 # 打印换行
