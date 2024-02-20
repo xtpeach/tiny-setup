@@ -1,7 +1,7 @@
 #!/bin/bash
 # whiptail --title --checklist 演示示例
 # whiptail 弹窗确认信息
-#
+# 使用空格来进行多选
 choices=$(whiptail --title "Multiple Selection Example" --checklist \
   "Choose your favorite programming languages:" 15 50 4 \
   "1" "Python" ON \
