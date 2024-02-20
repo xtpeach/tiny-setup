@@ -57,5 +57,8 @@ echo "start" >$progress_bar_log_file
     echo $i
   done
 
-  # {} 子 shell 的内容需要跑完之后，进度条窗口才会关闭
-} | whiptail --gauge "Please wait while installing" 6 60 0
+  # {} 子 shell 的内容需要跑完之后，进度条弹窗才会关闭
+} | whiptail --gauge "please wait ..." 6 60 0
+# 6 表示进度条弹窗的高度，即显示的行数
+# 60 表示进度条弹窗的宽度，即显示的列数
+# 0 表示进度条的初始值，通常是0，表示进度条的初始位置
