@@ -30,6 +30,7 @@ log_info "start setup"
   bar_i=0
   while [[ 1 == 1 ]]; do
     sleep $sleep_time
+    # 安装执行完毕之后打印 #@success@# 这个符号比较特殊，一般不会有重复
     # 判断执行日志最后一行是否打印的成功标志“#@success@#”
     lastLine=$(sed -n '$p' $LOG_FILE)
     if [[ "$lastLine"x == "#@success@#"x ]]; then

@@ -2,6 +2,14 @@
 #version
 VERSION=1.1
 
+# 打印不同颜色的日志到命令行
+# echo -e "\033[0;31m This text is red \033[0m"
+# echo -e "\033[0;32m This text is green \033[0m"
+# echo -e "\033[0;33m This text is yellow \033[0m"
+# echo -e "\033[0;34m This text is blue \033[0m"
+# echo -e "\033[0;35m This text is magenta \033[0m"
+# echo -e "\033[0;36m This text is cyan \033[0m"
+
 echo -e "\n"
 echo "--- common version: ${VERSION} begin ---"
 

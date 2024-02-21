@@ -4,12 +4,21 @@ sleep_seconds=5
 
 # 执行日志存放目录
 logPath=/data/logs/shellAutoExecuter
-# 执行器存放
+
+# 执行器存放执行脚本根目录
 rootPath=/home/shellAutoExecuter
+
 # 还未执行的脚本存放目录
 unexecutedPath=$rootPath/unexecuted
+
 # 已执行的脚本存放目录
 executedPath=$rootPath/executed
+
+# 创建上面需要用到的目录
+mkdir -p $logPath
+mkdir -p $rootPath
+mkdir -p $unexecutedPath
+mkdir -p $executedPath
 
 ##日志文件目录不存在则创建
 if [[ ! -d "${logPath}/" ]]; then
