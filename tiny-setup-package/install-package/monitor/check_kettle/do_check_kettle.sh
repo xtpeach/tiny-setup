@@ -6,7 +6,7 @@ sleep_seconds=5
 source /etc/profile
 
 # 日志文件路径
-log_dir=/data/logs/monitor/
+log_dir=/data/logs/monitor
 # 日志文件
 log_file=$log_dir/do_check_kettle.log
 # 创建日志文件路径
