@@ -1,0 +1,10 @@
+[Unit]
+Description=Prometheus
+
+[Service]
+Environment=
+ExecStart=
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
