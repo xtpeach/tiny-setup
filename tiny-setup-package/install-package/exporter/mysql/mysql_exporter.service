@@ -2,9 +2,9 @@
 Description=Prometheus
 
 [Service]
-Environment=
-ExecStart=
-Restart=always
+Environment=DATA_SOURCE_NAME=$mysql_username:$mysql_password@(localhost:20002)/
+ExecStart=/usr/local/mysqld_exporter/mysqld_exporter --config.my-cnf=/usr/local/mysqld_exporter/.my.cnf --web.listen-address=:9104
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target

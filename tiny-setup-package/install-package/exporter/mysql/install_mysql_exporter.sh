@@ -1,7 +1,12 @@
 #!/bin/bash
 
+# mysql 的用户名/密码
 mysql_username=insight
 mysql_password=Sungrow2011!
+
+# mysql exporter 的版本/下载地址
+mysql_exporter_version=mysqld_exporter-0.12.1.linux-amd64.tar.gz
+mysql_exporter_version_url=https://github.com/prometheus/mysqld_exporter/releases/download/v0.12.1/mysqld_exporter-0.12.1.linux-amd64.tar.gz
 
 base_path=$(dirname "${BASH_SOURCE[0]}")
 
@@ -9,16 +14,16 @@ base_path=$(dirname "${BASH_SOURCE[0]}")
 mkdir -p /home/exporter/mysql
 
 # 判断当前路径下面有没有 mysql exporter 安装文件，如果有就将其拷贝到安装目录
-if [[ ! -f mysqld_exporter-0.12.1.linux-amd64.tar.gz ]]; then
-  cp -a $base_path/mysqld_exporter-0.12.1.linux-amd64.tar.gz /home/exporter/mysql/
+if [[ ! -f $mysql_exporter_version ]]; then
+  cp -a $base_path/$mysql_exporter_version /home/exporter/mysql/
 fi
 
 # 进入 mysql exporter 安装目录
 cd /home/exporter/mysql
 
 # 下载 mysql exporter 安装文件
-if [[ ! -f mysqld_exporter-0.12.1.linux-amd64.tar.gz ]]; then
-  wget https://github.com/prometheus/mysqld_exporter/releases/download/v0.12.1/mysqld_exporter-0.12.1.linux-amd64.tar.gz
+if [[ ! -f $mysql_exporter_version ]]; then
+  wget $mysql_exporter_version_url
 fi
 
 # 解压安装文件
