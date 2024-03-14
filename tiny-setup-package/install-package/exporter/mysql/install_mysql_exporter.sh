@@ -1,8 +1,8 @@
 #!/bin/bash
 
 # mysql 的用户名/密码
-mysql_username=insight
-mysql_password=Sungrow2011!
+mysql_username=root
+mysql_password=123456
 
 # mysql exporter 的版本/下载地址
 mysql_exporter_version=mysqld_exporter-0.12.1.linux-amd64.tar.gz
@@ -69,6 +69,7 @@ systemctl restart mysqld_exporter
 # 查看 mysql exporter 状态
 systemctl status mysqld_exporter
 
-# 开启防火墙端口
+# 下面开通防火墙端口需要根据不同的操作系统来
+# 开启防火墙端口(CentOS)
 firewall-cmd --zone=public --add-port=9104/tcp --permanent
 firewall-cmd --reload
