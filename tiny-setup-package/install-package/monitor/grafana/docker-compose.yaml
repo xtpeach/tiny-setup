@@ -1,0 +1,18 @@
+version: '3.3'
+
+services:
+
+  grafana:
+    image: grafana/grafana:9.4.3
+    container_name: grafana
+    restart: always
+    network_mode: "host"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./grafana/provisioning/:/etc/grafana/provisioning/
+      - ./data:/var/lib/grafana
+    # 将环境变量放到一个文件中
+    env_file:
+      - ./config/config.monitoring
+    ports:
+      - 3000:3000
