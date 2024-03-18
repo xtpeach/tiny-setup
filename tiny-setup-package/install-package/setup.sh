@@ -8,7 +8,7 @@
 source ./soft/script/common.sh
 
 # 1. 修改执行目录权限
-# 安装目录（tiny-setup-package）上传至 /opt 下，并执行: bash /opt/tiny-setup-package/setup.sh
+# 安装目录（tiny-setup-package）上传至 /opt 下，并执行: bash /opt/tiny-setup-package/install-package/setup.sh
 [[ -d $INSTALL_PACKAGE_DIR ]] && chmod -R 755 $INSTALL_PACKAGE_DIR >/dev/null 2>&1
 
 # 2. 执行安装逻辑
