@@ -2,9 +2,8 @@
 Description=Prometheus
 
 [Service]
-Environment=
-ExecStart=
-Restart=always
+ExecStart=/usr/local/redis_exporter/redis_exporter -redis.addr $redis_host:$redis_port -redis.password $redis_password --web.listen-address=:$exporter_port
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target

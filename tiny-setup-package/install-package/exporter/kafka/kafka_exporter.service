@@ -2,9 +2,9 @@
 Description=Prometheus
 
 [Service]
-Environment=
-ExecStart=
-Restart=always
+#ExecStart=/usr/local/kafka_exporter/kafka_exporter --kafka.server=$kafka_host:$kafka_port --web.listen-address=:$exporter_port
+ExecStart=/usr/local/kafka_exporter/kafka_exporter --kafka.server=$kafka_host:$kafka_port --zookeeper.server=$zookeeper_host:$zookeeper_port --sasl.enabled --sasl.mechanism=plain --sasl.username=$kafka_sasl_username --sasl.password=$kafka_sasl_password --web.listen-address=:$exporter_port
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
