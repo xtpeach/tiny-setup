@@ -1,4 +1,6 @@
 #!/bin/bash
+# 当前路径
+base_path=$(dirname "${BASH_SOURCE[0]}")
 
 # exporter port
 exporter_port=9100
@@ -7,8 +9,6 @@ exporter_port=9100
 node_exporter_version=node_exporter-1.6.0.linux-amd64
 node_exporter_version_file=node_exporter-1.6.0.linux-amd64.tar.gz
 node_exporter_version_url=https://github.com/prometheus/node_exporter/releases/download/v1.6.0/node_exporter-1.6.0.linux-amd64.tar.gz
-
-base_path=$(dirname "${BASH_SOURCE[0]}")
 
 # 创建 /home/exporter/node 目录
 mkdir -p /home/exporter/node

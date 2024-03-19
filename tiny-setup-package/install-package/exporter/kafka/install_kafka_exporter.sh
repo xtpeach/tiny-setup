@@ -1,4 +1,6 @@
 #!/bin/bash
+# 当前路径
+base_path=$(dirname "${BASH_SOURCE[0]}")
 
 # exporter port
 exporter_port=9308
@@ -15,9 +17,6 @@ zookeeper_port=2181
 kafka_exporter_version=kafka_exporter-1.7.0.linux-amd64
 kafka_exporter_version_file=kafka_exporter-1.7.0.linux-amd64.tar.gz
 kafka_exporter_version_url=https://github.com/danielqsj/kafka_exporter/releases/download/v1.7.0/kafka_exporter-1.7.0.linux-amd64.tar.gz
-
-
-base_path=$(dirname "${BASH_SOURCE[0]}")
 
 # 创建 /home/exporter/kafka 目录
 mkdir -p /home/exporter/kafka

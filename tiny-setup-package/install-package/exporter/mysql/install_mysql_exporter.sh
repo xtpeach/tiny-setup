@@ -1,4 +1,6 @@
 #!/bin/bash
+# 当前路径
+base_path=$(dirname "${BASH_SOURCE[0]}")
 
 # exporter port
 exporter_port=9104
@@ -13,8 +15,6 @@ mysql_port=3306
 mysql_exporter_version=mysqld_exporter-0.12.1.linux-amd64
 mysql_exporter_version_file=mysqld_exporter-0.12.1.linux-amd64.tar.gz
 mysql_exporter_version_url=https://github.com/prometheus/mysqld_exporter/releases/download/v0.12.1/mysqld_exporter-0.12.1.linux-amd64.tar.gz
-
-base_path=$(dirname "${BASH_SOURCE[0]}")
 
 # 创建 /home/exporter/mysql 目录
 mkdir -p /home/exporter/mysql

@@ -2,9 +2,9 @@
 Description=Prometheus
 
 [Service]
-Environment=
-ExecStart=
-Restart=always
+#ExecStart=/usr/local/clickhouse_exporter/clickhouse_exporter -scrape_uri=http://default:123456@localhost:8123/
+ExecStart=/usr/local/clickhouse_exporter/clickhouse_exporter -scrape_uri=http://clickhouse_server_ip:8123/
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target

@@ -1,4 +1,6 @@
 #!/bin/bash
+# 当前路径
+base_path=$(dirname "${BASH_SOURCE[0]}")
 
 # exporter port
 exporter_port=9121
@@ -12,9 +14,6 @@ redis_port=6379
 redis_exporter_version=redis_exporter-v1.29.0.linux-amd64
 redis_exporter_version_file=redis_exporter-v1.29.0.linux-amd64.tar.gz
 redis_exporter_version_url=https://github.com/oliver006/redis_exporter/releases/download/v1.29.0/redis_exporter-v1.29.0.linux-amd64.tar.gz
-
-
-base_path=$(dirname "${BASH_SOURCE[0]}")
 
 # 创建 /home/exporter/redis 目录
 mkdir -p /home/exporter/redis
