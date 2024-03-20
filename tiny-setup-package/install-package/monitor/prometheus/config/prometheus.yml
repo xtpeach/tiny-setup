@@ -10,3 +10,33 @@ scrape_configs:
     scrape_interval: 15s
     static_configs:
       - targets: ['localhost:9090']
+
+  # node
+  - job_name: "node_export"
+    static_configs:
+      - targets:
+          - "127.0.0.1:9100"
+
+  # mysql
+  - job_name: 'mysql_exporter'
+    static_configs:
+      - targets:
+          - "127.0.0.1:9104"
+
+  # redis
+  - job_name: 'redis_exporter'
+    static_configs:
+      - targets:
+          - "127.0.0.1:9121"
+
+  # kafka
+  - job_name: 'kafka_exporter'
+    static_configs:
+      - targets:
+          - "127.0.0.1:9308"
+
+  # clickhouse
+  - job_name: 'clickhouse_exporter'
+    static_configs:
+      - targets:
+          - "127.0.0.1:9116"
