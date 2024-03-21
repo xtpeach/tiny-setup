@@ -2,9 +2,16 @@
 Description=Prometheus
 
 [Service]
-Environment=
-ExecStart=
-Restart=always
+ExecStart=/usr/local/bin/postgres_exporter \
+  --web.listen-address=:$exporter_port \
+  --web.telemetry-path=/metrics \
+  --postgres.user=$postgresql_username \
+  --postgres.password=$postgresql_password \
+  --postgres.host=$postgresql_host \
+  --postgres.port=$postgresql_port \
+  --postgres.sslmode=disable \
+  --postgres.dsn=postgres://$postgresql_username:$postgresql_password@$postgresql_host:$postgresql_port/postgres
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
