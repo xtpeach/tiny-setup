@@ -2,9 +2,8 @@
 Description=Prometheus
 
 [Service]
-Environment=
-ExecStart=
-Restart=always
+ExecStart=/usr/local/nginx_exporter/nginx-prometheus-exporter -nginx.scrape-uri=http://$nginx_host:$nginx_port/nginx_status
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target

@@ -3,8 +3,8 @@
 	-> kafka √
 	-> mysql √
 	-> neo4j
-	-> nginx
+	-> nginx √
 	-> node √
 	-> postgresqk
 	-> redis √
-	-> zookeeper
+	-> zookeeper √

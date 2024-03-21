@@ -2,9 +2,8 @@
 Description=Prometheus
 
 [Service]
-Environment=
-ExecStart=
-Restart=always
-
+ExecStart=/usr/local/node_exporter/node_exporter --web.listen-address=:$exporter_port
+Restart=on-failure
 [Install]
+
 WantedBy=multi-user.target

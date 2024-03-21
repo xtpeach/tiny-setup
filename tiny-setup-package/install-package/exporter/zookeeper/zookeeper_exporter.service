@@ -2,9 +2,8 @@
 Description=Prometheus
 
 [Service]
-Environment=
-ExecStart=
-Restart=always
-
+ExecStart=/usr/local/zookeeper_exporter/zookeeper-exporter -zk-hosts $zookeeper_host:$zookeeper_port -listen 0.0.0.0:$exporter_port
+Restart=on-failure
 [Install]
+
 WantedBy=multi-user.target
