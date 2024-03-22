@@ -5,6 +5,6 @@
 	-> neo4j
 	-> nginx √
 	-> node √
-	-> postgresqk
+	-> postgresql
 	-> redis √
 	-> zookeeper √
