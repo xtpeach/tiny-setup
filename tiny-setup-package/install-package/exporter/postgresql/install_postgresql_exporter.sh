@@ -33,7 +33,7 @@ if [[ ! -f $postgresql_exporter_version_file ]]; then
 fi
 
 # 解压安装文件
-tar zxvf $postgresql_exporter_version_file  -C /usr/local/
+tar -zxvf $postgresql_exporter_version_file  -C /usr/local/
 
 # 进入 /usr/local/
 cd /usr/local/
