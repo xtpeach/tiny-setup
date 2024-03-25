@@ -13,6 +13,6 @@ services:
       - ./data:/var/lib/grafana
     # 将环境变量放到一个文件中
     env_file:
-      - ./config/config.monitoring
+      - config/config.monitoring
     ports:
       - 3000:3000
