@@ -1,0 +1,12 @@
+[Unit]
+Description=检查postgresql状态
+Wants=network.target
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+Type=forking
+Restart=always
+RestartSec=5
+ExecStart=/home/watch_dog/check_postgresql/check_postgresql.sh
