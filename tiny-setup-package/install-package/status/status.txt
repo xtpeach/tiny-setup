@@ -1,1 +1,9 @@
+clickhouse:up
+kafka:up
+mysql:up
+neo4j:up
+nginx:up
+node:up
+postgresql:up
 redis:up
+zookeeper:up
