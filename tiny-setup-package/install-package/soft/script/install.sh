@@ -4,6 +4,21 @@
 source ./common.sh
 
 # ----- install begin -----
+
+# ---> jdk
+
+
+# ---> python
+
+
+# ---> docker
+log_info "start install docker"
+cd $INSTALL_PACKAGE_DIR/resource/docker-19.03.9-setup
+bash setup_docker.sh
+bash close_selinux.sh
+log_info "install docker finished"
+
+
 # ---> redis
 log_info "start install redis"
 cd $INSTALL_PACKAGE_DIR/component/redis

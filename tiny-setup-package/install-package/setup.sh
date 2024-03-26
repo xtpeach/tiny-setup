@@ -13,7 +13,7 @@ source ./soft/script/common.sh
 
 # 2. 执行安装逻辑
 # 进度条
-sleep_time=5s
+sleep_time=2s
 # 刷新 testProgressBar.log 放入 “start” 字符串到首行
 log_info "start setup"
 {
@@ -28,18 +28,23 @@ log_info "start setup"
 
   # 进度条显示
   bar_i=0
-  while [[ 1 == 1 ]]; do
+  while true; do
     sleep $sleep_time
     # 安装执行完毕之后打印 #@success@# 这个符号比较特殊，一般不会有重复
     # 判断执行日志最后一行是否打印的成功标志“#@success@#”
     lastLine=$(sed -n '$p' $LOG_FILE)
     if [[ "$lastLine"x == "#@success@#"x ]]; then
       # 若已成功快速达到100
-      sleep_time=0.5
-      # 若已成功直接进度到达100
-      bar_i=100
-      break
+      sleep_time=0.2
+      # 如果已经到了99则推进到100并结束进度条
+      if [[ $bar_i -eq 99 ]]; then
+        bar_i=100
+        echo $bar_i
+        sleep 1s
+        break
+      fi
     fi
+
     echo $bar_i
     if [[ $bar_i -lt 99 ]]; then
       ((bar_i++))
