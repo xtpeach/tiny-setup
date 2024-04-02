@@ -18,7 +18,7 @@ clickhouse_exporter_version_file=clickhouse_exporter
 mkdir -p /home/exporter/clickhouse
 
 # 判断当前路径下面有没有 clickhouse exporter 安装文件，如果有就将其拷贝到安装目录
-if [[ ! -f $clickhouse_exporter_version_file ]]; then
+if [[ -f $clickhouse_exporter_version_file ]]; then
   cp -a $base_path/$clickhouse_exporter_version_file /home/exporter/clickhouse/
 fi
 
@@ -59,5 +59,9 @@ systemctl status clickhouse_exporter
 
 # 下面开通防火墙端口需要根据不同的操作系统来
 # 开启防火墙端口(CentOS)
-firewall-cmd --zone=public --add-port=$exporter_port/tcp --permanent
-firewall-cmd --reload
+if systemctl is-active --quiet firewalld; then
+  firewall-cmd --zone=public --add-port=$exporter_port/tcp --permanent
+  firewall-cmd --reload
+else
+  iptables -I INPUT -p tcp --dport $exporter_port -j ACCEPT
+fi
