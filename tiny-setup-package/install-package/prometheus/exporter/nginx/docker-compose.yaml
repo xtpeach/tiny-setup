@@ -1,3 +1,9 @@
 version: '3.3'
 
 services:
+  nginx_exporter:
+    image: nginx/nginx-prometheus-exporter:1.1.0
+    container_name: nginx_exporter
+    network_mode: host
+    restart: always
+    command: --nginx.scrape-uri=http://<nginx>:8080/stub_status

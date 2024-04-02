@@ -1,3 +1,14 @@
 version: '3.3'
 
 services:
+  redis_exporter:
+    image: quay.io/oliver006/redis_exporter:latest
+    container_name: redis_exporter
+    network_mode: host
+    restart: always
+    environment:
+      - redis_host="localhost"
+      - redis_port="6379"
+      - redis_password="123456"
+      - exporter_port="9121"
+    command: -redis.addr $redis_host:$redis_port -redis.password $redis_password --web.listen-address=:$exporter_port

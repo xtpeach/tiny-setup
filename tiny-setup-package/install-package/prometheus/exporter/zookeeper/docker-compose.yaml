@@ -1,3 +1,13 @@
 version: '3.3'
 
 services:
+  zookeeper-exporter:
+    image: dabealu/zookeeper-exporter
+    container_name: zookeeper-exporter
+    network_mode: host
+    restart: always
+    environment:
+      - zookeeper_host="localhost"
+      - zookeeper_port="2181"
+      - exporter_port="9141"
+    command: -zk-hosts $zookeeper_host:$zookeeper_port -listen 0.0.0.0:$exporter_port

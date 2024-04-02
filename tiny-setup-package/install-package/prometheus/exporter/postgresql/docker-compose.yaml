@@ -1,3 +1,10 @@
 version: '3.3'
 
 services:
+  postgres_exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter:latest
+    container_name: postgres_exporter
+    network_mode: host
+    restart: always
+    environment:
+      - DATA_SOURCE_NAME=postgresql://postgres:password@localhost:5432/postgres?sslmode=disable
