@@ -15,7 +15,10 @@ echo "--- common version: ${VERSION} begin ---"
 
 # install package dir
 # -- *** [/opt/tiny-setup-package/install-package] *** --
-INSTALL_PACKAGE_DIR=/opt/tiny-setup-package/install-package
+#INSTALL_PACKAGE_DIR=/opt/tiny-setup-package/install-package
+# 修改成相对路径，使得 tiny-setup-package 可以上传至任意路径
+INSTALL_PACKAGE_DIR=$(pwd)/../../
+echo "--- common INSTALL_PACKAGE_DIR: ${INSTALL_PACKAGE_DIR} ---"
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 # -- log level: debug-1, info-2, warn-3, error-4, always-5 --

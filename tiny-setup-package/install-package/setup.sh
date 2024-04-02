@@ -3,12 +3,15 @@
 #Author：   xtpeach
 #Date：     2023/06/30
 #version：  1.0
+# bash脚本这一层不要做得复杂，越简单约好！
+# 尽量让每个bash脚本都能独立运行，减少相互依赖，方便运维
 
 # source
 source ./soft/script/common.sh
 
 # 1. 修改执行目录权限
 # 安装目录（tiny-setup-package）上传至 /opt 下，并执行: bash /opt/tiny-setup-package/install-package/setup.sh
+# 修改成相对路径，不一定要上传到 /opt 下
 [[ -d $INSTALL_PACKAGE_DIR ]] && chmod -R 755 $INSTALL_PACKAGE_DIR >/dev/null 2>&1
 
 # 2. 执行安装逻辑
