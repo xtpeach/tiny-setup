@@ -6,10 +6,16 @@ source ./common.sh
 # ----- install begin -----
 
 # ---> jdk
-
+#log_info "start install jdk"
+#cd $INSTALL_PACKAGE_DIR/resource/jdk-8u401
+#bash install_jdk.sh
+#log_info "install jdk finished"
 
 # ---> python
-
+#log_info "start install python"
+#cd $INSTALL_PACKAGE_DIR/resource/Python-3.8.16
+#bash install_python.sh
+#log_info "install python finished"
 
 # ---> docker
 log_info "start install docker"

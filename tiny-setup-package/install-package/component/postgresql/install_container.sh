@@ -29,5 +29,42 @@ log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/component/postgresql &
 # create databases
 sleep 60
 
+# 函数：检查 PostgreSQL 服务是否已经启动
+check_postgresql_service() {
+  local container_name="$1"
+  local postgres_cmd="psql -U postgres -c 'SELECT 1;'"
+  local max_attempts=20
+  local attempt=1
+
+  # 检查容器是否存在
+  local container_exists=$(docker ps -q --filter "name=$container_name")
+
+  if [[ -n "$container_exists" ]]; then
+    # 循环检查 PostgreSQL 服务是否已启动
+    log_debug "[install postgresql]" "等待 PostgreSQL 服务启动..."
+    while [[ $attempt -le $max_attempts ]]; do
+      if docker exec -i "$container_name" bash -c "$postgres_cmd" &>/dev/null; then
+        log_debug "[install postgresql]" "PostgreSQL 服务已启动"
+        return 0
+      else
+        log_debug "[install postgresql]" "尝试 $attempt/$max_attempts：PostgreSQL 服务尚未启动，继续等待..."
+        sleep 1
+        ((attempt++))
+      fi
+    done
+    log_debug "[install postgresql]" "错误：PostgreSQL 服务启动超时"
+    exit 1
+  else
+    log_debug "[install postgresql]" "错误：PostgreSQL 容器 $container_name 不存在"
+    exit 1
+  fi
+}
+
+# PostgreSQL 容器名称
+postgresql_container_name="postgresql"
+
+# 调用函数检查 PostgreSQL 服务是否已启动
+check_postgresql_service "$postgresql_container_name"
+
 log_debug "[install postgresql]" "create database"
 bash $INSTALL_PACKAGE_DIR/component/postgresql/create_databases.sh
