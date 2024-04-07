@@ -28,4 +28,6 @@ log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/component/postgresql &
 
 # create databases
 sleep 60
+
+log_debug "[install postgresql]" "create database"
 bash $INSTALL_PACKAGE_DIR/component/postgresql/create_databases.sh

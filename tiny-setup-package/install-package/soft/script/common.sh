@@ -10,15 +10,13 @@ VERSION=1.1
 # echo -e "\033[0;35m This text is magenta \033[0m"
 # echo -e "\033[0;36m This text is cyan \033[0m"
 
-echo -e "\n"
-echo "--- common version: ${VERSION} begin ---"
+touch ./common.log
+echo "--- common version: ${VERSION} begin ---" > ./common.log
 
 # install package dir
 # -- *** [/opt/tiny-setup-package/install-package] *** --
-#INSTALL_PACKAGE_DIR=/opt/tiny-setup-package/install-package
-# 修改成相对路径，使得 tiny-setup-package 可以上传至任意路径
-INSTALL_PACKAGE_DIR=$(pwd)
-echo "--- common INSTALL_PACKAGE_DIR: ${INSTALL_PACKAGE_DIR} ---"
+INSTALL_PACKAGE_DIR=/opt/tiny-setup-package/install-package
+echo "--- common INSTALL_PACKAGE_DIR: ${INSTALL_PACKAGE_DIR} ---" >> ./common.log
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 # -- log level: debug-1, info-2, warn-3, error-4, always-5 --
@@ -27,7 +25,7 @@ LOG_LEVEL=1
 
 # get linux name
 OS_NAME=$(cat /etc/os-release | grep "^ID=" | cut -c 4- | sed 's/"//g')
-echo "[OS_NAME] - ${OS_NAME}"
+echo "[OS_NAME] - ${OS_NAME}" >> ./common.log
 
 # config.ini hosts
 host_index=1
@@ -46,13 +44,13 @@ LOCAL_HOST_IP_ARRAY=($(echo $LOCAL_HOST_IP | tr '.' ' '))
 # check docker
 docker_version=$(docker -v)
 if [[ "$docker_version" != "" ]]; then
-  echo "[docker] - $docker_version"
+  echo "[docker] - $docker_version" >> ./common.log
 else
-  echo "[docker] - installing"
+  echo "[docker] - installing" >> ./common.log
   cd $INSTALL_PACKAGE_DIR/resource/docker-19.03.9-setup/
   bash setup_docker.sh
   bash close_selinux.sh
-  echo "[docker] - installed"
+  echo "[docker] - installed" >> ./common.log
 fi
 
 # zookeeper servers
@@ -64,7 +62,7 @@ zookeeper_index=1
 zookeeper_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "zookeeper" "zookeeper${zookeeper_index}")
 zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
 zookeeper_ip_index=${zookeeper_ip_array[3]}
-echo "[zookeeper_ip] zookeeper${zookeeper_index}:${zookeeper_ip}"
+echo "[zookeeper_ip] zookeeper${zookeeper_index}:${zookeeper_ip}" >> ./common.log
 while [[ -n "$zookeeper_ip" ]]; do
   sed -i "/zookeeper${zookeeper_ip_index}/d" /etc/hosts
   echo "${zookeeper_ip} zookeeper${zookeeper_ip_index}" >>/etc/hosts
@@ -74,7 +72,7 @@ while [[ -n "$zookeeper_ip" ]]; do
   zookeeper_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "zookeeper" "zookeeper${zookeeper_index}")
   zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
   zookeeper_ip_index=${zookeeper_ip_array[3]}
-  echo "[zookeeper_ip] zookeeper${zookeeper_index}:${zookeeper_ip}"
+  echo "[zookeeper_ip] zookeeper${zookeeper_index}:${zookeeper_ip}" >> ./common.log
 done
 
 # kafka index
@@ -83,7 +81,7 @@ kafka_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL
 kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
 kafka_ip_index=${kafka_ip_array[3]}
 kafka_ip_index_first=${kafka_ip_array[3]}
-echo "[kafka_ip] kafka${kafka_index}:${kafka_ip}"
+echo "[kafka_ip] kafka${kafka_index}:${kafka_ip}" >> ./common.log
 while [[ -n "$kafka_ip" ]]; do
   sed -i "/kafka${kafka_ip_index}/d" /etc/hosts
   echo "${kafka_ip} kafka${kafka_ip_index}" >>/etc/hosts
@@ -91,18 +89,18 @@ while [[ -n "$kafka_ip" ]]; do
   kafka_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka" "kafka${kafka_index}")
   kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
   kafka_ip_index=${kafka_ip_array[3]}
-  echo "[kafka_ip] kafka${kafka_index}:${kafka_ip}"
+  echo "[kafka_ip] kafka${kafka_index}:${kafka_ip}" >> ./common.log
 done
 
 # kafka topic
 kafka_topic_index=1
 kafka_topic=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka-topic" "topic${kafka_topic_index}")
-echo "[kafka_topic] ${kafka_topic_index}:${kafka_topic}"
+echo "[kafka_topic] ${kafka_topic_index}:${kafka_topic}" >> ./common.log
 while [[ -n "$kafka_topic" ]]; do
   kafka_topic_array+=($kafka_topic)
   ((kafka_topic_index++))
   kafka_topic=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka-topic" "topic${kafka_topic_index}")
-  echo "[kafka_topic] ${kafka_topic_index}:${kafka_topic}"
+  echo "[kafka_topic] ${kafka_topic_index}:${kafka_topic}" >> ./common.log
 done
 
 # ZOO_SERVERS >> /etc/profile
@@ -133,21 +131,21 @@ sed -i "s/^requirepass.*/requirepass ${REDIS_PASSWORD}/g" $INSTALL_PACKAGE_DIR/c
 DATABASE_NAMES=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "databases" "databaseNames")
 DATABASE_NAME_ARRAY=($(echo ${DATABASE_NAMES} | tr ',' ' '))
 for index in "${!DATABASE_NAME_ARRAY[@]}"; do
-  echo "[database] ${DATABASE_NAME_ARRAY[$index]}"
+  echo "[database] ${DATABASE_NAME_ARRAY[$index]}" >> ./common.log
 done
 
 # openPorts
 OPEN_PORTS=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "open-ports" "openPorts")
 OPEN_PORT_ARRAY=($(echo ${OPEN_PORTS} | tr ',' ' '))
 for index in "${!OPEN_PORT_ARRAY[@]}"; do
-  echo "[open port] ${OPEN_PORT_ARRAY[$index]}"
+  echo "[open port] ${OPEN_PORT_ARRAY[$index]}" >> ./common.log
 done
 
 
 # 日志文件目录
 INSTALL_LOG_DIR=/var/tiny-setup/
 if [ -d $INSTALL_LOG_DIR ]; then
-  echo "[exist] ${INSTALL_LOG_DIR}"
+  echo "[exist] ${INSTALL_LOG_DIR}" >> ./common.log
 else
   mkdir -p $INSTALL_LOG_DIR
 fi
@@ -155,13 +153,12 @@ fi
 # 日志文件
 LOG_FILE=/var/tiny-setup/install.log
 if [ -e $LOG_FILE ]; then
-  echo "[exist] ${LOG_FILE}"
+  echo "[exist] ${LOG_FILE}" >> ./common.log
 else
   touch $LOG_FILE
 fi
 
-echo "--- common version: ${VERSION} end ---"
-echo -e "\n"
+echo "--- common version: ${VERSION} end ---" >> ./common.log
 
 SSH_CONFIG_FILE=/etc/ssh/sshd_config
 INSTALL_PACKAGE_INFO=/opt/tiny-setup-package/install-package/package_info.properties

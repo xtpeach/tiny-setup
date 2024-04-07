@@ -18,7 +18,7 @@ source ./soft/script/common.sh
 # 进度条
 sleep_time=2s
 # 刷新 testProgressBar.log 放入 “start” 字符串到首行
-log_info "start setup"
+log_info "start setup..."
 {
   # 需要执行的逻辑
   {
@@ -59,3 +59,4 @@ log_info "start setup"
 
 # 提示安装完毕
 whiptail --title "Setup completed" --msgbox " Choose Ok to continue." 10 60
+log_info "setup done."
