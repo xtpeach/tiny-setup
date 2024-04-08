@@ -19,3 +19,10 @@ for index in "${!DATABASE_NAME_ARRAY[@]}"; do
   # 将.sql文件从MySQL容器复制到宿主机
   docker cp mysql:/tmp/${DATABASE_NAME_ARRAY[$index]}.sql ${mysql_backup_dir}/${DATABASE_NAME_ARRAY[$index]}.sql
 done
+
+# 判断文件夹数量是否大于90，防止程序意外停止，删除所有备份
+dirCount=$(ls -l /home/mysql_backup/ | grep "^d" | wc -l)
+if [[ ${dirCount} -gt 90 ]]; then
+  # 删除超过90天的带"_"的目录
+  find /home/mysql_backup/ -mtime +90 -name "*_*" -exec rm -rf {} \;
+fi
