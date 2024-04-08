@@ -18,11 +18,16 @@ source ./common.sh
 #log_info "install python finished"
 
 # ---> docker
-log_info "start install docker"
-cd $INSTALL_PACKAGE_DIR/resource/docker-19.03.9-setup
-bash setup_docker.sh
-bash close_selinux.sh
-log_info "install docker finished"
+if [[ $(command -v docker) ]]; then
+  log_info "$(docker -v)"
+  log_info "$(docker-compose -v)"
+else
+  log_info "start install docker"
+  cd $INSTALL_PACKAGE_DIR/resource/docker-19.03.9-setup
+  bash setup_docker.sh
+  bash close_selinux.sh
+  log_info "install docker finished"
+fi
 
 # ---> redis
 if [[ "$redis_install_required"x == "true"x ]]; then
@@ -31,6 +36,10 @@ if [[ "$redis_install_required"x == "true"x ]]; then
   bash uninstall_container.sh
   bash install_container.sh
   log_info "install redis finished"
+else
+  log_info "uninstall redis"
+  cd $INSTALL_PACKAGE_DIR/component/redis
+  bash uninstall_container.sh
 fi
 
 # ---> zookeeper
@@ -40,6 +49,10 @@ if [[ "$zookeeper_install_required"x == "true"x ]]; then
   bash uninstall_container.sh
   bash install_container.sh
   log_info "install zookeeper finished"
+else
+  log_info "uninstall zookeeper"
+  cd $INSTALL_PACKAGE_DIR/component/zookeeper
+  bash uninstall_container.sh
 fi
 
 # ---> kafka
@@ -49,6 +62,10 @@ if [[ "$kafka_install_required"x == "true"x ]]; then
   bash uninstall_container.sh
   bash install_container.sh
   log_info "install kafka finished"
+else
+  log_info "uninstall kafka"
+  cd $INSTALL_PACKAGE_DIR/component/kafka
+  bash uninstall_container.sh
 fi
 
 # ---> postgresql
@@ -58,6 +75,10 @@ if [[ "$postgresql_install_required"x == "true"x ]]; then
   bash uninstall_container.sh
   bash install_container.sh
   log_info "install postgresql finished"
+else
+  log_info "uninstall postgresql"
+  cd $INSTALL_PACKAGE_DIR/component/postgresql
+  bash uninstall_container.sh
 fi
 
 # ---> mysql
@@ -67,6 +88,10 @@ if [[ "$mysql_install_required"x == "true"x ]]; then
   bash uninstall_container.sh
   bash install_container.sh
   log_info "install mysql finished"
+else
+  log_info "uninstall mysql"
+  cd $INSTALL_PACKAGE_DIR/component/mysql
+  bash uninstall_container.sh
 fi
 
 # ---> eureka
@@ -76,6 +101,10 @@ if [[ "$eureka_install_required"x == "true"x ]]; then
   bash uninstall_container.sh
   bash install_container.sh
   log_info "install eureka finished"
+else
+  log_info "uninstall eureka"
+  cd $INSTALL_PACKAGE_DIR/component/eureka
+  bash uninstall_container.sh
 fi
 
 # ---> nacos
@@ -85,6 +114,10 @@ if [[ "$nacos_install_required"x == "true"x ]]; then
   bash uninstall_container.sh
   bash install_container.sh
   log_info "install nacos finished"
+else
+  log_info "uninstall nacos"
+  cd $INSTALL_PACKAGE_DIR/component/nacos
+  bash uninstall_container.sh
 fi
 
 # ---> nginx
@@ -94,6 +127,10 @@ if [[ "$nginx_install_required"x == "true"x ]]; then
   bash uninstall_container.sh
   bash install_container.sh
   log_info "install nginx finished"
+else
+  log_info "uninstall nginx"
+  cd $INSTALL_PACKAGE_DIR/component/nginx
+  bash uninstall_container.sh
 fi
 
 # ---> tiny-id
@@ -103,6 +140,10 @@ if [[ "$tiny_id_install_required"x == "true"x ]]; then
   bash uninstall_container.sh
   bash install_container.sh
   log_info "install tiny-id finished"
+else
+  log_info "uninstall tiny-id"
+  cd $INSTALL_PACKAGE_DIR/component/tiny-id
+  bash uninstall_container.sh
 fi
 
 # ---> tiny-file
@@ -112,6 +153,10 @@ if [[ "$tiny_file_install_required"x == "true"x ]]; then
   bash uninstall_container.sh
   bash install_container.sh
   log_info "install tiny-file finished"
+else
+  log_info "uninstall tiny-file"
+  cd $INSTALL_PACKAGE_DIR/component/tiny-file
+  bash uninstall_container.sh
 fi
 
 # ---> tiny-sa
@@ -121,6 +166,10 @@ if [[ "$tiny_sa_install_required"x == "true"x ]]; then
   bash uninstall_container.sh
   bash install_container.sh
   log_info "install tiny-sa finished"
+else
+  log_info "uninstall tiny-sa"
+  cd $INSTALL_PACKAGE_DIR/component/tiny-sa
+  bash uninstall_container.sh
 fi
 
 # ----- install end -----

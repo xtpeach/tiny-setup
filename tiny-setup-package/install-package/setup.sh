@@ -15,14 +15,14 @@ source ./soft/script/common.sh
 [[ -d $INSTALL_PACKAGE_DIR ]] && chmod -R 755 $INSTALL_PACKAGE_DIR >/dev/null 2>&1
 
 # 重新创建日志文件
-DATE_STR=$(date +%Y-%m-%d %H:%M:%S)
+DATE_STR=$(date "+%Y-%m-%d %H:%M:%S")
 echo "---> setup.sh [$DATE_STR] <---" > $LOG_FILE
 
 # 2. 执行安装逻辑
 # 休眠时间
 sleep_time=2s
 # 进度条-日志文件一共有多少行
-log_row_num_total=1000
+log_row_num_total=2000
 # 进度条-日志文件当前有多少行
 log_row_num_current=0
 
@@ -60,7 +60,7 @@ log_info "start setup..."
     fi
 
     # 把进度卡在 99% 之前
-    if [[ $bar_i -lt 99 ]]; then
+    if [[ $bar_i -lt 99 && "$lastLine"x != "#@success@#"x ]]; then
       log_row_num_current=$(sed -n '$=' $LOG_FILE)
       i_percent=$((log_row_num_current * 100 / log_row_num_total))
       bar_i=$i_percent
