@@ -14,9 +14,18 @@ source ./soft/script/common.sh
 # 修改成相对路径，不一定要上传到 /opt 下
 [[ -d $INSTALL_PACKAGE_DIR ]] && chmod -R 755 $INSTALL_PACKAGE_DIR >/dev/null 2>&1
 
+# 重新创建日志文件
+DATE_STR=$(date +%Y-%m-%d %H:%M:%S)
+echo "---> setup.sh [$DATE_STR] <---" > $LOG_FILE
+
 # 2. 执行安装逻辑
-# 进度条
+# 休眠时间
 sleep_time=2s
+# 进度条-日志文件一共有多少行
+log_row_num_total=1000
+# 进度条-日志文件当前有多少行
+log_row_num_current=0
+
 # 刷新 testProgressBar.log 放入 “start” 字符串到首行
 log_info "start setup..."
 {
@@ -45,13 +54,20 @@ log_info "start setup..."
         echo $bar_i
         sleep 1s
         break
+      else
+        ((bar_i++))
       fi
     fi
 
-    echo $bar_i
+    # 把进度卡在 99% 之前
     if [[ $bar_i -lt 99 ]]; then
-      ((bar_i++))
+      log_row_num_current=$(sed -n '$=' $LOG_FILE)
+      i_percent=$((log_row_num_current * 100 / log_row_num_total))
+      bar_i=$i_percent
     fi
+
+    # 打印进度在 99% 之前
+    echo $bar_i
   done
 
   # 展示进度条
