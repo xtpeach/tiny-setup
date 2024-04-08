@@ -24,69 +24,104 @@ bash setup_docker.sh
 bash close_selinux.sh
 log_info "install docker finished"
 
-
 # ---> redis
-log_info "start install redis"
-cd $INSTALL_PACKAGE_DIR/component/redis
-bash uninstall_container.sh
-bash install_container.sh
-log_info "install redis finished"
+if [[ "$redis_install_required"x == "true"x ]]; then
+  log_info "start install redis"
+  cd $INSTALL_PACKAGE_DIR/component/redis
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install redis finished"
+fi
 
 # ---> zookeeper
-log_info "start install zookeeper"
-cd $INSTALL_PACKAGE_DIR/component/zookeeper
-bash uninstall_container.sh
-bash install_container.sh
-log_info "install zookeeper finished"
+if [[ "$zookeeper_install_required"x == "true"x ]]; then
+  log_info "start install zookeeper"
+  cd $INSTALL_PACKAGE_DIR/component/zookeeper
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install zookeeper finished"
+fi
 
 # ---> kafka
-log_info "start install kafka"
-cd $INSTALL_PACKAGE_DIR/component/kafka
-bash uninstall_container.sh
-bash install_container.sh
-log_info "install kafka finished"
+if [[ "$kafka_install_required"x == "true"x ]]; then
+  log_info "start install kafka"
+  cd $INSTALL_PACKAGE_DIR/component/kafka
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install kafka finished"
+fi
 
 # ---> postgresql
-log_info "start install postgresql"
-cd $INSTALL_PACKAGE_DIR/component/postgresql
-bash uninstall_container.sh
-bash install_container.sh
-log_info "install postgresql finished"
+if [[ "$postgresql_install_required"x == "true"x ]]; then
+  log_info "start install postgresql"
+  cd $INSTALL_PACKAGE_DIR/component/postgresql
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install postgresql finished"
+fi
 
 # ---> mysql
-log_info "start install mysql"
-cd $INSTALL_PACKAGE_DIR/component/mysql
-bash uninstall_container.sh
-bash install_container.sh
-log_info "install mysql finished"
+if [[ "$mysql_install_required"x == "true"x ]]; then
+  log_info "start install mysql"
+  cd $INSTALL_PACKAGE_DIR/component/mysql
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install mysql finished"
+fi
 
 # ---> eureka
-log_info "start install eureka"
-cd $INSTALL_PACKAGE_DIR/component/eureka
-bash uninstall_container.sh
-bash install_container.sh
-log_info "install eureka finished"
+if [[ "$eureka_install_required"x == "true"x ]]; then
+  log_info "start install eureka"
+  cd $INSTALL_PACKAGE_DIR/component/eureka
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install eureka finished"
+fi
 
 # ---> nacos
-log_info "start install nacos"
-cd $INSTALL_PACKAGE_DIR/component/nacos
-bash uninstall_container.sh
-bash install_container.sh
-log_info "install nacos finished"
+if [[ "$nacos_install_required"x == "true"x ]]; then
+  log_info "start install nacos"
+  cd $INSTALL_PACKAGE_DIR/component/nacos
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install nacos finished"
+fi
 
 # ---> nginx
-log_info "start install nginx"
-cd $INSTALL_PACKAGE_DIR/component/nginx
-bash uninstall_container.sh
-bash install_container.sh
-log_info "install nginx finished"
+if [[ "$nginx_install_required"x == "true"x ]]; then
+  log_info "start install nginx"
+  cd $INSTALL_PACKAGE_DIR/component/nginx
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install nginx finished"
+fi
 
 # ---> tiny-id
-log_info "start install tiny-id"
-cd $INSTALL_PACKAGE_DIR/component/tiny-id
-bash uninstall_container.sh
-bash install_container.sh
-log_info "install tiny-id finished"
+if [[ "$tiny_id_install_required"x == "true"x ]]; then
+  log_info "start install tiny-id"
+  cd $INSTALL_PACKAGE_DIR/component/tiny-id
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install tiny-id finished"
+fi
+
+# ---> tiny-file
+if [[ "$tiny_file_install_required"x == "true"x ]]; then
+  log_info "start install tiny-file"
+  cd $INSTALL_PACKAGE_DIR/component/tiny-file
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install tiny-file finished"
+fi
+
+# ---> tiny-sa
+if [[ "$tiny_sa_install_required"x == "true"x ]]; then
+  log_info "start install tiny-sa"
+  cd $INSTALL_PACKAGE_DIR/component/tiny-sa
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install tiny-sa finished"
+fi
 
 # ----- install end -----
 
@@ -96,6 +131,5 @@ cd $INSTALL_PACKAGE_DIR/soft/script
 bash ./open_port.sh
 log_info "open port finished"
 
-
 # ---> tag success to end progress bar
-echo "#@success@#" >> $LOG_FILE
+echo "#@success@#" >>$LOG_FILE

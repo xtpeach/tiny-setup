@@ -41,6 +41,21 @@ while [[ -n "$host_ip" ]]; do
 done
 LOCAL_HOST_IP_ARRAY=($(echo $LOCAL_HOST_IP | tr '.' ' '))
 
+# 这边判断一下所有的组件标记位
+# install required flag
+zookeeper_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "zookeeper" "installRequired")
+kafka_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka" "installRequired")
+redis_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "redis" "installRequired")
+postgresql_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "postgresql" "installRequired")
+mysql_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "mysql" "installRequired")
+clickhouse_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "clickhouse" "installRequired")
+eureka_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "eureka" "installRequired")
+nacos_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "nacos" "installRequired")
+nginx_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "nginx" "installRequired")
+tiny_id_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "tiny-id" "installRequired")
+tiny_file_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "tiny-file" "installRequired")
+tiny_sa_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "tiny-sa" "installRequired")
+
 # check docker
 docker_version=$(docker -v)
 if [[ "$docker_version" != "" ]]; then
@@ -160,29 +175,11 @@ fi
 
 echo "--- common version: ${VERSION} end ---" >> ./common.log
 
+# sshd_config
 SSH_CONFIG_FILE=/etc/ssh/sshd_config
-INSTALL_PACKAGE_INFO=/opt/tiny-setup-package/install-package/package_info.properties
-WORK_PACKAGE_INFO=/home/tiny-setup-package/install-package/package_info.properties
 
-# 获取词条 $1 词条序号 $2 语言编号
-function getI18nConfig() {
-  env_file=${INSTALL_PACKAGE_INFO}
-
-  number=$1
-  language=$2
-
-  if [ "$language" = "中文" ]; then
-    param="message.${number}.zh_CN"
-  elif [ "$language" = "English" ]; then
-    param="message.${number}.en_US"
-  else
-    exit 1
-  fi
-
-  value=$(sed -E '/^#.*|^ *$/d' $env_file | awk -F "${param}=" "/${param}=/{print \$2}" | awk -F = '{print $1}')
-
-  echo $value
-}
+# version.info
+VERSION_INFO=/opt/tiny-setup-package/install-package/version.info
 
 #日志方法 ---------------------------------------------------------------------------------------
 #日志文件 /var/tiny-setup/install.log
