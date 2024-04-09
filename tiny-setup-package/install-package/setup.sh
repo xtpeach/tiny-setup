@@ -16,7 +16,7 @@ source ./soft/script/common.sh
 
 # 重新创建日志文件
 DATE_STR=$(date "+%Y-%m-%d %H:%M:%S")
-echo "---> setup.sh [$DATE_STR] <---" > $LOG_FILE
+echo "---> setup.sh [$DATE_STR] <---" > $SETUP_FILE
 
 # 2. 执行安装逻辑
 # 休眠时间
@@ -36,7 +36,7 @@ log_info "start setup..."
     bash install.sh
 
     # 将安装日志输入到日志文件中
-  } >>$LOG_FILE 2>&1 &
+  } >>$SETUP_FILE 2>&1 &
 
   # 进度条显示
   bar_i=0
@@ -44,7 +44,7 @@ log_info "start setup..."
     sleep $sleep_time
     # 安装执行完毕之后打印 #@success@# 这个符号比较特殊，一般不会有重复
     # 判断执行日志最后一行是否打印的成功标志“#@success@#”
-    lastLine=$(sed -n '$p' $LOG_FILE)
+    lastLine=$(sed -n '$p' $SETUP_FILE)
     if [[ "$lastLine"x == "#@success@#"x ]]; then
       # 若已成功快速达到100
       sleep_time=0.2
@@ -61,7 +61,7 @@ log_info "start setup..."
 
     # 把进度卡在 99% 之前
     if [[ $bar_i -lt 99 && "$lastLine"x != "#@success@#"x ]]; then
-      log_row_num_current=$(sed -n '$=' $LOG_FILE)
+      log_row_num_current=$(sed -n '$=' $SETUP_FILE)
       i_percent=$((log_row_num_current * 100 / log_row_num_total))
       bar_i=$i_percent
     fi
