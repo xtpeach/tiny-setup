@@ -1,0 +1,20 @@
+# docker pull hiromuhota/webspoon:latest
+version: '3.2'
+
+services:
+  webspoon:
+    image: hiromuhota/webspoon:latest
+    container_name: webspoon
+    hostname: webspoon
+    privileged: true
+    restart: always
+    network_mode: host
+    ports:
+      - "8080:8080"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /home/kettle/:/home/kettle/
+    environment:
+      - TZ=${TIMEZONE:-Asia/Shanghai}
+      - CATALINA_OPTS="-Dorg.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH=true"
+      - JAVA_OPTS="-Duser.language=zh -Duser.region=CN -Dfile.encoding=UTF-8"

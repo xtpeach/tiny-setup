@@ -1,0 +1,15 @@
+# docker pull onlyoffice/documentserver:latest
+version: '3.2'
+
+services:
+  onlyoffice:
+    image: onlyoffice/documentserver:latest
+    container_name: onlyoffice
+    hostname: onlyoffice
+    privileged: true
+    restart: always
+    network_mode: host
+    ports:
+      - "80:80"
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
