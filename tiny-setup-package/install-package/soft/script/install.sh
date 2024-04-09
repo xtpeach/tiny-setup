@@ -181,4 +181,4 @@ bash ./open_port.sh
 log_info "open port finished"
 
 # ---> tag success to end progress bar
-echo "#@success@#" >>$LOG_FILE
+echo "#@success@#" >>$SETUP_FILE

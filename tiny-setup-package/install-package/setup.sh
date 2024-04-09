@@ -22,7 +22,7 @@ echo "---> setup.sh [$DATE_STR] <---" > $SETUP_FILE
 # 休眠时间
 sleep_time=2s
 # 进度条-日志文件一共有多少行
-log_row_num_total=2000
+log_row_num_total=1000
 # 进度条-日志文件当前有多少行
 log_row_num_current=0
 
