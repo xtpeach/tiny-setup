@@ -7,13 +7,13 @@ mkdir -p /home/kettle/
 log_debug "[install kettle]" "mkdir -p /home/kettle/"
 
 # load image
-if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/webspoon.latest.tar ]]; then
-  log_debug "[install kettle]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < webspoon.latest.tar"
+if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/webspoon.0.9.0.21.tar ]]; then
+  log_debug "[install kettle]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < webspoon.0.9.0.21.tar"
   cd $INSTALL_PACKAGE_DIR/resource/docker-images
-  docker load < webspoon.latest.tar
+  docker load < webspoon.0.9.0.21.tar
 else
   log_note "[install kettle]" "docker pull hiromuhota/webspoon:latest"
-  docker pull hiromuhota/webspoon:latest
+  docker pull hiromuhota/webspoon:0.9.0.21
 fi
 
 # stop container
