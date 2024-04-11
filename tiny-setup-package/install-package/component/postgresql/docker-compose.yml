@@ -8,7 +8,9 @@ services:
     hostname: postgresql
     privileged: true
     restart: always
-    network_mode: host
+#    network_mode: host
+    networks:
+      - default
     ulimits:
       nproc: 65535
       nofile:
@@ -23,3 +25,11 @@ services:
       - TZ=${TIMEZONE:-Asia/Shanghai}
       - POSTGRES_PASSWORD=postgresql123456!
     depends_on: []
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.32.0.0/24

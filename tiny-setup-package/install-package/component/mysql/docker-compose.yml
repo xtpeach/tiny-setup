@@ -8,12 +8,16 @@ services:
     hostname: mysql
     privileged: true
     restart: always
-    network_mode: host
+#    network_mode: host
+    networks:
+      - default
     ulimits:
       nproc: 65535
       nofile:
         soft: 50000
         hard: 100000
+    ports:
+      - 3306:3306
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /data/mysql:/var/lib/mysql
@@ -21,3 +25,11 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=mysql123456!
       - TZ=${TIMEZONE:-Asia/Shanghai}
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.6.0.0/24

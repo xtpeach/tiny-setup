@@ -3,8 +3,8 @@
 source ../../soft/script/common.sh
 
 # kettle files
-mkdir -p /home/kettle/
 log_debug "[install kettle]" "mkdir -p /home/kettle/"
+mkdir -p /home/kettle/
 
 # load image
 if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/webspoon.0.9.0.21.tar ]]; then
@@ -17,16 +17,16 @@ else
 fi
 
 # stop container
-cd $INSTALL_PACKAGE_DIR/component/kettle
 log_debug "[install kettle]" "cd $INSTALL_PACKAGE_DIR/component/kettle"
-docker-compose down
+cd $INSTALL_PACKAGE_DIR/component/kettle
 log_debug "[install kettle]" "docker-compose down"
+docker-compose down
 
 # start container
-cd $INSTALL_PACKAGE_DIR/component/kettle
 log_debug "[install kettle]" "cd $INSTALL_PACKAGE_DIR/component/kettle"
-docker-compose up -d
+cd $INSTALL_PACKAGE_DIR/component/kettle
 log_debug "[install kettle]" "docker-compose up -d"
+docker-compose up -d
 
 # status container
 log_info "[install kettle]" "kettle container started"

@@ -13,16 +13,16 @@ else
 fi
 
 # stop container
-cd $INSTALL_PACKAGE_DIR/component/onlyoffice
 log_debug "[install onlyoffice]" "cd $INSTALL_PACKAGE_DIR/component/onlyoffice"
-docker-compose down
+cd $INSTALL_PACKAGE_DIR/component/onlyoffice
 log_debug "[install onlyoffice]" "docker-compose down"
+docker-compose down
 
 # start container
-cd $INSTALL_PACKAGE_DIR/component/onlyoffice
 log_debug "[install onlyoffice]" "cd $INSTALL_PACKAGE_DIR/component/onlyoffice"
-docker-compose up -d
+cd $INSTALL_PACKAGE_DIR/component/onlyoffice
 log_debug "[install onlyoffice]" "docker-compose up -d"
+docker-compose up -d
 
 # status container
 log_info "[install onlyoffice]" "onlyoffice container started"

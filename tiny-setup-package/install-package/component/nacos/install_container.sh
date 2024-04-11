@@ -13,22 +13,22 @@ else
 fi
 
 # build nacos image
-cd $INSTALL_PACKAGE_DIR/component/nacos/build
 log_debug "[install nacos]" "cd $INSTALL_PACKAGE_DIR/component/nacos/build"
-bash image_build.sh
+cd $INSTALL_PACKAGE_DIR/component/nacos/build
 log_debug "[install nacos]" "bash image_build.sh"
+bash image_build.sh
 
 # stop container
-cd $INSTALL_PACKAGE_DIR/component/nacos
 log_debug "[install nacos]" "cd $INSTALL_PACKAGE_DIR/component/nacos"
-docker-compose down
+cd $INSTALL_PACKAGE_DIR/component/nacos
 log_debug "[install nacos]" "docker-compose down"
+docker-compose down
 
 # start container
-cd $INSTALL_PACKAGE_DIR/component/nacos
 log_debug "[install nacos]" "cd $INSTALL_PACKAGE_DIR/component/nacos"
-docker-compose up -d
+cd $INSTALL_PACKAGE_DIR/component/nacos
 log_debug "[install nacos]" "docker-compose up -d"
+docker-compose up -d
 
 # status container
 log_info "[install nacos]" "nacos container started"

@@ -13,18 +13,18 @@ else
 fi
 
 # build image
+log_debug "[install tiny-id]" "cd $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0 && bash image_build.sh"
 cd $INSTALL_PACKAGE_DIR/component/tiny-id
 tar -zxvf tiny-id-server-1.0.0-release.tar.gz
 cd $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0
-log_debug "[install tiny-id]" "cd $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0 && bash image_build.sh"
 bash image_build.sh
 
 # stop container
+log_debug "[install tiny-id]" "cd $INSTALL_PACKAGE_DIR/component/tiny-id && docker-compose down"
 cd $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0
 docker-compose down
-log_debug "[install tiny-id]" "cd $INSTALL_PACKAGE_DIR/component/tiny-id && docker-compose down"
 
 # start container
+log_debug "[install tiny-id]" "cd $INSTALL_PACKAGE_DIR/component/tiny-id && docker-compose up -d"
 cd $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0
 docker-compose up -d
-log_debug "[install tiny-id]" "cd $INSTALL_PACKAGE_DIR/component/tiny-id && docker-compose up -d"

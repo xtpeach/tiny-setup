@@ -3,10 +3,10 @@
 source ../../soft/script/common.sh
 
 # config files
-mkdir -p /home/kafka/conf
 log_debug "[install kafka]" "mkdir -p /home/kafka/conf"
-cp -a $INSTALL_PACKAGE_DIR/component/kafka/config/* /home/kafka/conf
+mkdir -p /home/kafka/conf
 log_debug "[install kafka]" "cp -a $INSTALL_PACKAGE_DIR/component/kafka/config/* /home/kafka/conf"
+cp -a $INSTALL_PACKAGE_DIR/component/kafka/config/* /home/kafka/conf
 
 # load image
 if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/openjdk.8-jdk.tar ]]; then
@@ -19,26 +19,27 @@ else
 fi
 
 # build kafka image
-cd $INSTALL_PACKAGE_DIR/component/kafka/build
 log_debug "[install kafka]" "cd $INSTALL_PACKAGE_DIR/component/kafka/build"
-bash image_build.sh
+cd $INSTALL_PACKAGE_DIR/component/kafka/build
 log_debug "[install kafka]" "bash image_build.sh"
+bash image_build.sh
 
 # stop container
-cd $INSTALL_PACKAGE_DIR/component/kafka
 log_debug "[install kafka]" "cd $INSTALL_PACKAGE_DIR/component/kafka"
-docker-compose down
+cd $INSTALL_PACKAGE_DIR/component/kafka
 log_debug "[install kafka]" "docker-compose down"
+docker-compose down
 
 # start container
-cd $INSTALL_PACKAGE_DIR/component/kafka
 log_debug "[install kafka]" "cd $INSTALL_PACKAGE_DIR/component/kafka"
-docker-compose up -d
+cd $INSTALL_PACKAGE_DIR/component/kafka
 log_debug "[install kafka]" "docker-compose up -d"
+docker-compose up -d
 
 # status container
 log_info "[install kafka]" "kafka container started"
 
 # create topic
-sleep 60
+sleep 60s
+log_info "[install kafka]" "kafka create topic"
 bash $INSTALL_PACKAGE_DIR/component/kafka/create_topic.sh

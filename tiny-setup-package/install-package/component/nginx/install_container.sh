@@ -3,16 +3,16 @@
 source ../../soft/script/common.sh
 
 # nginx data
-mkdir -p /home/nginx/html
 log_debug "[install nginx]" "mkdir -p /home/nginx/html"
-cp -a $INSTALL_PACKAGE_DIR/component/nginx/build/html/* /home/nginx/html
+mkdir -p /home/nginx/html
 log_debug "[install nginx]" "cp -a $INSTALL_PACKAGE_DIR/component/nginx/build/html/* /home/nginx/html"
+cp -a $INSTALL_PACKAGE_DIR/component/nginx/build/html/* /home/nginx/html
 
 # config files
-mkdir -p /home/nginx/config
 log_debug "[install nginx]" "mkdir -p /home/nginx/config"
-cp -a $INSTALL_PACKAGE_DIR/component/nginx/config/* /home/nginx/config
+mkdir -p /home/nginx/config
 log_debug "[install nginx]" "cp -a $INSTALL_PACKAGE_DIR/component/nginx/config/* /home/nginx/config"
+cp -a $INSTALL_PACKAGE_DIR/component/nginx/config/* /home/nginx/config
 
 # load image
 if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/nginx.1.25.0.tar ]]; then
@@ -25,11 +25,11 @@ else
 fi
 
 # stop container
+log_debug "[install nginx]" "cd $INSTALL_PACKAGE_DIR/component/nginx && docker-compose down"
 cd $INSTALL_PACKAGE_DIR/component/nginx
 docker-compose down
-log_debug "[install nginx]" "cd $INSTALL_PACKAGE_DIR/component/nginx && docker-compose down"
 
 # start container
+log_debug "[install nginx]" "cd $INSTALL_PACKAGE_DIR/component/nginx && docker-compose up -d"
 cd $INSTALL_PACKAGE_DIR/component/nginx
 docker-compose up -d
-log_debug "[install nginx]" "cd $INSTALL_PACKAGE_DIR/component/nginx && docker-compose up -d"

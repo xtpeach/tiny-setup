@@ -7,10 +7,10 @@ mkdir -p /data/mysql
 log_debug "[install mysql]" "mkdir -p /data/mysql"
 
 # config files
-mkdir -p /home/mysql/conf
 log_debug "[install mysql]" "mkdir -p /home/mysql/conf"
-cp -a $INSTALL_PACKAGE_DIR/component/mysql/config/* /home/mysql/conf
+mkdir -p /home/mysql/conf
 log_debug "[install mysql]" "cp -a $INSTALL_PACKAGE_DIR/component/mysql/config/* /home/mysql/conf"
+cp -a $INSTALL_PACKAGE_DIR/component/mysql/config/* /home/mysql/conf
 
 # load image
 if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/mysql.5.7.tar ]]; then
@@ -23,17 +23,17 @@ else
 fi
 
 # stop container
+log_debug "[install mysql]" "cd $INSTALL_PACKAGE_DIR/component/mysql && docker-compose down"
 cd $INSTALL_PACKAGE_DIR/component/mysql
 docker-compose down
-log_debug "[install mysql]" "cd $INSTALL_PACKAGE_DIR/component/mysql && docker-compose down"
 
 # start container
+log_debug "[install mysql]" "cd $INSTALL_PACKAGE_DIR/component/mysql && docker-compose up -d"
 cd $INSTALL_PACKAGE_DIR/component/mysql
 docker-compose up -d
-log_debug "[install mysql]" "cd $INSTALL_PACKAGE_DIR/component/mysql && docker-compose up -d"
 
 # create databases
-sleep 60s
+sleep 10s
 
 # 函数：检查 MySQL 服务是否已经启动
 check_mysql_service() {

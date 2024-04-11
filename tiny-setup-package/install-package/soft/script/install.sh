@@ -24,8 +24,10 @@ if [[ $(command -v docker) ]]; then
 else
   log_info "start install docker"
   cd $INSTALL_PACKAGE_DIR/resource/docker-19.03.9-setup
-  bash setup_docker.sh
-  bash close_selinux.sh
+  bash setup_docker.sh >/dev/null 2>&1
+  bash close_selinux.sh >/dev/null 2>&1
+  log_info "$(docker -v)"
+  log_info "$(docker-compose -v)"
   log_info "install docker finished"
 fi
 
@@ -177,7 +179,7 @@ fi
 # ---> open port
 log_info "start open port"
 cd $INSTALL_PACKAGE_DIR/soft/script
-bash ./open_port.sh
+bash ./port/open_port.sh
 log_info "open port finished"
 
 # ---> tag success to end progress bar

@@ -8,8 +8,18 @@ services:
     hostname: onlyoffice
     privileged: true
     restart: always
-    network_mode: host
+#    network_mode: host
+    networks:
+      - default
     ports:
-      - "80:80"
+      - 8000:80
     volumes:
       - /etc/localtime:/etc/localtime:ro
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.1.0.0/24

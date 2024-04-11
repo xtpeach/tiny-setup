@@ -3,8 +3,8 @@
 source ../../soft/script/common.sh
 
 # postgresql data
-mkdir -p /data/postgresql
 log_debug "[install postgresql]" "mkdir -p /data/postgresql"
+mkdir -p /data/postgresql
 
 # load image
 if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/postgresql.14.8.tar ]]; then
@@ -17,17 +17,23 @@ else
 fi
 
 # stop container
+log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/component/postgresql && docker-compose down"
 cd $INSTALL_PACKAGE_DIR/component/postgresql
 docker-compose down
-log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/component/postgresql && docker-compose down"
 
 # start container
+log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/component/postgresql && docker-compose up -d"
 cd $INSTALL_PACKAGE_DIR/component/postgresql
 docker-compose up -d
-log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/component/postgresql && docker-compose up -d"
+
+# config files
+log_debug "[install postgresql]" "cp -a $INSTALL_PACKAGE_DIR/component/postgresql/config/* /data/postgresql"
+cp -a $INSTALL_PACKAGE_DIR/component/postgresql/config/* /data/postgresql
+log_debug "[install postgresql]" "docker-compose restart"
+docker-compose restart
 
 # create databases
-sleep 60
+sleep 10s
 
 # 函数：检查 PostgreSQL 服务是否已经启动
 check_postgresql_service() {
