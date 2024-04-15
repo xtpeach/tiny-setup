@@ -6,4 +6,11 @@ services:
     container_name: mysql_exporter
     network_mode: host
     restart: always
-    command: --config.my-cnf=<path_to_cnf>
+    command: --config.my-cnf=/usr/local/mysqld_exporter/.my.cnf --web.listen-address=:$exporter_port
+    environment:
+      - mysql_username=root
+      - mysql_password=123456
+      - mysql_host=localhost
+      - mysql_port=3306
+      - exporter_port=9104
+      - DATA_SOURCE_NAME=$mysql_username:$mysql_password@($mysql_host:$mysql_port)/
