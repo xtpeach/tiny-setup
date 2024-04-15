@@ -8,6 +8,6 @@ services:
     restart: always
     pid: host
     command:
-      - '--path.rootfs=/host'
+      - '--path.rootfs=/host --web.listen-address=:9100'
     volumes:
       - '/:/host:ro,rslave'
