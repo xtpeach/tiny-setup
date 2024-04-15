@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# mysql 的用户名/密码
+mysql_username="root"
+mysql_password=123456
+
 # 当前路径
 base_path=$(dirname "${BASH_SOURCE[0]}")
 
