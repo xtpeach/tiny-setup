@@ -21,6 +21,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /data/postgresql:/var/lib/postgresql/data
+      - /home/postgresql_backup:/home/postgresql_backup
     environment:
       - TZ=${TIMEZONE:-Asia/Shanghai}
       - POSTGRES_PASSWORD=postgresql123456!

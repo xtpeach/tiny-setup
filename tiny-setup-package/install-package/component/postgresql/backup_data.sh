@@ -14,11 +14,8 @@ for index in "${!DATABASE_NAME_ARRAY[@]}"; do
   # 输出一个日志用于让用户看到
   echo "正在备份:${DATABASE_NAME_ARRAY[$index]}"
   # 在PostgreSQL容器中执行pg_dump命令，将数据导出为.sql文件
-  docker exec -i postgresql pg_dump -U postgres "${DATABASE_NAME_ARRAY[$index]}" >/tmp/"${DATABASE_NAME_ARRAY[$index]}".sql
-  # 将.sql文件从PostgreSQL容器复制到宿主机
-  docker cp postgresql:/tmp/"${DATABASE_NAME_ARRAY[$index]}".sql "${postgresql_backup_dir}"/"${DATABASE_NAME_ARRAY[$index]}".sql
-  # 删除容器中的临时 SQL 文件
-  docker exec postgresql rm /tmp/"${DATABASE_NAME_ARRAY[$index]}".sql
+  echo "docker exec -i postgresql pg_dump -U postgres \"${DATABASE_NAME_ARRAY[$index]}\" >$postgresql_backup_dir/${DATABASE_NAME_ARRAY[$index]}.sql"
+  docker exec -i postgresql pg_dump -U postgres "${DATABASE_NAME_ARRAY[$index]}" >$postgresql_backup_dir/${DATABASE_NAME_ARRAY[$index]}.sql
   # 输出一个日志用于让用户看到
   echo "备份sql:${DATABASE_NAME_ARRAY[$index]}.sql 已保存至 ${postgresql_backup_dir}"
 done
