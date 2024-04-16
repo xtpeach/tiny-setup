@@ -12,6 +12,8 @@ services:
       - ./grafana/provisioning/:/etc/grafana/provisioning/
       - ./data:/var/lib/grafana
     # 将环境变量放到一个文件中
+    # GF_SECURITY_ADMIN_PASSWORD=admin
+    # GF_USERS_ALLOW_SIGN_UP=admin
     env_file:
       - config/config.monitoring
     ports:

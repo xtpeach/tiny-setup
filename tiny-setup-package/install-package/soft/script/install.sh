@@ -24,6 +24,7 @@ if [[ $(command -v docker) ]]; then
 else
   log_info "start install docker"
   cd $INSTALL_PACKAGE_DIR/resource/docker-19.03.9-setup
+  # 这边不要运行 close_firewall.sh
   bash setup_docker.sh >/dev/null 2>&1
   bash close_selinux.sh >/dev/null 2>&1
   log_info "$(docker -v)"
