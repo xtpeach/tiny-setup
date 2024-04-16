@@ -20,11 +20,12 @@ cd $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0
 bash image_build.sh
 
 # stop container
-log_debug "[install tiny-id]" "cd $INSTALL_PACKAGE_DIR/component/tiny-id && docker-compose down"
+log_debug "[install tiny-id]" "cd $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0 && docker-compose down"
 cd $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0
+sed -i 's/DATASOURCE_PASSWORD: "12345678"/DATASOURCE_PASSWORD: "postgresql!123456"/g' $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0/docker-compose.yml
 docker-compose down
 
 # start container
-log_debug "[install tiny-id]" "cd $INSTALL_PACKAGE_DIR/component/tiny-id && docker-compose up -d"
+log_debug "[install tiny-id]" "cd $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0 && docker-compose up -d"
 cd $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0
 docker-compose up -d
