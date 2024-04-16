@@ -11,6 +11,10 @@ docker-compose down
 log_note "[remove clickhouse]" "rm -rf /data/clickhouse"
 rm -rf /data/clickhouse
 
+# remove logs
+log_note "[remove clickhouse]" "rm -rf /data/logs/clickhouse"
+rm -rf /data/logs/clickhouse
+
 # remove config
 log_note "[remove clickhouse]" "rm -rf /home/clickhouse/conf"
 rm -rf /home/clickhouse/conf

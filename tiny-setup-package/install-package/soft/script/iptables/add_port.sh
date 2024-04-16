@@ -5,7 +5,7 @@ port=$1
 # 判断传入的端口号不为空
 if [[ "$port"x != ""x ]]; then
   # 有 firewalld 的情况
-  if [[ $(systemctl is-active --quiet firewalld) ]]; then
+  if systemctl is-active --quiet firewalld; then
     # 使用 firewall-cmd 进行端口开放
     firewall-cmd --zone=public --add-port=$port/tcp --permanent
 

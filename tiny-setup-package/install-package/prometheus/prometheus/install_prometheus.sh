@@ -15,7 +15,7 @@ prometheus_port=9090
 
 # 下面开通防火墙端口需要根据不同的操作系统来
 # 开启防火墙端口(CentOS)
-if [[ $(systemctl is-active --quiet firewalld) ]]; then
+if systemctl is-active --quiet firewalld; then
   firewall-cmd --zone=public --add-port=$prometheus_port/tcp --permanent
   firewall-cmd --reload
 else
