@@ -56,17 +56,6 @@ tiny_id_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh
 tiny_file_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "tiny-file" "installRequired")
 tiny_sa_install_required=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "tiny-sa" "installRequired")
 
-# check docker
-docker_version=$(docker -v)
-if [[ "$docker_version" != "" ]]; then
-  echo "[docker] - $docker_version" >> ./common.log
-else
-  echo "[docker] - installing" >> ./common.log
-  cd $INSTALL_PACKAGE_DIR/resource/docker-19.03.9-setup/
-  bash setup_docker.sh
-  bash close_selinux.sh
-  echo "[docker] - installed" >> ./common.log
-fi
 
 # zookeeper servers
 ZOO_SERVERS=""
