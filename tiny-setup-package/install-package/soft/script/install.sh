@@ -97,6 +97,19 @@ else
   bash uninstall_container.sh
 fi
 
+# ---> clickhouse
+if [[ "$clickhouse_install_required"x == "true"x ]]; then
+  log_info "start install clickhouse"
+  cd $INSTALL_PACKAGE_DIR/component/clickhouse
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install clickhouse finished"
+else
+  log_info "uninstall clickhouse"
+  cd $INSTALL_PACKAGE_DIR/component/clickhouse
+  bash uninstall_container.sh
+fi
+
 # ---> eureka
 if [[ "$eureka_install_required"x == "true"x ]]; then
   log_info "start install eureka"

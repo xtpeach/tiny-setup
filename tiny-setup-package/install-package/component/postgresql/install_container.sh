@@ -26,12 +26,6 @@ log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/component/postgresql &
 cd $INSTALL_PACKAGE_DIR/component/postgresql
 docker-compose up -d
 
-# config files
-log_debug "[install postgresql]" "cp -a $INSTALL_PACKAGE_DIR/component/postgresql/config/* /data/postgresql"
-cp -a $INSTALL_PACKAGE_DIR/component/postgresql/config/* /data/postgresql
-log_debug "[install postgresql]" "docker-compose restart"
-docker-compose restart
-
 # create databases
 sleep 10s
 
@@ -74,3 +68,9 @@ check_postgresql_service "$postgresql_container_name"
 
 log_debug "[install postgresql]" "create database"
 bash $INSTALL_PACKAGE_DIR/component/postgresql/create_databases.sh
+
+# config files
+log_debug "[install postgresql]" "cp -a $INSTALL_PACKAGE_DIR/component/postgresql/config/* /data/postgresql"
+cp -a $INSTALL_PACKAGE_DIR/component/postgresql/config/* /data/postgresql
+log_debug "[install postgresql]" "docker-compose restart"
+docker-compose restart

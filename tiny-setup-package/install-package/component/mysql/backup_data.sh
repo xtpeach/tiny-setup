@@ -14,11 +14,8 @@ for index in "${!DATABASE_NAME_ARRAY[@]}"; do
   # 输出一个日志用于让用户看到
   echo "正在备份:${DATABASE_NAME_ARRAY[$index]}"
   # 导出数据到.sql文件
-  docker exec -i mysql mysqldump -uroot -p"${MYSQL_PASSWORD}" "${DATABASE_NAME_ARRAY[$index]}" >/tmp/"${DATABASE_NAME_ARRAY[$index]}".sql
-  # 将.sql文件从MySQL容器复制到宿主机
-  docker cp mysql:/tmp/"${DATABASE_NAME_ARRAY[$index]}".sql "${mysql_backup_dir}"/"${DATABASE_NAME_ARRAY[$index]}".sql
-  # 删除容器中的临时 SQL 文件
-  docker exec mysql rm /tmp/"${DATABASE_NAME_ARRAY[$index]}".sql
+  echo "docker exec -i mysql mysqldump -uroot -p\"${MYSQL_PASSWORD}\" \"${DATABASE_NAME_ARRAY[$index]}\" >$mysql_backup_dir/${DATABASE_NAME_ARRAY[$index]}.sql"
+  docker exec -i mysql mysqldump -uroot -p"${MYSQL_PASSWORD}" "${DATABASE_NAME_ARRAY[$index]}" >$mysql_backup_dir/${DATABASE_NAME_ARRAY[$index]}.sql
   # 输出一个日志用于让用户看到
   echo "备份sql:${DATABASE_NAME_ARRAY[$index]}.sql 已保存至 ${mysql_backup_dir}"
 done

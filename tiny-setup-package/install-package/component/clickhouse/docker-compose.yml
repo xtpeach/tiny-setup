@@ -18,6 +18,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /data/clickhouse:/var/lib/clickhouse
+      - /data/logs/clickhouse:/var/log/clickhouse-server
       - /home/clickhouse/conf/users.xml:/etc/clickhouse-server/users.xml
       - /home/clickhouse/conf/config.xml:/etc/clickhouse-server/config.xml
     environment:
