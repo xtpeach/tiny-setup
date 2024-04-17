@@ -19,7 +19,7 @@ for ip in $(seq 1 254); do
         echo -e "\e[31m$subnet.$ip[X]\e[0m\t\c"
     fi
 
-    if [ $((column % 4)) -eq 0 ]; then
+    if [ $((column % 6)) -eq 0 ]; then
         echo
     fi
 
