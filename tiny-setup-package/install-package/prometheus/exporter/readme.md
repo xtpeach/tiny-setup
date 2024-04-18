@@ -8,3 +8,6 @@
 	-> postgresql
 	-> redis √
 	-> zookeeper √
+
+# grafana dashboard url
+	-> https://grafana.com/grafana/dashboards/
