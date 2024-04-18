@@ -2,6 +2,9 @@
 # source
 source ../../soft/script/common.sh
 
+# 修改 docker-compose.yml 文件
+sed -i "s/^      - MYSQL_ROOT_PASSWORD=.*/      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/mysql/docker-compose.yml
+
 # mysql data
 mkdir -p /data/mysql
 log_debug "[install mysql]" "mkdir -p /data/mysql"

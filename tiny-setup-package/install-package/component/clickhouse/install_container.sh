@@ -2,6 +2,9 @@
 # source
 source ../../soft/script/common.sh
 
+# 修改 users.xml 文件
+sed -i "s|<password></password>|<password>${CLICKHOUSE_PASSWORD}</password>|g" $INSTALL_PACKAGE_DIR/component/clickhouse/config/users.xml
+
 # clickhouse data
 log_debug "[install clickhouse]" "mkdir -p /data/clickhouse"
 mkdir -p /data/clickhouse

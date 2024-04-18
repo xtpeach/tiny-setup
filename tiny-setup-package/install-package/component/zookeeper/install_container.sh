@@ -2,6 +2,32 @@
 # source
 source ../../soft/script/common.sh
 
+# zookeeper servers
+ZOO_SERVERS=""
+KAFKA_ZOO_SERVERS=""
+
+# zookeeper index
+zookeeper_index=1
+zookeeper_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "zookeeper" "zookeeper${zookeeper_index}")
+zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
+zookeeper_ip_index=${zookeeper_ip_array[3]}
+while [[ -n "$zookeeper_ip" ]]; do
+  ZOO_SERVERS="server.${zookeeper_ip_index}=zookeeper${zookeeper_ip_index}:2888:3888;2181 ${ZOO_SERVERS}"
+  KAFKA_ZOO_SERVERS="zookeeper${zookeeper_ip_index}:2181 ${KAFKA_ZOO_SERVERS}"
+  ((zookeeper_index++))
+  zookeeper_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "zookeeper" "zookeeper${zookeeper_index}")
+  zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
+  zookeeper_ip_index=${zookeeper_ip_array[3]}
+done
+
+# ZOO_SERVERS >> /etc/profile
+sed -i "/export ZOO_SERVERS=/d" /etc/profile
+echo "export ZOO_SERVERS=\"${ZOO_SERVERS}\"" >>/etc/profile
+
+# docker-compose
+sed -i "s/^      - ZOO_SERVERS=.*/      - ZOO_SERVERS=${ZOO_SERVERS}/g" $INSTALL_PACKAGE_DIR/component/zookeeper/docker-compose.yml
+sed -i "s/^      - ZOO_MY_ID=.*/      - ZOO_MY_ID=${LOCAL_HOST_IP_ARRAY[3]}/g" $INSTALL_PACKAGE_DIR/component/zookeeper/docker-compose.yml
+
 # config files
 mkdir -p /home/zookeeper/conf
 log_debug "[install zookeeper]" "mkdir -p /home/zookeeper/conf"

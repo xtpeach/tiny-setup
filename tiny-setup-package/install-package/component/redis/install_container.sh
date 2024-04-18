@@ -2,6 +2,9 @@
 # source
 source ../../soft/script/common.sh
 
+# 修改 redis.conf 文件
+sed -i "s/^requirepass.*/requirepass ${REDIS_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/redis/config/redis.conf
+
 # redis data
 mkdir -p /data/redis
 log_debug "[install redis]" "mkdir -p /data/redis"

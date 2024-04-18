@@ -10,13 +10,9 @@ VERSION=1.1
 # echo -e "\033[0;35m This text is magenta \033[0m"
 # echo -e "\033[0;36m This text is cyan \033[0m"
 
-touch ./common.log
-echo "--- common version: ${VERSION} begin ---" > ./common.log
-
 # install package dir
 # -- *** [/opt/tiny-setup-package/install-package] *** --
 INSTALL_PACKAGE_DIR=/opt/tiny-setup-package/install-package
-echo "--- common INSTALL_PACKAGE_DIR: ${INSTALL_PACKAGE_DIR} ---" >> ./common.log
 # -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 
 # -- log level: debug-1, info-2, warn-3, error-4, always-5 --
@@ -25,7 +21,6 @@ LOG_LEVEL=1
 
 # get linux name
 OS_NAME=$(cat /etc/os-release | grep "^ID=" | cut -c 4- | sed 's/"//g')
-echo "[OS_NAME] - ${OS_NAME}" >> ./common.log
 
 # config.ini hosts
 host_index=1
@@ -66,17 +61,13 @@ zookeeper_index=1
 zookeeper_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "zookeeper" "zookeeper${zookeeper_index}")
 zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
 zookeeper_ip_index=${zookeeper_ip_array[3]}
-echo "[zookeeper_ip] zookeeper${zookeeper_index}:${zookeeper_ip}" >> ./common.log
 while [[ -n "$zookeeper_ip" ]]; do
-  sed -i "/zookeeper${zookeeper_ip_index}/d" /etc/hosts
-  echo "${zookeeper_ip} zookeeper${zookeeper_ip_index}" >>/etc/hosts
   ZOO_SERVERS="server.${zookeeper_ip_index}=zookeeper${zookeeper_ip_index}:2888:3888;2181 ${ZOO_SERVERS}"
   KAFKA_ZOO_SERVERS="zookeeper${zookeeper_ip_index}:2181 ${KAFKA_ZOO_SERVERS}"
   ((zookeeper_index++))
   zookeeper_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "zookeeper" "zookeeper${zookeeper_index}")
   zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
   zookeeper_ip_index=${zookeeper_ip_array[3]}
-  echo "[zookeeper_ip] zookeeper${zookeeper_index}:${zookeeper_ip}" >> ./common.log
 done
 
 # kafka index
@@ -85,95 +76,55 @@ kafka_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL
 kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
 kafka_ip_index=${kafka_ip_array[3]}
 kafka_ip_index_first=${kafka_ip_array[3]}
-echo "[kafka_ip] kafka${kafka_index}:${kafka_ip}" >> ./common.log
 while [[ -n "$kafka_ip" ]]; do
-  sed -i "/kafka${kafka_ip_index}/d" /etc/hosts
-  echo "${kafka_ip} kafka${kafka_ip_index}" >>/etc/hosts
   ((kafka_index++))
   kafka_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka" "kafka${kafka_index}")
   kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
   kafka_ip_index=${kafka_ip_array[3]}
-  echo "[kafka_ip] kafka${kafka_index}:${kafka_ip}" >> ./common.log
 done
-
-# kafka topic
-kafka_topic_index=1
-kafka_topic=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka-topic" "topic${kafka_topic_index}")
-echo "[kafka_topic] ${kafka_topic_index}:${kafka_topic}" >> ./common.log
-while [[ -n "$kafka_topic" ]]; do
-  kafka_topic_array+=($kafka_topic)
-  ((kafka_topic_index++))
-  kafka_topic=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka-topic" "topic${kafka_topic_index}")
-  echo "[kafka_topic] ${kafka_topic_index}:${kafka_topic}" >> ./common.log
-done
-
-# ZOO_SERVERS >> /etc/profile
-sed -i "/export ZOO_SERVERS=/d" /etc/profile
-echo "export ZOO_SERVERS=\"${ZOO_SERVERS}\"" >>/etc/profile
-
-# docker-compose
-sed -i "s/^      - ZOO_SERVERS=.*/      - ZOO_SERVERS=${ZOO_SERVERS}/g" $INSTALL_PACKAGE_DIR/component/zookeeper/docker-compose.yml
-sed -i "s/^      - ZOO_MY_ID=.*/      - ZOO_MY_ID=${LOCAL_HOST_IP_ARRAY[3]}/g" $INSTALL_PACKAGE_DIR/component/zookeeper/docker-compose.yml
-
-sed -i "s/^      - ZOO_SERVERS=.*/      - ZOO_SERVERS=${KAFKA_ZOO_SERVERS}/g" $INSTALL_PACKAGE_DIR/component/kafka/docker-compose.yml
-sed -i "s/^      - BROKER_ID=.*/      - BROKER_ID=${LOCAL_HOST_IP_ARRAY[3]}/g" $INSTALL_PACKAGE_DIR/component/kafka/docker-compose.yml
-sed -i "s/^      - LISTENERS=.*/      - LISTENERS=PLAINTEXT:\/\/${LOCAL_HOST_IP}:9092/g" $INSTALL_PACKAGE_DIR/component/kafka/docker-compose.yml
 
 # postgresql
 POSTGRESQL_PASSWORD=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "postgresql" "password")
-sed -i "s/^      - POSTGRES_PASSWORD=.*/      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/postgresql/docker-compose.yml
+
 
 # mysql
 MYSQL_PASSWORD=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "mysql" "password")
-sed -i "s/^      - MYSQL_ROOT_PASSWORD=.*/      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/mysql/docker-compose.yml
+
 
 # clickhouse
 CLICKHOUSE_PASSWORD=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "clickhouse" "password")
-sed -i "s|<password></password>|<password>${CLICKHOUSE_PASSWORD}</password>|g" $INSTALL_PACKAGE_DIR/component/clickhouse/config/users.xml
+
 
 # redis
 REDIS_PASSWORD=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "redis" "password")
-sed -i "s/^requirepass.*/requirepass ${REDIS_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/redis/config/redis.conf
+
 
 # databases
 DATABASE_NAMES=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "databases" "databaseNames")
 DATABASE_NAME_ARRAY=($(echo ${DATABASE_NAMES} | tr ',' ' '))
-for index in "${!DATABASE_NAME_ARRAY[@]}"; do
-  echo "[database] ${DATABASE_NAME_ARRAY[$index]}" >> ./common.log
-done
+
 
 # openPorts
 OPEN_PORTS=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "open-ports" "openPorts")
 OPEN_PORT_ARRAY=($(echo ${OPEN_PORTS} | tr ',' ' '))
-for index in "${!OPEN_PORT_ARRAY[@]}"; do
-  echo "[open port] ${OPEN_PORT_ARRAY[$index]}" >> ./common.log
-done
 
 
 # 日志文件目录
 INSTALL_LOG_DIR=/var/tiny-setup/
-if [[ -d $INSTALL_LOG_DIR ]]; then
-  echo "[exist] ${INSTALL_LOG_DIR}" >> ./common.log
-else
+if [[ ! -d $INSTALL_LOG_DIR ]]; then
   mkdir -p $INSTALL_LOG_DIR
 fi
 
 # 日志文件
 LOG_FILE=/var/tiny-setup/install.log
-if [[ -e $LOG_FILE ]]; then
-  echo "[exist] ${LOG_FILE}" >> ./common.log
-else
+if [[ ! -e $LOG_FILE ]]; then
   touch $LOG_FILE
 fi
 
 SETUP_FILE=/var/tiny-setup/setup.log
-if [[ -e $SETUP_FILE ]]; then
-  echo "[exist] ${SETUP_FILE}" >> ./common.log
-else
+if [[ ! -e $SETUP_FILE ]]; then
   touch $SETUP_FILE
 fi
-
-echo "--- common version: ${VERSION} end ---" >> ./common.log
 
 # sshd_config
 SSH_CONFIG_FILE=/etc/ssh/sshd_config

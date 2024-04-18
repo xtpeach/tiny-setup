@@ -71,8 +71,9 @@ log_info "start setup..."
   done
 
   # 展示进度条
-} | whiptail --title "setup" --gauge "Please wait while installing ..." 6 60 0
+} | whiptail --title "安装" --gauge "正在安装请稍等 ..." 6 60 0
+# 这边 --gauge 后面可以把安装信息拿出来展示一下
 
 # 提示安装完毕
-whiptail --title "Setup completed" --msgbox " setup ok, enter to continue." 10 60
+whiptail --title "安装" --msgbox "安装完毕,按下 enter 键继续." 10 60
 log_info "setup done."

@@ -2,6 +2,9 @@
 # source
 source ../../soft/script/common.sh
 
+# 修改 docker-compose.yml 文件
+sed -i "s/^      - POSTGRES_PASSWORD=.*/      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/postgresql/docker-compose.yml
+
 # postgresql data
 log_debug "[install postgresql]" "mkdir -p /data/postgresql"
 mkdir -p /data/postgresql

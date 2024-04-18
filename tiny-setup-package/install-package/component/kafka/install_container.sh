@@ -2,6 +2,26 @@
 # source
 source ../../soft/script/common.sh
 
+# kafka index
+kafka_index=1
+kafka_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka" "kafka${kafka_index}")
+kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
+kafka_ip_index=${kafka_ip_array[3]}
+kafka_ip_index_first=${kafka_ip_array[3]}
+while [[ -n "$kafka_ip" ]]; do
+  sed -i "/kafka${kafka_ip_index}/d" /etc/hosts
+  echo "${kafka_ip} kafka${kafka_ip_index}" >>/etc/hosts
+  ((kafka_index++))
+  kafka_ip=$(bash $INSTALL_PACKAGE_DIR/soft/script/ini_operator.sh "get" "$INSTALL_PACKAGE_DIR/config.ini" "kafka" "kafka${kafka_index}")
+  kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
+  kafka_ip_index=${kafka_ip_array[3]}
+done
+
+# 修改 docker-compose.yml 文件
+sed -i "s/^      - ZOO_SERVERS=.*/      - ZOO_SERVERS=${KAFKA_ZOO_SERVERS}/g" $INSTALL_PACKAGE_DIR/component/kafka/docker-compose.yml
+sed -i "s/^      - BROKER_ID=.*/      - BROKER_ID=${LOCAL_HOST_IP_ARRAY[3]}/g" $INSTALL_PACKAGE_DIR/component/kafka/docker-compose.yml
+sed -i "s/^      - LISTENERS=.*/      - LISTENERS=PLAINTEXT:\/\/${LOCAL_HOST_IP}:9092/g" $INSTALL_PACKAGE_DIR/component/kafka/docker-compose.yml
+
 # config files
 log_debug "[install kafka]" "mkdir -p /home/kafka/conf"
 mkdir -p /home/kafka/conf
