@@ -180,7 +180,7 @@ fi
 SSH_CONFIG_FILE=/etc/ssh/sshd_config
 
 # version.info
-VERSION_INFO=/opt/tiny-setup-package/install-package/version.info
+VERSION_INFO=$INSTALL_PACKAGE_DIR/version.info
 
 #日志方法 ---------------------------------------------------------------------------------------
 #日志文件 /var/tiny-setup/install.log
