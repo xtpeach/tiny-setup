@@ -38,8 +38,8 @@ done
 # 这一遍并行执行，并将结果录入各个IP的结果文件
 for ip in $(seq 1 254); do
   {
-    # ping 命令校验连通性，ping 1次，超时时间 1秒
-    ping -c 1 -W 1 "$subnet.$ip" >/dev/null
+    # ping 命令校验连通性，ping 1次，超时时间 3秒
+    ping -c 1 -W 3 "$subnet.$ip" >/dev/null
     # 判断是否可以ping通
     if [ $? -eq 0 ]; then
       # 如果可以ping通就展示绿色

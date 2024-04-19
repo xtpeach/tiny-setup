@@ -33,7 +33,7 @@ else
 fi
 
 # ---> redis
-if [[ "$redis_install_required"x == "true"x ]]; then
+if [[ "$REDIS_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install redis"
   cd $INSTALL_PACKAGE_DIR/component/redis
   bash uninstall_container.sh
@@ -46,7 +46,7 @@ else
 fi
 
 # ---> zookeeper
-if [[ "$zookeeper_install_required"x == "true"x ]]; then
+if [[ "$ZOOKEEPER_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install zookeeper"
   cd $INSTALL_PACKAGE_DIR/component/zookeeper
   bash uninstall_container.sh
@@ -59,7 +59,7 @@ else
 fi
 
 # ---> kafka
-if [[ "$kafka_install_required"x == "true"x ]]; then
+if [[ "$KAFKA_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install kafka"
   cd $INSTALL_PACKAGE_DIR/component/kafka
   bash uninstall_container.sh
@@ -72,7 +72,7 @@ else
 fi
 
 # ---> postgresql
-if [[ "$postgresql_install_required"x == "true"x ]]; then
+if [[ "$POSTGRESQL_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install postgresql"
   cd $INSTALL_PACKAGE_DIR/component/postgresql
   bash uninstall_container.sh
@@ -85,7 +85,7 @@ else
 fi
 
 # ---> mysql
-if [[ "$mysql_install_required"x == "true"x ]]; then
+if [[ "$MYSQL_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install mysql"
   cd $INSTALL_PACKAGE_DIR/component/mysql
   bash uninstall_container.sh
@@ -98,7 +98,7 @@ else
 fi
 
 # ---> clickhouse
-if [[ "$clickhouse_install_required"x == "true"x ]]; then
+if [[ "$CLICKHOUSE_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install clickhouse"
   cd $INSTALL_PACKAGE_DIR/component/clickhouse
   bash uninstall_container.sh
@@ -111,7 +111,7 @@ else
 fi
 
 # ---> eureka
-if [[ "$eureka_install_required"x == "true"x ]]; then
+if [[ "$EUREKA_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install eureka"
   cd $INSTALL_PACKAGE_DIR/component/eureka
   bash uninstall_container.sh
@@ -124,7 +124,7 @@ else
 fi
 
 # ---> nacos
-if [[ "$nacos_install_required"x == "true"x ]]; then
+if [[ "$NACOS_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install nacos"
   cd $INSTALL_PACKAGE_DIR/component/nacos
   bash uninstall_container.sh
@@ -137,7 +137,7 @@ else
 fi
 
 # ---> nginx
-if [[ "$nginx_install_required"x == "true"x ]]; then
+if [[ "$NGINX_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install nginx"
   cd $INSTALL_PACKAGE_DIR/component/nginx
   bash uninstall_container.sh
@@ -150,7 +150,7 @@ else
 fi
 
 # ---> tiny-id
-if [[ "$tiny_id_install_required"x == "true"x ]]; then
+if [[ "$TINY_ID_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install tiny-id"
   cd $INSTALL_PACKAGE_DIR/component/tiny-id
   bash uninstall_container.sh
@@ -163,7 +163,7 @@ else
 fi
 
 # ---> tiny-file
-if [[ "$tiny_file_install_required"x == "true"x ]]; then
+if [[ "$TINY_FILE_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install tiny-file"
   cd $INSTALL_PACKAGE_DIR/component/tiny-file
   bash uninstall_container.sh
@@ -176,7 +176,7 @@ else
 fi
 
 # ---> tiny-sa
-if [[ "$tiny_sa_install_required"x == "true"x ]]; then
+if [[ "$TINY_SA_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install tiny-sa"
   cd $INSTALL_PACKAGE_DIR/component/tiny-sa
   bash uninstall_container.sh
