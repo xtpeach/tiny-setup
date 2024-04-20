@@ -7,7 +7,9 @@ postgresql.version=14.8
 redis.version=6.2.12
 eureka.version=
 nacos.version=
-nginx.version=
-tiny-id.version=
-tiny-file.version=
-tiny-sa.version=
+nginx.version=1.25.0
+
+# 自己维护，永远都是最终版，有问题再改，改到没问题为止
+tiny-id.version=final
+tiny-file.version=final
+tiny-sa.version=final
