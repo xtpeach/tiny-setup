@@ -19,6 +19,10 @@ tar -zxvf eureka-final-release.tar.gz
 cd $INSTALL_DIR/component/eureka/eureka-final
 bash image_build.sh
 
+# 修改 docker-compose.yml 文件
+sed -i "s/^      EUREKA_USER_NAME:.*/      EUREKA_USER_NAME: ${EUREKA_USER_NAME}/g" $INSTALL_DIR/component/eureka/eureka-final/docker-compose.yml
+sed -i "s/^      EUREKA_USER_PASSWORD:.*/      EUREKA_USER_PASSWORD: ${EUREKA_USER_PASSWORD}/g" $INSTALL_DIR/component/eureka/eureka-final/docker-compose.yml
+
 # stop container
 log_debug "[install eureka]" "cd $INSTALL_DIR/component/eureka && docker-compose down"
 cd $INSTALL_DIR/component/eureka/eureka-final

@@ -53,29 +53,29 @@ LOCAL_HOST_IP_ARRAY=($(echo $LOCAL_HOST_IP | tr '.' ' '))
 
 # 这边判断一下所有的组件标记位
 # install required flag: zookeeper
-ZOOKEEPER_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "zookeeper" "installRequired")
+ZOOKEEPER_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "zookeeper" "install_required")
 # install required flag: kafka
-KAFKA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "kafka" "installRequired")
+KAFKA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "kafka" "install_required")
 # install required flag: redis
-REDIS_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "redis" "installRequired")
+REDIS_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "redis" "install_required")
 # install required flag: postgresql
-POSTGRESQL_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "postgresql" "installRequired")
+POSTGRESQL_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "postgresql" "install_required")
 # install required flag: mysql
-MYSQL_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "mysql" "installRequired")
+MYSQL_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "mysql" "install_required")
 # install required flag: clickhouse
-CLICKHOUSE_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "clickhouse" "installRequired")
+CLICKHOUSE_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "clickhouse" "install_required")
 # install required flag: eureka
-EUREKA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "eureka" "installRequired")
+EUREKA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "eureka" "install_required")
 # install required flag: nacos
-NACOS_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "nacos" "installRequired")
+NACOS_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "nacos" "install_required")
 # install required flag: nginx
-NGINX_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "nginx" "installRequired")
+NGINX_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "nginx" "install_required")
 # install required flag: tiny-id
-TINY_ID_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "tiny-id" "installRequired")
+TINY_ID_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "tiny-id" "install_required")
 # install required flag: tiny-file
-TINY_FILE_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "tiny-file" "installRequired")
+TINY_FILE_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "tiny-file" "install_required")
 # install required flag: tiny-sa
-TINY_SA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "tiny-sa" "installRequired")
+TINY_SA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "tiny-sa" "install_required")
 
 
 # zookeeper servers
@@ -151,8 +151,12 @@ REDIS_PASSWORD=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_D
 
 
 # databases
-DATABASE_NAMES=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "databases" "databaseNames")
+DATABASE_NAMES=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "databases" "database_names")
 DATABASE_NAME_ARRAY=($(echo ${DATABASE_NAMES} | tr ',' ' '))
+
+# eureka
+EUREKA_USER_NAME=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "eureka" "eureka_user_name")
+EUREKA_USER_PASSWORD=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "eureka" "eureka_user_password")
 
 
 # openPorts
