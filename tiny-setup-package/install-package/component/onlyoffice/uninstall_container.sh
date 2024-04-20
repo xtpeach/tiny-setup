@@ -3,9 +3,9 @@
 source ../../soft/script/common.sh
 
 # stop container
-cd $INSTALL_PACKAGE_DIR/component/onlyoffice
+cd $INSTALL_DIR/component/onlyoffice
 docker-compose down
-log_note "[remove onlyoffice]" "cd $INSTALL_PACKAGE_DIR/component/onlyoffice && docker-compose down"
+log_note "[remove onlyoffice]" "cd $INSTALL_DIR/component/onlyoffice && docker-compose down"
 
 # remove docker image
 docker_images=$(docker images | grep onlyoffice | awk -v FS=" " '{print $3}')

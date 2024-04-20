@@ -3,8 +3,8 @@
 source ../../soft/script/common.sh
 
 # stop container
-log_note "[remove kettle]" "cd $INSTALL_PACKAGE_DIR/component/kettle && docker-compose down"
-cd $INSTALL_PACKAGE_DIR/component/kettle
+log_note "[remove kettle]" "cd $INSTALL_DIR/component/kettle && docker-compose down"
+cd $INSTALL_DIR/component/kettle
 docker-compose down
 
 # remove kettle files

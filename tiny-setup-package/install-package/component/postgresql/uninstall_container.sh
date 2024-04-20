@@ -3,8 +3,8 @@
 source ../../soft/script/common.sh
 
 # stop container
-log_note "[remove postgresql]" "cd $INSTALL_PACKAGE_DIR/component/postgresql && docker-compose down"
-cd $INSTALL_PACKAGE_DIR/component/postgresql
+log_note "[remove postgresql]" "cd $INSTALL_DIR/component/postgresql && docker-compose down"
+cd $INSTALL_DIR/component/postgresql
 docker-compose down
 
 # remove data

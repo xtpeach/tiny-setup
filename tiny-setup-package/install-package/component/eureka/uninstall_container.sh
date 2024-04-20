@@ -3,8 +3,8 @@
 source ../../soft/script/common.sh
 
 # stop container
-log_note "[remove eureka]" "cd $INSTALL_PACKAGE_DIR/component/eureka/eureka-final && docker-compose down"
-cd $INSTALL_PACKAGE_DIR/component/eureka/eureka-final
+log_note "[remove eureka]" "cd $INSTALL_DIR/component/eureka/eureka-final && docker-compose down"
+cd $INSTALL_DIR/component/eureka/eureka-final
 docker-compose down
 
 # remove docker image

@@ -3,7 +3,7 @@
 source ../../soft/script/common.sh
 
 # 修改 docker-compose.yml 文件
-sed -i "s/^      - MYSQL_ROOT_PASSWORD=.*/      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/mysql/docker-compose.yml
+sed -i "s/^      - MYSQL_ROOT_PASSWORD=.*/      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}/g" $INSTALL_DIR/component/mysql/docker-compose.yml
 
 # mysql data
 mkdir -p /data/mysql
@@ -12,13 +12,13 @@ log_debug "[install mysql]" "mkdir -p /data/mysql"
 # config files
 log_debug "[install mysql]" "mkdir -p /home/mysql/conf"
 mkdir -p /home/mysql/conf
-log_debug "[install mysql]" "cp -a $INSTALL_PACKAGE_DIR/component/mysql/config/* /home/mysql/conf"
-cp -a $INSTALL_PACKAGE_DIR/component/mysql/config/* /home/mysql/conf
+log_debug "[install mysql]" "cp -a $INSTALL_DIR/component/mysql/config/* /home/mysql/conf"
+cp -a $INSTALL_DIR/component/mysql/config/* /home/mysql/conf
 
 # load image
-if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/mysql.5.7.tar ]]; then
-  log_debug "[install mysql]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < mysql.5.7.tar"
-  cd $INSTALL_PACKAGE_DIR/resource/docker-images
+if [[ -f $INSTALL_DIR/resource/docker-images/mysql.5.7.tar ]]; then
+  log_debug "[install mysql]" "cd $INSTALL_DIR/resource/docker-images && docker load < mysql.5.7.tar"
+  cd $INSTALL_DIR/resource/docker-images
   docker load < mysql.5.7.tar
 else
   log_note "[install mysql]" "docker pull mysql.5.7.tar"
@@ -26,13 +26,13 @@ else
 fi
 
 # stop container
-log_debug "[install mysql]" "cd $INSTALL_PACKAGE_DIR/component/mysql && docker-compose down"
-cd $INSTALL_PACKAGE_DIR/component/mysql
+log_debug "[install mysql]" "cd $INSTALL_DIR/component/mysql && docker-compose down"
+cd $INSTALL_DIR/component/mysql
 docker-compose down
 
 # start container
-log_debug "[install mysql]" "cd $INSTALL_PACKAGE_DIR/component/mysql && docker-compose up -d"
-cd $INSTALL_PACKAGE_DIR/component/mysql
+log_debug "[install mysql]" "cd $INSTALL_DIR/component/mysql && docker-compose up -d"
+cd $INSTALL_DIR/component/mysql
 docker-compose up -d
 
 # create databases
@@ -76,4 +76,4 @@ mysql_container_name="mysql"
 check_mysql_service "$mysql_container_name"
 
 log_debug "[install mysql]" "create database"
-bash $INSTALL_PACKAGE_DIR/component/mysql/create_databases.sh
+bash $INSTALL_DIR/component/mysql/create_databases.sh

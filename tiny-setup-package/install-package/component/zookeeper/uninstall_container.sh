@@ -3,9 +3,9 @@
 source ../../soft/script/common.sh
 
 # stop container
-cd $INSTALL_PACKAGE_DIR/component/zookeeper
+cd $INSTALL_DIR/component/zookeeper
 docker-compose down
-log_note "[remove zookeeper]" "cd $INSTALL_PACKAGE_DIR/component/zookeeper && docker-compose down"
+log_note "[remove zookeeper]" "cd $INSTALL_DIR/component/zookeeper && docker-compose down"
 
 # remove config files
 rm -rf /home/zookeeper/conf

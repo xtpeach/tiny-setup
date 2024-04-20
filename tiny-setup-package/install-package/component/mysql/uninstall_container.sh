@@ -3,8 +3,8 @@
 source ../../soft/script/common.sh
 
 # stop container
-log_note "[remove mysql]" "cd $INSTALL_PACKAGE_DIR/component/mysql && docker-compose down"
-cd $INSTALL_PACKAGE_DIR/component/mysql
+log_note "[remove mysql]" "cd $INSTALL_DIR/component/mysql && docker-compose down"
+cd $INSTALL_DIR/component/mysql
 docker-compose down
 
 # remove data

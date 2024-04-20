@@ -7,9 +7,9 @@ log_debug "[install kettle]" "mkdir -p /home/kettle/"
 mkdir -p /home/kettle/
 
 # load image
-if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/webspoon.0.9.0.21.tar ]]; then
-  log_debug "[install kettle]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < webspoon.0.9.0.21.tar"
-  cd $INSTALL_PACKAGE_DIR/resource/docker-images
+if [[ -f $INSTALL_DIR/resource/docker-images/webspoon.0.9.0.21.tar ]]; then
+  log_debug "[install kettle]" "cd $INSTALL_DIR/resource/docker-images && docker load < webspoon.0.9.0.21.tar"
+  cd $INSTALL_DIR/resource/docker-images
   docker load < webspoon.0.9.0.21.tar
 else
   log_note "[install kettle]" "docker pull hiromuhota/webspoon:latest"
@@ -17,14 +17,14 @@ else
 fi
 
 # stop container
-log_debug "[install kettle]" "cd $INSTALL_PACKAGE_DIR/component/kettle"
-cd $INSTALL_PACKAGE_DIR/component/kettle
+log_debug "[install kettle]" "cd $INSTALL_DIR/component/kettle"
+cd $INSTALL_DIR/component/kettle
 log_debug "[install kettle]" "docker-compose down"
 docker-compose down
 
 # start container
-log_debug "[install kettle]" "cd $INSTALL_PACKAGE_DIR/component/kettle"
-cd $INSTALL_PACKAGE_DIR/component/kettle
+log_debug "[install kettle]" "cd $INSTALL_DIR/component/kettle"
+cd $INSTALL_DIR/component/kettle
 log_debug "[install kettle]" "docker-compose up -d"
 docker-compose up -d
 

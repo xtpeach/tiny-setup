@@ -3,8 +3,8 @@
 source ../../soft/script/common.sh
 
 # stop container
-log_note "[remove nacos]" "cd $INSTALL_PACKAGE_DIR/component/nacos && docker-compose down"
-cd $INSTALL_PACKAGE_DIR/component/nacos
+log_note "[remove nacos]" "cd $INSTALL_DIR/component/nacos && docker-compose down"
+cd $INSTALL_DIR/component/nacos
 docker-compose down
 
 # remove docker image

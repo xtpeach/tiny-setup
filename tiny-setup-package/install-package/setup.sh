@@ -12,7 +12,14 @@ source ./soft/script/common.sh
 # 1. 修改执行目录权限
 # 安装目录（tiny-setup-package）上传至 /opt 下，并执行: bash /opt/tiny-setup-package/install-package/setup.sh
 # 修改成相对路径，不一定要上传到 /opt 下
-[[ -d $INSTALL_PACKAGE_DIR ]] && chmod -R 755 $INSTALL_PACKAGE_DIR >/dev/null 2>&1
+[[ -d $INSTALL_DIR ]] && chmod -R 755 $INSTALL_DIR >/dev/null 2>&1
+
+# install package dir
+# 上传到 /opt/ 目录下面，然后安装的时候拷贝到 /home/ 下面
+# -- *** [/opt/tiny-setup-package/install-package] *** --
+INSTALL_PACKAGE_DIR=/opt/tiny-setup-package/install-package
+# 将 INSTALL_PACKAGE_DIR 拷贝至 /home/tiny-setup-package
+\cp -a $INSTALL_PACKAGE_DIR /home/tiny-setup-package
 
 # 重新创建日志文件
 DATE_STR=$(date "+%Y-%m-%d %H:%M:%S")
@@ -32,7 +39,7 @@ log_info "start setup..."
   # 需要执行的逻辑
   {
     # 执行 [安装] 步骤
-    cd $INSTALL_PACKAGE_DIR/soft/script
+    cd $INSTALL_DIR/soft/script
     bash install.sh
 
     # 将安装日志输入到日志文件中

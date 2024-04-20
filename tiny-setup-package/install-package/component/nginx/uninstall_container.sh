@@ -3,8 +3,8 @@
 source ../../soft/script/common.sh
 
 # stop container
-log_note "[remove nginx]" "cd $INSTALL_PACKAGE_DIR/component/nginx && docker-compose down"
-cd $INSTALL_PACKAGE_DIR/component/nginx
+log_note "[remove nginx]" "cd $INSTALL_DIR/component/nginx && docker-compose down"
+cd $INSTALL_DIR/component/nginx
 docker-compose down
 
 # remove config

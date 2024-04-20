@@ -3,8 +3,8 @@
 source ../../soft/script/common.sh
 
 # stop container
-log_note "[remove kafka]" "cd $INSTALL_PACKAGE_DIR/component/kafka && docker-compose down"
-cd $INSTALL_PACKAGE_DIR/component/kafka
+log_note "[remove kafka]" "cd $INSTALL_DIR/component/kafka && docker-compose down"
+cd $INSTALL_DIR/component/kafka
 docker-compose down
 
 # remove config files

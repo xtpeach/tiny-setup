@@ -3,8 +3,8 @@
 source ../../soft/script/common.sh
 
 # stop container
-log_note "[remove clickhouse]" "cd $INSTALL_PACKAGE_DIR/component/clickhouse && docker-compose down"
-cd $INSTALL_PACKAGE_DIR/component/clickhouse
+log_note "[remove clickhouse]" "cd $INSTALL_DIR/component/clickhouse && docker-compose down"
+cd $INSTALL_DIR/component/clickhouse
 docker-compose down
 
 # remove data

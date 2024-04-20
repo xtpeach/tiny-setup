@@ -3,16 +3,16 @@
 source ../../soft/script/common.sh
 
 # 修改 docker-compose.yml 文件
-sed -i "s/^      - POSTGRES_PASSWORD=.*/      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}/g" $INSTALL_PACKAGE_DIR/component/postgresql/docker-compose.yml
+sed -i "s/^      - POSTGRES_PASSWORD=.*/      - POSTGRES_PASSWORD=${POSTGRESQL_PASSWORD}/g" $INSTALL_DIR/component/postgresql/docker-compose.yml
 
 # postgresql data
 log_debug "[install postgresql]" "mkdir -p /data/postgresql"
 mkdir -p /data/postgresql
 
 # load image
-if [[ -f $INSTALL_PACKAGE_DIR/resource/docker-images/postgresql.14.8.tar ]]; then
-  log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/resource/docker-images && docker load < postgresql.14.8.tar"
-  cd $INSTALL_PACKAGE_DIR/resource/docker-images
+if [[ -f $INSTALL_DIR/resource/docker-images/postgresql.14.8.tar ]]; then
+  log_debug "[install postgresql]" "cd $INSTALL_DIR/resource/docker-images && docker load < postgresql.14.8.tar"
+  cd $INSTALL_DIR/resource/docker-images
   docker load < postgresql.14.8.tar
 else
   log_note "[install postgresql]" "docker pull postgresql:14.8"
@@ -20,13 +20,13 @@ else
 fi
 
 # stop container
-log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/component/postgresql && docker-compose down"
-cd $INSTALL_PACKAGE_DIR/component/postgresql
+log_debug "[install postgresql]" "cd $INSTALL_DIR/component/postgresql && docker-compose down"
+cd $INSTALL_DIR/component/postgresql
 docker-compose down
 
 # start container
-log_debug "[install postgresql]" "cd $INSTALL_PACKAGE_DIR/component/postgresql && docker-compose up -d"
-cd $INSTALL_PACKAGE_DIR/component/postgresql
+log_debug "[install postgresql]" "cd $INSTALL_DIR/component/postgresql && docker-compose up -d"
+cd $INSTALL_DIR/component/postgresql
 docker-compose up -d
 
 # create databases
@@ -70,10 +70,10 @@ postgresql_container_name="postgresql"
 check_postgresql_service "$postgresql_container_name"
 
 log_debug "[install postgresql]" "create database"
-bash $INSTALL_PACKAGE_DIR/component/postgresql/create_databases.sh
+bash $INSTALL_DIR/component/postgresql/create_databases.sh
 
 # config files
-log_debug "[install postgresql]" "cp -a $INSTALL_PACKAGE_DIR/component/postgresql/config/* /data/postgresql"
-cp -a $INSTALL_PACKAGE_DIR/component/postgresql/config/* /data/postgresql
+log_debug "[install postgresql]" "cp -a $INSTALL_DIR/component/postgresql/config/* /data/postgresql"
+cp -a $INSTALL_DIR/component/postgresql/config/* /data/postgresql
 log_debug "[install postgresql]" "docker-compose restart"
 docker-compose restart

@@ -3,8 +3,8 @@
 source ../../soft/script/common.sh
 
 # stop container
-log_note "[remove tiny-id]" "cd $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0 && docker-compose down"
-cd $INSTALL_PACKAGE_DIR/component/tiny-id/tiny-id-server-1.0.0
+log_note "[remove tiny-id]" "cd $INSTALL_DIR/component/tiny-id/tiny-id-server-1.0.0 && docker-compose down"
+cd $INSTALL_DIR/component/tiny-id/tiny-id-server-1.0.0
 docker-compose down
 
 # remove docker image

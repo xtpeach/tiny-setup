@@ -3,8 +3,8 @@
 source ../../soft/script/common.sh
 
 # stop container
-log_note "[remove redis]" "cd $INSTALL_PACKAGE_DIR/component/redis && docker-compose down"
-cd $INSTALL_PACKAGE_DIR/component/redis
+log_note "[remove redis]" "cd $INSTALL_DIR/component/redis && docker-compose down"
+cd $INSTALL_DIR/component/redis
 docker-compose down
 
 # remove config
