@@ -30,7 +30,10 @@ cd $INSTALL_DIR/component/postgresql
 docker-compose up -d
 
 # create databases
-sleep 10s
+for ((i = 1; i <= 10; i++)); do
+  log_debug "[install postgresql]" "wait(${i}s) ..."
+  sleep 1s
+done
 
 # 函数：检查 PostgreSQL 服务是否已经启动
 check_postgresql_service() {
@@ -51,7 +54,7 @@ check_postgresql_service() {
         return 0
       else
         log_debug "[install postgresql]" "尝试 $attempt/$max_attempts：PostgreSQL 服务尚未启动，继续等待..."
-        sleep 1
+        sleep 1s
         ((attempt++))
       fi
     done

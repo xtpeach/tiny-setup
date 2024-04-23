@@ -74,6 +74,10 @@ docker-compose up -d
 log_info "[install kafka]" "kafka container started"
 
 # create topic
-sleep 60s
+for ((i = 1; i <= 60; i++)); do
+  log_debug "[install kafka]" "wait(${i}s) ..."
+  sleep 1s
+done
+
 log_info "[install kafka]" "kafka create topic"
 bash $INSTALL_DIR/component/kafka/create_topic.sh

@@ -36,7 +36,10 @@ cd $INSTALL_DIR/component/mysql
 docker-compose up -d
 
 # create databases
-sleep 10s
+for ((i = 1; i <= 10; i++)); do
+  log_debug "[install mysql]" "wait(${i}s) ..."
+  sleep 1s
+done
 
 # 函数：检查 MySQL 服务是否已经启动
 check_mysql_service() {

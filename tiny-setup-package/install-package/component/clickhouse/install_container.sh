@@ -36,5 +36,10 @@ cd $INSTALL_DIR/component/clickhouse
 docker-compose up -d
 
 # create databases
-sleep 60
+for ((i = 1; i <= 60; i++)); do
+  log_debug "[install clickhouse]" "wait(${i}s) ..."
+  sleep 1s
+done
+
+# 创建数据库
 bash $INSTALL_DIR/component/clickhouse/create_databases.sh
