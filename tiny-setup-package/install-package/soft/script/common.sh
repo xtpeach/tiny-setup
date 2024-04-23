@@ -23,14 +23,14 @@ LOG_LEVEL=1
 # get linux name
 OS_NAME=$(cat /etc/os-release | grep "^ID=" | cut -c 4- | sed 's/"//g')
 
-# config.ini hosts
+# config.conf hosts
 # hosts配置下的host序号从1开始:host1 host2 host3 ...
 host_index=1
-# 读取 config.ini 中的 host1 的IP地址
-host_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "hosts" "host${host_index}")
+# 读取 config.conf 中的 host1 的IP地址
+host_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "hosts" "host${host_index}")
 # 获取当前操作机器的IP地址
 LOCAL_HOST_IP=""
-# 配置 config.ini 的 hosts 的时候，要把当前的操作机器的IP地址配置上去
+# 配置 config.conf 的 hosts 的时候，要把当前的操作机器的IP地址配置上去
 while [[ -n "$host_ip" ]]; do
   # 判断 hosts 配置的IP地址是否在本地网卡上
   local_ip_flag=$(ip addr | grep -c $host_ip)
@@ -45,7 +45,7 @@ while [[ -n "$host_ip" ]]; do
   # 为下一次循环做准备
   ((host_index++))
   # 继续向下读取 host1 host2 host3 ...
-  host_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "hosts" "host${host_index}")
+  host_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "hosts" "host${host_index}")
 done
 
 # 将当前操作的机器的IP地址按照点分，放进数组
@@ -53,29 +53,29 @@ LOCAL_HOST_IP_ARRAY=($(echo $LOCAL_HOST_IP | tr '.' ' '))
 
 # 这边判断一下所有的组件标记位
 # install required flag: zookeeper
-ZOOKEEPER_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "zookeeper" "install_required")
+ZOOKEEPER_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "zookeeper" "install_required")
 # install required flag: kafka
-KAFKA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "kafka" "install_required")
+KAFKA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "kafka" "install_required")
 # install required flag: redis
-REDIS_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "redis" "install_required")
+REDIS_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "redis" "install_required")
 # install required flag: postgresql
-POSTGRESQL_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "postgresql" "install_required")
+POSTGRESQL_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "postgresql" "install_required")
 # install required flag: mysql
-MYSQL_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "mysql" "install_required")
+MYSQL_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "mysql" "install_required")
 # install required flag: clickhouse
-CLICKHOUSE_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "clickhouse" "install_required")
+CLICKHOUSE_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "clickhouse" "install_required")
 # install required flag: eureka
-EUREKA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "eureka" "install_required")
+EUREKA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "eureka" "install_required")
 # install required flag: nacos
-NACOS_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "nacos" "install_required")
+NACOS_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "nacos" "install_required")
 # install required flag: nginx
-NGINX_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "nginx" "install_required")
+NGINX_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "nginx" "install_required")
 # install required flag: tiny-id
-TINY_ID_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "tiny-id" "install_required")
+TINY_ID_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "tiny-id" "install_required")
 # install required flag: tiny-file
-TINY_FILE_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "tiny-file" "install_required")
+TINY_FILE_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "tiny-file" "install_required")
 # install required flag: tiny-sa
-TINY_SA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "tiny-sa" "install_required")
+TINY_SA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "tiny-sa" "install_required")
 
 
 # zookeeper servers
@@ -83,10 +83,10 @@ ZOO_SERVERS=""
 KAFKA_ZOO_SERVERS=""
 
 # zookeeper index
-# config.ini 的 zookeeper 序号从1开始
+# config.conf 的 zookeeper 序号从1开始
 zookeeper_index=1
 # 先读到第一个zookeeper的IP地址，即zookeeper1对应的IP地址
-zookeeper_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "zookeeper" "zookeeper${zookeeper_index}")
+zookeeper_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "zookeeper" "zookeeper${zookeeper_index}")
 # 将这个IP地址按照点分放进数组
 zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
 # 拿到IP地址的最后一位
@@ -102,7 +102,7 @@ while [[ -n "$zookeeper_ip" ]]; do
   # zookeeper1 zookeeper2 zookeeper3 ...
   ((zookeeper_index++))
   # 继续向下读取 kafka 配置，zookeeper1 zookeeper2 zookeeper3 ...
-  zookeeper_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "zookeeper" "zookeeper${zookeeper_index}")
+  zookeeper_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "zookeeper" "zookeeper${zookeeper_index}")
   # 将读到的 zookeeper 的配置IP按照点分放入数组
   zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
   # 拿到 zookeeper 配置的IP的最后一位
@@ -110,10 +110,10 @@ while [[ -n "$zookeeper_ip" ]]; do
 done
 
 # kafka index
-# config.ini 的 kafka 序号从1开始
+# config.conf 的 kafka 序号从1开始
 kafka_index=1
 # 先读到第一个kafka的IP地址，即kafka1对应的IP地址
-kafka_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "kafka" "kafka${kafka_index}")
+kafka_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "kafka" "kafka${kafka_index}")
 # 将这个IP地址按照点分放进数组
 kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
 # 拿到IP地址的最后一位
@@ -126,7 +126,7 @@ while [[ -n "$kafka_ip" ]]; do
   # kafka1 kafka2 kafka3 ...
   ((kafka_index++))
   # 继续向下读取 kafka 配置，kafka1 kafka2 kafka3 ...
-  kafka_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "kafka" "kafka${kafka_index}")
+  kafka_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "kafka" "kafka${kafka_index}")
   # 将读到的 kafka 的配置IP按照点分放入数组
   kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
   # 拿到 kafka 配置的IP的最后一位
@@ -135,32 +135,32 @@ done
 
 
 # postgresql
-POSTGRESQL_PASSWORD=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "postgresql" "password")
+POSTGRESQL_PASSWORD=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "postgresql" "password")
 
 
 # mysql
-MYSQL_PASSWORD=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "mysql" "password")
+MYSQL_PASSWORD=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "mysql" "password")
 
 
 # clickhouse
-CLICKHOUSE_PASSWORD=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "clickhouse" "password")
+CLICKHOUSE_PASSWORD=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "clickhouse" "password")
 
 
 # redis
-REDIS_PASSWORD=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "redis" "password")
+REDIS_PASSWORD=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "redis" "password")
 
 
 # databases
-DATABASE_NAMES=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "databases" "database_names")
+DATABASE_NAMES=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "databases" "database_names")
 DATABASE_NAME_ARRAY=($(echo ${DATABASE_NAMES} | tr ',' ' '))
 
 # eureka
-EUREKA_USER_NAME=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "eureka" "eureka_user_name")
-EUREKA_USER_PASSWORD=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "eureka" "eureka_user_password")
+EUREKA_USER_NAME=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "eureka" "eureka_user_name")
+EUREKA_USER_PASSWORD=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "eureka" "eureka_user_password")
 
 
 # openPorts
-OPEN_PORTS=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "open-ports" "openPorts")
+OPEN_PORTS=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "open-ports" "openPorts")
 OPEN_PORT_ARRAY=($(echo ${OPEN_PORTS} | tr ',' ' '))
 
 

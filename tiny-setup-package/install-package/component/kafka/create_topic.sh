@@ -10,7 +10,7 @@ source ../../soft/script/common.sh
 #bash /usr/local/kafka/bin/kafka-topics.sh --bootstrap-server kafka128:9092 --topic first_topic --alter --replication-factor 3
 
 # create topic
-# 循环读取 config.ini 中的 topic
+# 循环读取 config.conf 中的 topic
 for index in "${!kafka_topic_array[@]}"; do
   # 例如：topic1=first_topic:p-3_r-1
   # 将配置的 topic 分割入数组

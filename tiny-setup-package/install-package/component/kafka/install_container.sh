@@ -3,10 +3,10 @@
 source ../../soft/script/common.sh
 
 # kafka index
-# config.ini 的 kafka 序号从1开始
+# config.conf 的 kafka 序号从1开始
 kafka_index=1
 # 先读到第一个kafka的IP地址，即kafka1对应的IP地址
-kafka_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "kafka" "kafka${kafka_index}")
+kafka_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "kafka" "kafka${kafka_index}")
 # 将这个IP地址按照点分放进数组
 kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
 # 拿到IP地址的最后一位
@@ -24,7 +24,7 @@ while [[ -n "$kafka_ip" ]]; do
   # kafka1 kafka2 kafka3 ...
   ((kafka_index++))
   # 继续向下读取 kafka 配置，kafka1 kafka2 kafka3 ...
-  kafka_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.ini" "kafka" "kafka${kafka_index}")
+  kafka_ip=$(bash $INSTALL_DIR/soft/script/ini_operator.sh "get" "$INSTALL_DIR/config.conf" "kafka" "kafka${kafka_index}")
   # 将读到的 kafka 的配置IP按照点分放入数组
   kafka_ip_array=($(echo $kafka_ip | tr '.' ' '))
   # 拿到 kafka 配置的IP的最后一位
