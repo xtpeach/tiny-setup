@@ -63,7 +63,7 @@ source ./soft/script/common.sh
 
 # 重新创建日志文件
 DATE_STR=$(date "+%Y-%m-%d %H:%M:%S")
-echo "---> setup.sh [$DATE_STR] <---" >$SETUP_FILE
+echo "---> setup.sh [$DATE_STR] <---" >$SETUP_LOG_FILE
 
 # 2. 执行安装逻辑
 # 休眠时间
@@ -83,7 +83,7 @@ log_info "start setup..."
     bash install.sh
 
     # 将安装日志输入到日志文件中
-  } >>$SETUP_FILE 2>&1 &
+  } >>$SETUP_LOG_FILE 2>&1 &
 
   # 进度条显示
   bar_i=0
@@ -91,7 +91,7 @@ log_info "start setup..."
     sleep $sleep_time
     # 安装执行完毕之后打印 #@success@# 这个符号比较特殊，一般不会有重复
     # 判断执行日志最后一行是否打印的成功标志“#@success@#”
-    lastLine=$(sed -n '$p' $SETUP_FILE)
+    lastLine=$(sed -n '$p' $SETUP_LOG_FILE)
     if [[ "$lastLine"x == "#@success@#"x ]]; then
       # 若已成功快速达到100
       sleep_time=0.2
@@ -108,7 +108,7 @@ log_info "start setup..."
 
     # 把进度卡在 99% 之前
     if [[ $bar_i -lt 99 && "$lastLine"x != "#@success@#"x ]]; then
-      log_row_num_current=$(sed -n '$=' $SETUP_FILE)
+      log_row_num_current=$(sed -n '$=' $SETUP_LOG_FILE)
       i_percent=$((log_row_num_current * 100 / log_row_num_total))
       bar_i=$i_percent
     fi
@@ -118,9 +118,9 @@ log_info "start setup..."
   done
 
   # 展示进度条
-} | whiptail --title "安装" --gauge "正在安装,请稍等 ... \n详细日志:$SETUP_FILE" 8 60 0
+} | whiptail --title "安装" --gauge "正在安装,请稍等 ... \n详细日志:$SETUP_LOG_FILE" 8 60 0
 # 这边 --gauge 后面可以把安装信息拿出来展示一下
 
 # 提示安装完毕
-whiptail --title "安装" --msgbox "安装完毕,按下 enter 键继续 . \n详细日志:$SETUP_FILE" 10 60
+whiptail --title "安装" --msgbox "安装完毕,按下 enter 键继续 . \n详细日志:$SETUP_LOG_FILE" 10 60
 log_info "setup done."

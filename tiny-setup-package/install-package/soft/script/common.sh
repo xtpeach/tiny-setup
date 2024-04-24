@@ -170,15 +170,16 @@ if [[ ! -d $INSTALL_LOG_DIR ]]; then
   mkdir -p $INSTALL_LOG_DIR
 fi
 
-# 日志文件
-LOG_FILE=/var/tiny-setup/install.log
-if [[ ! -e $LOG_FILE ]]; then
-  touch $LOG_FILE
+# install 日志文件
+INSTALL_LOG_FILE=/var/tiny-setup/install.log
+if [[ ! -e $INSTALL_LOG_FILE ]]; then
+  touch $INSTALL_LOG_FILE
 fi
 
-SETUP_FILE=/var/tiny-setup/setup.log
-if [[ ! -e $SETUP_FILE ]]; then
-  touch $SETUP_FILE
+# setup 日志文件
+SETUP_LOG_FILE=/var/tiny-setup/setup.log
+if [[ ! -e $SETUP_LOG_FILE ]]; then
+  touch $SETUP_LOG_FILE
 fi
 
 # sshd_config
@@ -193,25 +194,25 @@ VERSION_INFO=$INSTALL_DIR/version.info
 #调试日志
 function log_debug() {
   content="[DEBUG] $(date '+%Y-%m-%d %H:%M:%S') $LOCAL_HOST_IP:$@"
-  [[ $LOG_LEVEL -le 1 ]] && echo $content >>$LOG_FILE && echo -e "\033[32m" ${content} "\033[0m"
+  [[ $LOG_LEVEL -le 1 ]] && echo $content >>$INSTALL_LOG_FILE && echo -e "\033[32m" ${content} "\033[0m"
 }
 #信息日志
 function log_info() {
   content="[INFO] $(date '+%Y-%m-%d %H:%M:%S') $LOCAL_HOST_IP:$@"
-  [[ $LOG_LEVEL -le 2 ]] && echo $content >>$LOG_FILE && echo -e "\033[34m" ${content} "\033[0m"
+  [[ $LOG_LEVEL -le 2 ]] && echo $content >>$INSTALL_LOG_FILE && echo -e "\033[34m" ${content} "\033[0m"
 }
 #重点关注日志
 function log_note() {
   content="[NOTE] $(date '+%Y-%m-%d %H:%M:%S') $LOCAL_HOST_IP:$@"
-  [[ $LOG_LEVEL -le 3 ]] && echo $content >>$LOG_FILE && echo -e "\033[33m" ${content} "\033[0m"
+  [[ $LOG_LEVEL -le 3 ]] && echo $content >>$INSTALL_LOG_FILE && echo -e "\033[33m" ${content} "\033[0m"
 }
 #错误日志
 function log_err() {
   content="[ERROR] $(date '+%Y-%m-%d %H:%M:%S') $LOCAL_HOST_IP:$@"
-  [[ $LOG_LEVEL -le 4 ]] && echo $content >>$LOG_FILE && echo -e "\033[31m" ${content} "\033[0m"
+  [[ $LOG_LEVEL -le 4 ]] && echo $content >>$INSTALL_LOG_FILE && echo -e "\033[31m" ${content} "\033[0m"
 }
 #一直都会打印的日志
 function log_always() {
   content="[ALWAYS] $(date '+%Y-%m-%d %H:%M:%S') $LOCAL_HOST_IP:$@"
-  [[ $LOG_LEVEL -le 5 ]] && echo $content >>$LOG_FILE && echo -e "\033[32m" ${content} "\033[0m"
+  [[ $LOG_LEVEL -le 5 ]] && echo $content >>$INSTALL_LOG_FILE && echo -e "\033[32m" ${content} "\033[0m"
 }
