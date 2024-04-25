@@ -1,13 +1,19 @@
-clickhouse.version=23.8.2.7
+# 各个组件的版本
 jdk.version=1.8
+docker.version=19.03.9
+
+# 数据组件
+clickhouse.version=23.8.2.7
 kafka.version=2.13-3.4.1
 zookeeper.version=3.8.1
 mysql.version=5.7
 postgresql.version=14.8
 redis.version=6.2.12
+nginx.version=1.25.0
+
+# 注册中心
 eureka.version=
 nacos.version=
-nginx.version=1.25.0
 
 # 自己维护，永远都是最终版，有问题再改，改到没问题为止
 tiny-id.version=final
