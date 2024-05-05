@@ -35,7 +35,7 @@ function get_opt() {
     IFS="="
 
     # 读取文件内容，并逐行处理
-    while read -r line; do
+    while IFS= read -r line || [[ -n $line ]]; do
         # 如果行以#开头，则跳过
         if [[ $line =~ ^# ]]; then
             continue
@@ -67,7 +67,7 @@ function get_opt() {
                 break
             fi
         fi
-    done < "$file"
+    done < <(echo -e "\n") < "$file"
 }
 
 # 更新配置文件指定section指定key的value

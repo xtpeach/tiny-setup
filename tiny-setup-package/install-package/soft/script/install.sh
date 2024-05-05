@@ -188,12 +188,38 @@ else
   bash uninstall_container.sh
 fi
 
+# ---> xxl-admin
+if [[ "$XXL_ADMIN_INSTALL_REQUIRED"x == "true"x ]]; then
+  log_info "start install xxl-admin"
+  cd $INSTALL_DIR/component/xxl-job/xxl-admin
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install xxl-admin finished"
+else
+  log_info "uninstall xxl-admin"
+  cd $INSTALL_DIR/component/xxl-job/xxl-admin
+  bash uninstall_container.sh
+fi
+
+# ---> xxl-executor
+if [[ "$TINY_SA_INSTALL_REQUIRED"x == "true"x ]]; then
+  log_info "start install xxl-executor"
+  cd $INSTALL_DIR/component/xxl-job/xxl-executor
+  bash uninstall_container.sh
+  bash install_container.sh
+  log_info "install xxl-job finished"
+else
+  log_info "uninstall xxl-job"
+  cd $INSTALL_DIR/component/xxl-job/xxl-executor
+  bash uninstall_container.sh
+fi
+
 # ----- install end -----
 
 # ---> open port
 log_info "start open port"
-cd $INSTALL_DIR/soft/script
-bash ./port/open_port.sh
+cd $INSTALL_DIR/soft/script/port
+bash ./open_port.sh
 log_info "open port finished"
 
 echo -e "

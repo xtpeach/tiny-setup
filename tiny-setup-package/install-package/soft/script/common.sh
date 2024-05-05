@@ -76,6 +76,10 @@ TINY_ID_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/conf_operator.sh "get" 
 TINY_FILE_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/conf_operator.sh "get" "$INSTALL_DIR/config.conf" "tiny-file" "install_required")
 # install required flag: tiny-sa
 TINY_SA_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/conf_operator.sh "get" "$INSTALL_DIR/config.conf" "tiny-sa" "install_required")
+# install required flag: xxl-admin
+XXL_ADMIN_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/conf_operator.sh "get" "$INSTALL_DIR/config.conf" "xxl-admin" "install_required")
+# install required flag: xxl-executor
+XXL_EXECUTOR_INSTALL_REQUIRED=$(bash $INSTALL_DIR/soft/script/conf_operator.sh "get" "$INSTALL_DIR/config.conf" "xxl-executor" "install_required")
 
 
 # zookeeper servers
@@ -159,8 +163,8 @@ EUREKA_USER_NAME=$(bash $INSTALL_DIR/soft/script/conf_operator.sh "get" "$INSTAL
 EUREKA_USER_PASSWORD=$(bash $INSTALL_DIR/soft/script/conf_operator.sh "get" "$INSTALL_DIR/config.conf" "eureka" "eureka_user_password")
 
 
-# openPorts
-OPEN_PORTS=$(bash $INSTALL_DIR/soft/script/conf_operator.sh "get" "$INSTALL_DIR/config.conf" "open-ports" "openPorts")
+# open_ports
+OPEN_PORTS=$(bash $INSTALL_DIR/soft/script/conf_operator.sh "get" "$INSTALL_DIR/config.conf" "open-ports" "open_ports")
 OPEN_PORT_ARRAY=($(echo ${OPEN_PORTS} | tr ',' ' '))
 
 

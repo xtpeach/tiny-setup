@@ -10,6 +10,7 @@ if [[ "$OS_NAME" == "centos" ]]; then
 
   if systemctl is-active --quiet firewalld; then
     log_note "firewalld status: active"
+    echo "${OPEN_PORTS}"
     # 循环开启所有配置要开启的端口
     for index in "${!OPEN_PORT_ARRAY[@]}"; do
       # 打印日志，记录开启的端口

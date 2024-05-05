@@ -2,6 +2,12 @@
 # source
 source ../../soft/script/common.sh
 
+# 如果目录不存在，则不要进行删除了
+if [[ ! -d "$INSTALL_DIR/component/tiny-file/tiny-file-server-1.0.0" ]]; then
+  log_note "[remove tiny-file]" "$INSTALL_DIR/component/tiny-file/tiny-file-server-1.0.0" "not exists"
+  exit 0
+fi
+
 # stop container
 log_note "[remove tiny-file]" "cd $INSTALL_DIR/component/tiny-file/tiny-file-server-1.0.0 && docker-compose down"
 cd $INSTALL_DIR/component/tiny-file/tiny-file-server-1.0.0
