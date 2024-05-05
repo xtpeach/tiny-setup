@@ -202,14 +202,14 @@ else
 fi
 
 # ---> xxl-executor
-if [[ "$TINY_SA_INSTALL_REQUIRED"x == "true"x ]]; then
+if [[ "$XXL_EXECUTOR_INSTALL_REQUIRED"x == "true"x ]]; then
   log_info "start install xxl-executor"
   cd $INSTALL_DIR/component/xxl-job/xxl-executor
   bash uninstall_container.sh
   bash install_container.sh
-  log_info "install xxl-job finished"
+  log_info "install xxl-executor finished"
 else
-  log_info "uninstall xxl-job"
+  log_info "uninstall xxl-executor"
   cd $INSTALL_DIR/component/xxl-job/xxl-executor
   bash uninstall_container.sh
 fi
