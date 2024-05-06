@@ -25,5 +25,6 @@ else
 fi
 
 # 具体jvm参数根据实际情况调整
-nohup java -jar -Xms1G -Xmx1G -XX:+UseG1GC jenkins.war --httpPort=8081 > jenkins.log 2>&1 &
+nohup java -jar jenkins.war --httpPort=8081 > jenkins.log 2>&1 &
+echo $! > jenkins.pid
 echo "jenkins 已启动"
