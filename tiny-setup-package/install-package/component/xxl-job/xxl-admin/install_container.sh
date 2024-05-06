@@ -15,6 +15,7 @@ fi
 # build image
 log_debug "[install xxl-admin]" "cd $INSTALL_DIR/component/xxl-job/xxl-admin/xxl-job-admin-2.3.1 && bash image_build.sh"
 cd $INSTALL_DIR/component/xxl-job/xxl-admin
+rm -rf xxl-job-admin-2.3.1
 tar -zxvf xxl-job-admin-2.3.1-release.tar.gz
 cd $INSTALL_DIR/component/xxl-job/xxl-admin/xxl-job-admin-2.3.1
 bash image_build.sh

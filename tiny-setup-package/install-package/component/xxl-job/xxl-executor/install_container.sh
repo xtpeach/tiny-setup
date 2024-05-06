@@ -15,6 +15,7 @@ fi
 # build image
 log_debug "[install xxl-executor]" "cd $INSTALL_DIR/component/xxl-job/xxl-executor/xxl-job-executor-base-2.3.1 && bash image_build.sh"
 cd $INSTALL_DIR/component/xxl-job/xxl-executor
+rm -rf xxl-job-executor-base-2.3.1
 tar -zxvf xxl-job-executor-base-2.3.1-release.tar.gz
 cd $INSTALL_DIR/component/xxl-job/xxl-executor/xxl-job-executor-base-2.3.1
 bash image_build.sh
