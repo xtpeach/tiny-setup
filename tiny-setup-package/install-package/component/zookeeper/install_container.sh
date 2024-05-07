@@ -2,6 +2,33 @@
 # source
 source ../../soft/script/common.sh
 
+# zookeeper index
+# config.conf 的 zookeeper 序号从1开始
+zookeeper_index=1
+# 先读到第一个zookeeper的IP地址，即zookeeper1对应的IP地址
+zookeeper_ip=$(bash $INSTALL_DIR/soft/script/conf_operator.sh "get" "$INSTALL_DIR/config.conf" "zookeeper" "zookeeper${zookeeper_index}")
+# 将这个IP地址按照点分放进数组
+zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
+# 拿到IP地址的最后一位
+zookeeper_ip_index=${zookeeper_ip_array[3]}
+# 循环往下读 zookeeper1 zookeeper2 zookeeper3 ...
+while [[ -n "$zookeeper_ip" ]]; do
+  # 删除 /etc/hosts 中的 zookeeper 域名映射
+  sed -i "/zookeeper${zookeeper_ip_index}/d" /etc/hosts
+  # 将 kafka 的域名映射写入 /etc/hosts 文件中
+  echo "${zookeeper_ip} zookeeper${zookeeper_ip_index}" >>/etc/hosts
+
+  # 为下一次循环做准备
+  # zookeeper1 zookeeper2 zookeeper3 ...
+  ((zookeeper_index++))
+  # 继续向下读取 kafka 配置，zookeeper1 zookeeper2 zookeeper3 ...
+  zookeeper_ip=$(bash $INSTALL_DIR/soft/script/conf_operator.sh "get" "$INSTALL_DIR/config.conf" "zookeeper" "zookeeper${zookeeper_index}")
+  # 将读到的 zookeeper 的配置IP按照点分放入数组
+  zookeeper_ip_array=($(echo $zookeeper_ip | tr '.' ' '))
+  # 拿到 zookeeper 配置的IP的最后一位
+  zookeeper_ip_index=${zookeeper_ip_array[3]}
+done
+
 # ZOO_SERVERS >> /etc/profile
 sed -i "/export ZOO_SERVERS=/d" /etc/profile
 echo "export ZOO_SERVERS=\"${ZOO_SERVERS}\"" >>/etc/profile

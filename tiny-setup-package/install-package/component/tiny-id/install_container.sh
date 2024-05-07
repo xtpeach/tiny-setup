@@ -22,7 +22,7 @@ bash image_build.sh
 # stop container
 log_debug "[install tiny-id]" "cd $INSTALL_DIR/component/tiny-id/tiny-id-server-1.0.0 && docker-compose down"
 cd $INSTALL_DIR/component/tiny-id/tiny-id-server-1.0.0
-sed -i 's/DATASOURCE_PASSWORD: "12345678"/DATASOURCE_PASSWORD: "postgresql!123456"/g' $INSTALL_DIR/component/tiny-id/tiny-id-server-1.0.0/docker-compose.yml
+sed -i "s/DATASOURCE_PASSWORD: \"12345678\"/DATASOURCE_PASSWORD: \"$POSTGRESQL_PASSWORD\"/g" $INSTALL_DIR/component/tiny-id/tiny-id-server-1.0.0/docker-compose.yml
 docker-compose down
 
 # start container
