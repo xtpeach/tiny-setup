@@ -1,0 +1,15 @@
+version: '3'
+services:
+  dependency-track:
+    privileged: true
+    image: dependencytrack/bundled
+    container_name: dependency-track
+    volumes:
+      - dependency-track:/data
+    ports:
+      - "8080:8080"
+    mem_limit: 8192m
+    restart: always
+
+volumes:
+  dependency-track:
