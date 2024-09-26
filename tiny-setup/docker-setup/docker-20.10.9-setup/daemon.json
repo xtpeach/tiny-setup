@@ -3,5 +3,19 @@
     "log-opts":{
         "max-size" :"50m","max-file":"1"
     },
-    "exec-opts": ["native.cgroupdriver=systemd"]
+    "exec-opts": ["native.cgroupdriver=systemd"],
+    "max-concurrent-downloads": 10,
+    "max-concurrent-uploads": 5,
+    "default-shm-size": "1G",
+    "debug": true,
+    "experimental": false,
+    "registry-mirrors":[
+        "https://x9r52uz5.mirror.aliyuncs.com",
+        "https://dockerhub.icu",
+        "https://docker.chenby.cn",
+        "https://docker.1panel.live",
+        "https://docker.awsl9527.cn",
+        "https://docker.anyhub.us.kg",
+        "https://dhub.kubesre.xyz"
+    ]
 }
