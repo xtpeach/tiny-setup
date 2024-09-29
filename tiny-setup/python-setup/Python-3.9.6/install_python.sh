@@ -17,8 +17,11 @@ cd ./Python-3.9.6
 # 执行编译
 make && make install
 
-# 修改原来的python连接
-rm -f /usr/bin/python
-ln -s /usr/local/python3/bin/python3 /usr/bin/python
+#rm -f /usr/bin/python
+#ln -s /usr/local/python3/bin/python3 /usr/bin/python
+rm -f /usr/bin/python3
+rm -f /usr/bin/pip3
+ln -s /usr/local/python3/bin/python3 /usr/bin/python3
+ln -s /usr/local/python3/bin/pip3 /usr/bin/pip3
 
 python -V
