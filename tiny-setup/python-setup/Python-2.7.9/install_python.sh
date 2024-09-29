@@ -18,7 +18,7 @@ cd ./Python-2.7.9
 make && make install
 
 # 修改原来的python连接
-rm -f /usr/bin/python2
-ln -s /usr/local/python2/bin/python2 /usr/bin/python2
+rm -f /usr/bin/python
+ln -s /usr/local/python2/bin/python2 /usr/bin/python
 
 python2 -V
