@@ -24,7 +24,12 @@ else
     echo "JAVA_HOME 环境变量未设置"
 fi
 
+# 创建 jenkins 工作目录
+mkdir -p /opt/jenkins
+
+# 启动之后可以更换 jenkins 的插件安装源： sed -i.bak 's#updates.jenkins.io/download#mirror.tuna.tsinghua.edu.cn/jenkins#g' /opt/jenkins/updates/default.json
+
 # 具体jvm参数根据实际情况调整
-nohup java -jar jenkins.war --httpPort=8081 > jenkins.log 2>&1 &
+nohup java -jar jenkins.war --httpPort=8081 --webroot=/opt/jenkins > jenkins.log 2>&1 &
 echo $! > jenkins.pid
 echo "jenkins 已启动"
