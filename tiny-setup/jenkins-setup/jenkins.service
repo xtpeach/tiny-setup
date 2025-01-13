@@ -1,0 +1,13 @@
+[Unit]
+Description=jenkins
+
+[Service]
+Type=forking
+ExecStart=/bin/bash -c "cd /opt;bash start_jenkins.sh"
+ExecStop=/bin/bash -c "cd /opt;bash stop_jenkins.sh"
+KillMode=control-group
+Restart=always
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target
