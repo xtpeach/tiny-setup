@@ -12,4 +12,13 @@ docker load < webssh-162_web.tar
 cd webssh-1.6.2
 
 # 启动服务
+# version: '3'
+# services:
+#   web:
+#     build: .
+#     container_name: web_ssh
+#     privileged: true
+#     restart: always
+#     ports:
+#     - "8888:8888"
 docker-compose up -d
