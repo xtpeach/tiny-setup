@@ -2,6 +2,9 @@
 #### 链接：https://pan.baidu.com/s/13UuaBye9QQ_8psd3vbaz-A 
 #### 提取码：20uu
 
+## tiny-setup 小小安装，将一些 Linux 上面常用的工具，做成微小的安装包，用一个命令运行便可以进行安装，兼容多种 Linux 的发行版本
+## tiny-setup-package 小小安装包，整理一套完整的安装包，作为一个样例，其中的组件可以增减，也可以来源于 tiny-setup
+
 ## 1.docker 安装能力（docker-setup）  
 	-> docker-18.06.1-ce-setup: docker 18.06.1版本安装  
 	-> docker-19.03.9-setup: docker 19.03.9版本安装  
