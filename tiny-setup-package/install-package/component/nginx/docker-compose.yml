@@ -2,7 +2,7 @@
 version: '3.2'
 services:
   nginx:
-    image: nginx:1.25.0
+    image: nginx:1.25.3
     container_name: nginx
     hostname: nginx
     privileged: true
