@@ -38,10 +38,10 @@ echo "start" >$progress_bar_log_file
     # 子 shell 执行并将 echo 输出记录在文件中
   } >>$progress_bar_log_file 2>&1 &
 
-  # 进度条显示 0 ~ 100
+  # 进度条显示 0 ~ 99
   # 此处使用的是 for 循环，通过间隔时间来展示进度，该进度并非真实子任务执行的进度
   # 可以使用 while 循环，读取日志文件日志打印关键点，来展示较为真实的进度
-  for ((i = 0; i <= 100; i += 1)); do
+  for ((i = 0; i <= 99; i += 1)); do
 
     # 进度条需要间隔一段时间再更新进度打印，不然会让人反应不过来，显得突兀
     sleep $sleep_time
@@ -50,12 +50,15 @@ echo "start" >$progress_bar_log_file
     lastLine=$(sed -n '$p' $progress_bar_log_file)
     if [[ "$lastLine"x = "success"x ]]; then
 
-      # 若已从日志文件中读取到执行完毕，可以直接将 echo 100
+      # 若已从日志文件中读取到执行完毕，可以直接将 echo 99
       # 此处为调整间隔时间为 0.5 秒，让 for 循环快速跑完
       sleep_time=0.1s
     fi
     echo $i
   done
+
+  # 等待上面 { }& 中的内容执行完毕
+  wait
 
   # {} 子 shell 的内容需要跑完之后，进度条弹窗才会关闭
 } | whiptail --gauge "please wait ..." 6 60 0
