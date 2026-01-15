@@ -15,6 +15,7 @@ services:
       - 8000:80
     volumes:
       - /etc/localtime:/etc/localtime:ro
+      - ./default.json:/etc/onlyoffice/documentserver/default.json:ro
     environment:
       - JWT_ENABLED=false
       - TZ=${TIMEZONE:-Asia/Shanghai}
