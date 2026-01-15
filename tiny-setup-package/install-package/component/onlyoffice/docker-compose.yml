@@ -8,13 +8,16 @@ services:
     hostname: onlyoffice
     privileged: true
     restart: always
-#    network_mode: host
+    #    network_mode: host
     networks:
       - default
     ports:
       - 8000:80
     volumes:
       - /etc/localtime:/etc/localtime:ro
+    environment:
+      - JWT_ENABLED=false
+      - TZ=${TIMEZONE:-Asia/Shanghai}
 
 networks:
   default:
